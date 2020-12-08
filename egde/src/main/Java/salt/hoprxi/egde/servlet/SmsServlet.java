@@ -9,6 +9,8 @@ import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
 import com.fasterxml.jackson.core.*;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
+import salt.hoprxi.cache.Cache;
+import salt.hoprxi.cache.l1.concurrentMap.ConcurrentMapCacheBuilder;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -18,6 +20,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
 /**
@@ -26,11 +29,12 @@ import java.util.regex.Pattern;
  * @since JDK8.0
  */
 @WebServlet(urlPatterns = {"/v1/sms"}, name = "sms", asyncSupported = false, initParams = {
-        @WebInitParam(name = "cookie_expired", value = "300"), @WebInitParam(name = "accessKey", value = "LTAI4GCjirCugpiiYdM5bE3P"),
-        @WebInitParam(name = "secret", value = "EslAOAuoJdbNnh14rROAiOQa8M5OoK")})
+        @WebInitParam(name = "cookie_expired", value = "300"), @WebInitParam(name = "accessKey", value = "LTAI4FxvqzHobChTzUPfrPHV"),
+        @WebInitParam(name = "secret", value = "kHvRFSoTJnh0YbEkbnpTQKoX9XNd6G")})
 public class SmsServlet extends HttpServlet {
     private static Pattern MOBILE_PATTERN = Pattern.compile("^[1](([3][0-9])|([4][5,7,9])|([5][^4,6,9])|([6][6])|([7][3,5,6,7,8])|([8][0-9])|([9][8,9]))[0-9]{8}$");
     private static Pattern SMS_CODE_PATTERN = Pattern.compile("^\\d{6,6}$");
+    private static Cache<Long, Integer> cache = new ConcurrentMapCacheBuilder<Long, Integer>("sms").expired(5, TimeUnit.MINUTES).build();
     private static String accessKey;
     private static String secret;
 
@@ -70,24 +74,31 @@ public class SmsServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         JsonFactory jasonFactory = new JsonFactory();
         JsonParser parser = jasonFactory.createParser(request.getInputStream());
-        String mobile = null;
-        String smsCode = null;
+        long mobile = 0l;
+        int smsCode = 0;
         while (parser.nextToken() != JsonToken.END_OBJECT) {
             String fieldname = parser.getCurrentName();
             switch (fieldname) {
                 case "mobile":
                     parser.nextValue();
-                    mobile = parser.getValueAsString();
+                    mobile = parser.getLongValue();
                     break;
                 case "smsCode":
                     parser.nextValue();
-                    smsCode = parser.getValueAsString();
+                    smsCode = parser.getIntValue();
             }
         }
         response.setContentType("application/json; charset=UTF-8");
         JsonGenerator generator = jasonFactory.createGenerator(response.getOutputStream(), JsonEncoding.UTF8)
                 .setPrettyPrinter(new DefaultPrettyPrinter());
         if (validate(mobile, smsCode)) {
+            Integer savedSmsCode = cache.get(mobile);
+            if (savedSmsCode.intValue() == smsCode) {
+                generator.writeStringField("code", "200");
+                generator.writeStringField("msg", "Wrong request format");
+            } else {
+
+            }
 
         } else {
             generator.writeStringField("code", "400");
@@ -97,11 +108,9 @@ public class SmsServlet extends HttpServlet {
         generator.close();
     }
 
-    private boolean validate(String mobile, String smsCode) {
-        mobile = mobile.trim();
-        smsCode = smsCode.trim();
-        if (mobile == null || mobile.isEmpty() || !MOBILE_PATTERN.matcher(mobile).matches() ||
-                smsCode == null || smsCode.isEmpty() || !SMS_CODE_PATTERN.matcher(smsCode).matches())
+    private boolean validate(long mobile, int smsCode) {
+        if (mobile == 0l || !MOBILE_PATTERN.matcher(String.valueOf(mobile)).matches() ||
+                smsCode == 0 || !SMS_CODE_PATTERN.matcher(String.valueOf(smsCode)).matches())
             return false;
         return true;
     }
