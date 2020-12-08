@@ -16,8 +16,9 @@
 
 package salt.hoprxi.cache.l1.concurrentMap;
 
-import mi.hoprxi.cache.Cache;
-import mi.hoprxi.util.Builder;
+
+import salt.hoprxi.cache.Cache;
+import salt.hoprxi.utils.Builder;
 
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;

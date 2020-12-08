@@ -16,9 +16,8 @@
 
 package salt.hoprxi.cache.l1.concurrentMap;
 
-
-import bag.hoprxi.cache.Cache;
-import bag.hoprxi.cache.CacheProvider;
+import salt.hoprxi.cache.Cache;
+import salt.hoprxi.cache.CacheProvider;
 
 import java.util.concurrent.ConcurrentHashMap;
 

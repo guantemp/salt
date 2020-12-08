@@ -17,44 +17,33 @@
 package salt.hoprxi.cache.l2.redis;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * @author <a href="www.hoprxi.com/author/guan xianghuang">guan xiangHuan</a>
  * @version 0.0.1 2020-09-13
  * @since JDK8.0
  */
-public final class KeyWrapping<T> implements Serializable {
+public class KeyWrap<T> implements Serializable {
     private String region;
-    private T key;
+    private T t;
 
-    KeyWrapping(String region, T key) {
+    public KeyWrap(String region, T t) {
         this.region = region;
-        this.key = key;
+        this.t = t;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
-        KeyWrapping<?> that = (KeyWrapping<?>) o;
-
-        if (region != null ? !region.equals(that.region) : that.region != null) return false;
-        return key != null ? key.equals(that.key) : that.key == null;
+        KeyWrap<?> keyWrap = (KeyWrap<?>) o;
+        return Objects.equals(region, keyWrap.region) &&
+                Objects.equals(t, keyWrap.t);
     }
 
     @Override
     public int hashCode() {
-        int result = region != null ? region.hashCode() : 0;
-        result = 31 * result + (key != null ? key.hashCode() : 0);
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        return "KeyWrapping{" +
-                "region='" + region + '\'' +
-                ", t=" + key +
-                '}';
+        return Objects.hash(region, t);
     }
 }

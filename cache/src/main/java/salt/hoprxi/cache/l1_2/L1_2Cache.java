@@ -15,12 +15,13 @@
  */
 package salt.hoprxi.cache.l1_2;
 
-import mi.hoprxi.cache.Cache;
-import mi.hoprxi.cache.CacheStats;
-import mi.hoprxi.cache.l1.concurrentMap.ConcurrentMapCache;
-import mi.hoprxi.cache.l2.redis.RedisCache;
+import salt.hoprxi.cache.Cache;
+import salt.hoprxi.cache.CacheStats;
+import salt.hoprxi.cache.l1.concurrentMap.ConcurrentMapCache;
+import salt.hoprxi.cache.l2.redis.RedisCache;
 
 import java.util.Objects;
+import java.util.concurrent.Callable;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
@@ -60,14 +61,21 @@ public class L1_2Cache<K, V> implements Cache<K, V> {
     }
 
     @Override
-    public void evict(K key) {
+    public V evict(K key) {
         readWriteLock.writeLock().lock();
+        V old = null;
         try {
-            l1.evict(key);
-            l2.evict(key);
+            old = l1.evict(key);
+            old = l2.evict(key);
         } finally {
             readWriteLock.writeLock().unlock();
         }
+        return old;
+    }
+
+    @Override
+    public void evict(K... keys) {
+
     }
 
     @Override
@@ -95,41 +103,27 @@ public class L1_2Cache<K, V> implements Cache<K, V> {
     }
 
     @Override
-    public V get(K key, int timeout) {
-        readWriteLock.readLock().lock();
-        try {
-            V value = l1.get(key, timeout);
-            if (null == value) {
-                value = l2.get(key, timeout);
-                if (null != value) {
-                    readWriteLock.readLock().unlock();
-                    readWriteLock.writeLock().lock();
-                    try {
-                        l1.put(key, value, timeout);
-                    } finally {
-                        readWriteLock.writeLock().unlock();
-                    }
-                }
-                readWriteLock.readLock().lock();
-            }
-            return value;
-        } finally {
-            readWriteLock.readLock().unlock();
-        }
+    public V get(K key, Callable<? extends V> value) {
+        return null;
+    }
+
+    @Override
+    public V[] get(K... keys) {
+        return null;
     }
 
     /**
      * @return First cache stats
      */
     public CacheStats l1_stats() {
-        return l1.stats();
+        return null;
     }
 
     /**
      * @return Second cache stats
      */
     public CacheStats l2_stats() {
-        return l2.stats();
+        return null;
     }
 
     @Override
@@ -154,10 +148,5 @@ public class L1_2Cache<K, V> implements Cache<K, V> {
         } finally {
             readWriteLock.writeLock().unlock();
         }
-    }
-
-    @Override
-    public CacheStats stats() {
-        throw new UnsupportedOperationException("Not supported,please use function l1_stats() or l2_stats()");
     }
 }

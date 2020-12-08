@@ -1,0 +1,5 @@
+salt\hoprxi\cache\l2\redis\serialization\SerializationTest.class
+salt\hoprxi\cache\l1_2\L1_2CacheTest.class
+salt\hoprxi\AppTest.class
+salt\hoprxi\cache\l1\concurrentMap\ConcurrentMapCacheTest.class
+salt\hoprxi\cache\l2\redis\RedisCacheTest.class

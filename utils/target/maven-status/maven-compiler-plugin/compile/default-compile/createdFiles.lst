@@ -1,0 +1,10 @@
+salt\hoprxi\utils\Version.class
+salt\hoprxi\utils\FileWatchDog.class
+salt\hoprxi\utils\ChineseCalendar.class
+salt\hoprxi\utils\NLS.class
+salt\hoprxi\utils\NtpMessage.class
+salt\hoprxi\utils\Builder.class
+salt\hoprxi\utils\DigitPreferenceFilter.class
+salt\hoprxi\utils\NumberHelper.class
+salt\hoprxi\utils\UrlHelper.class
+salt\hoprxi\App.class

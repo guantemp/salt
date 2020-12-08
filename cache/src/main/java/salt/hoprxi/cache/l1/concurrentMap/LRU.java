@@ -21,7 +21,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
  * @author <a href="www.hoprxi.com/author/guan xianghuan">guan xiangHuan</a>
- * @version 0.0.2 2019-04-02
+ * @version 0.0.2 2020-04-02
  * @since JDK8.0
  */
 public class LRU<T> extends ReentrantReadWriteLock implements ExpiryPolicy<T> {
