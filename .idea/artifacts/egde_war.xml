@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="egde:war">
+    <output-path>$PROJECT_DIR$/egde/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>egde</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="egde.war">
+      <element id="artifact" artifact-name="egde:war exploded" />
+    </root>
+  </artifact>
+</component>
