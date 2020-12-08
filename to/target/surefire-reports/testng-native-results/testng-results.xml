@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" ignored="0" total="2" passed="2">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Surefire suite" duration-ms="1966" started-at="2020-12-08T18:30:50 CST" finished-at="2020-12-08T18:30:52 CST">
+    <groups>
+    </groups>
+    <test name="Surefire test" duration-ms="1966" started-at="2020-12-08T18:30:50 CST" finished-at="2020-12-08T18:30:52 CST">
+      <class name="salt.hoprxi.to.ImageBytesConversionTest">
+        <test-method status="PASS" signature="bytesToImage()[pri:0, instance:salt.hoprxi.to.ImageBytesConversionTest@4883b407]" name="bytesToImage" duration-ms="1933" started-at="2020-12-08T18:30:50 CST" finished-at="2020-12-08T18:30:52 CST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- bytesToImage -->
+        <test-method status="PASS" signature="imageToByte()[pri:0, instance:salt.hoprxi.to.ImageBytesConversionTest@4883b407]" name="imageToByte" duration-ms="0" started-at="2020-12-08T18:30:52 CST" finished-at="2020-12-08T18:30:52 CST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- imageToByte -->
+      </class> <!-- salt.hoprxi.to.ImageBytesConversionTest -->
+    </test> <!-- Surefire test -->
+  </suite> <!-- Surefire suite -->
+</testng-results>
