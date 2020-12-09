@@ -56,6 +56,7 @@ public class ConcurrentMapCacheTest {
         cache.put(4, "塞得港省大");
         Assert.assertNull(cache.get(4));
         Assert.assertNotNull(cache.get(3));
+        System.out.println(cache.get(12));
         //System.out.println(cache.stats());
         Thread.sleep(1010);
         cache.put(4, "第六十一条好地方犹太人");

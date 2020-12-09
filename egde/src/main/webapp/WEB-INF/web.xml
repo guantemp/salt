@@ -8,12 +8,4 @@
                              http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
     <display-name>Archetype Created Web Application</display-name>
-    <servlet>
-        <servlet-name>sms</servlet-name>
-        <servlet-class>salt.hoprxi.egde.servlet.SmsServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>sms</servlet-name>
-        <url-pattern>/v1/sms</url-pattern>
-    </servlet-mapping>
 </web-app>

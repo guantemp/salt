@@ -29,14 +29,17 @@ import java.util.regex.Pattern;
  * @since JDK8.0
  */
 @WebServlet(urlPatterns = {"/v1/sms"}, name = "sms", asyncSupported = false, initParams = {
-        @WebInitParam(name = "cookie_expired", value = "300"), @WebInitParam(name = "accessKey", value = "LTAI4FxvqzHobChTzUPfrPHV"),
-        @WebInitParam(name = "secret", value = "kHvRFSoTJnh0YbEkbnpTQKoX9XNd6G")})
+        @WebInitParam(name = "expired", value = "5*60*1000"), @WebInitParam(name = "accessKey", value = ""),
+        @WebInitParam(name = "secret", value = ""), @WebInitParam(name = "signName", value = "ABC商城"),
+        @WebInitParam(name = "templateCode", value = "SMS_206562265")})
 public class SmsServlet extends HttpServlet {
     private static Pattern MOBILE_PATTERN = Pattern.compile("^[1](([3][0-9])|([4][5,7,9])|([5][^4,6,9])|([6][6])|([7][3,5,6,7,8])|([8][0-9])|([9][8,9]))[0-9]{8}$");
     private static Pattern SMS_CODE_PATTERN = Pattern.compile("^\\d{6,6}$");
-    private static Cache<Long, Integer> cache = new ConcurrentMapCacheBuilder<Long, Integer>("sms").expired(5, TimeUnit.MINUTES).build();
+    private static Cache<String, Integer> cache = new ConcurrentMapCacheBuilder<String, Integer>("sms").expired(15, TimeUnit.MINUTES).build();
     private static String accessKey;
     private static String secret;
+    private static String signName;
+    private static String templateCode;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -44,74 +47,138 @@ public class SmsServlet extends HttpServlet {
         if (config != null) {
             accessKey = config.getInitParameter("accessKey");
             secret = config.getInitParameter("secret");
+            signName = config.getInitParameter("signName");
+            templateCode = config.getInitParameter("templateCode");
         }
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou", accessKey, secret);
-        IAcsClient client = new DefaultAcsClient(profile);
-
-        CommonRequest request = new CommonRequest();
-        request.setSysMethod(MethodType.POST);
-        request.setSysDomain("dysmsapi.aliyuncs.com");
-        request.setSysVersion("2017-05-25");
-        request.setSysAction("SendSms");
-        request.putQueryParameter("RegionId", "cn-hangzhou");
-        request.putQueryParameter("PhoneNumbers", "13679692301");
-        request.putQueryParameter("SignName", "ABC商城");
-        request.putQueryParameter("TemplateCode", "SMS_206562265");
-        request.putQueryParameter("TemplateParam", "{code:652546}");
-        try {
-            CommonResponse response = client.getCommonResponse(request);
-            System.out.println(response.getData());
-        } catch (ClientException e) {
-            e.printStackTrace();
+        String mobile = req.getParameter("mobile");
+        JsonFactory jasonFactory = new JsonFactory();
+        resp.setContentType("application/json; charset=UTF-8");
+        JsonGenerator generator = jasonFactory.createGenerator(resp.getOutputStream(), JsonEncoding.UTF8)
+                .setPrettyPrinter(new DefaultPrettyPrinter());
+        generator.writeStartObject();
+        if (!validate(mobile)) {
+            generator.writeNumberField("code", 400);
+            generator.writeStringField("msg", "错误的手机号码");
+        } else {
+            DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou", accessKey, secret);
+            IAcsClient client = new DefaultAcsClient(profile);
+            CommonRequest request = new CommonRequest();
+            request.setSysMethod(MethodType.POST);
+            request.setSysDomain("dysmsapi.aliyuncs.com");
+            request.setSysVersion("2017-05-25");
+            request.setSysAction("SendSms");
+            request.putQueryParameter("RegionId", "cn-hangzhou");
+            request.putQueryParameter("PhoneNumbers", mobile);
+            request.putQueryParameter("SignName", signName);
+            request.putQueryParameter("TemplateCode", templateCode);
+            int saveSmsCode = randomSixNumber();
+            request.putQueryParameter("TemplateParam", "{code:" + saveSmsCode + "}");
+            try {
+                CommonResponse response = client.getCommonResponse(request);
+                JsonParser parser = jasonFactory.createParser(response.getData());
+                String code = null;
+                String msg = null;
+                while (!parser.isClosed()) {
+                    JsonToken jsonToken = parser.nextToken();
+                    if (JsonToken.FIELD_NAME.equals(jsonToken)) {
+                        String fieldName = parser.getCurrentName();
+                        parser.nextToken();
+                        switch (fieldName) {
+                            case "Code":
+                                code = parser.getValueAsString();
+                                break;
+                            case "Message":
+                                msg = parser.getValueAsString();
+                                break;
+                        }
+                    }
+                }
+                if (code.equals("OK")) {
+                    cache.put(mobile, saveSmsCode);
+                    generator.writeNumberField("code", 200);
+                    generator.writeStringField("msg", "验证码已发送");
+                } else {
+                    generator.writeNumberField("code", 201);
+                    generator.writeStringField("msg", msg);
+                }
+            } catch (ClientException e) {
+                generator.writeNumberField("code", 401);
+                generator.writeStringField("msg", "网络错误！验证码未能发送，请稍后再试。");
+            }
         }
+        generator.writeEndObject();
+        generator.flush();
+        generator.close();
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String mobile = null;
+        int smsCode = 0;
         JsonFactory jasonFactory = new JsonFactory();
         JsonParser parser = jasonFactory.createParser(request.getInputStream());
-        long mobile = 0l;
-        int smsCode = 0;
-        while (parser.nextToken() != JsonToken.END_OBJECT) {
-            String fieldname = parser.getCurrentName();
-            switch (fieldname) {
-                case "mobile":
-                    parser.nextValue();
-                    mobile = parser.getLongValue();
-                    break;
-                case "smsCode":
-                    parser.nextValue();
-                    smsCode = parser.getIntValue();
+        while (!parser.isClosed()) {
+            JsonToken jsonToken = parser.nextToken();
+            if (JsonToken.FIELD_NAME.equals(jsonToken)) {
+                String fieldName = parser.getCurrentName();
+                parser.nextToken();
+                switch (fieldName) {
+                    case "mobile":
+                        mobile = parser.getValueAsString();
+                        break;
+                    case "smsCode":
+                        smsCode = parser.getValueAsInt();
+                        break;
+                }
             }
         }
         response.setContentType("application/json; charset=UTF-8");
         JsonGenerator generator = jasonFactory.createGenerator(response.getOutputStream(), JsonEncoding.UTF8)
                 .setPrettyPrinter(new DefaultPrettyPrinter());
-        if (validate(mobile, smsCode)) {
-            Integer savedSmsCode = cache.get(mobile);
-            if (savedSmsCode.intValue() == smsCode) {
-                generator.writeStringField("code", "200");
-                generator.writeStringField("msg", "Wrong request format");
-            } else {
-
-            }
-
-        } else {
-            generator.writeStringField("code", "400");
-            generator.writeStringField("msg", "Wrong request format");
+        boolean checked = true;
+        generator.writeStartObject();
+        if (!validate(mobile)) {
+            generator.writeNumberField("code", 400);
+            generator.writeStringField("msg", "错误的手机号码!");
+            checked = false;
         }
+        if (!validate(smsCode)) {
+            generator.writeNumberField("code", 400);
+            generator.writeStringField("msg", "验证码格式错误!");
+            checked = false;
+        }
+        if (checked) {
+            Integer savedSmsCode = cache.get(mobile);
+            if (savedSmsCode != null && savedSmsCode.intValue() == smsCode) {
+                generator.writeNumberField("code", 200);
+                generator.writeStringField("msg", "ok");
+            } else {
+                generator.writeNumberField("code", 201);
+                generator.writeStringField("msg", "短信验证码不正确或已过期。");
+            }
+        }
+        generator.writeEndObject();
         generator.flush();
         generator.close();
     }
 
-    private boolean validate(long mobile, int smsCode) {
-        if (mobile == 0l || !MOBILE_PATTERN.matcher(String.valueOf(mobile)).matches() ||
-                smsCode == 0 || !SMS_CODE_PATTERN.matcher(String.valueOf(smsCode)).matches())
+    private boolean validate(String mobile) {
+        if (mobile == null || mobile.isEmpty() || !MOBILE_PATTERN.matcher(mobile).matches())
             return false;
         return true;
+    }
+
+    private boolean validate(int smsCode) {
+        if (smsCode == 0 || !SMS_CODE_PATTERN.matcher(String.valueOf(smsCode)).matches())
+            return false;
+        return true;
+    }
+
+    private int randomSixNumber() {
+        return (int) ((Math.random() * 6 + 1) * 100000);
     }
 }
