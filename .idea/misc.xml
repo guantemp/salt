@@ -11,6 +11,7 @@
         <option value="$PROJECT_DIR$/utils/pom.xml" />
         <option value="$PROJECT_DIR$/id/pom.xml" />
         <option value="$PROJECT_DIR$/to/pom.xml" />
+        <option value="$PROJECT_DIR$/crypto/pom.xml" />
       </list>
     </option>
   </component>
