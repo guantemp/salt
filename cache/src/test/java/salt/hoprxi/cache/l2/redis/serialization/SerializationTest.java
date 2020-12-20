@@ -16,11 +16,10 @@
 
 package salt.hoprxi.cache.l2.redis.serialization;
 
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.FixMethodOrder;
-import org.junit.Test;
-import org.junit.runners.MethodSorters;
+
+import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,7 +31,7 @@ import java.util.Map;
  * @since JDK8.0
  * @version 0.0.1 2019-04-03
  */
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+//@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class SerializationTest {
     private static Serialization fst = new FSTSerialization();
     private static Serialization kryo = new KryoSerialization();

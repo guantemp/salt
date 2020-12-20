@@ -16,7 +16,8 @@
 
 package salt.hoprxi.cache.l1_2;
 
-import org.junit.Test;
+
+import org.testng.annotations.Test;
 
 /***
  * @author <a href="www.hoprxi.com/authors/guan xiangHuan">guan xiangHuan</a>

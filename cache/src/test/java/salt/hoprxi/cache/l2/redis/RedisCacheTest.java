@@ -17,9 +17,9 @@
 package salt.hoprxi.cache.l2.redis;
 
 import com.typesafe.config.ConfigFactory;
-import org.junit.AfterClass;
-import org.junit.Assert;
-import org.junit.Test;
+import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.Test;
 import salt.hoprxi.cache.Cache;
 import salt.hoprxi.cache.l2.redis.jedis.JedisClient;
 import salt.hoprxi.cache.l2.redis.jedis.StandAloneJedisClient;
