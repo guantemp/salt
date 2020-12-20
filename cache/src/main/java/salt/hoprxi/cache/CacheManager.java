@@ -18,6 +18,8 @@ package salt.hoprxi.cache;
 
 
 import salt.hoprxi.cache.event.CacheStatistics;
+import salt.hoprxi.cache.l1.concurrentMap.ConcurrentMapCacheProvider;
+
 
 /***
  * @author <a href="www.hoprxi.com/authors/guan xiangHuan">guan xiangHuan</a>
@@ -25,8 +27,10 @@ import salt.hoprxi.cache.event.CacheStatistics;
  * @version 0.0.1 2020-03-21
  */
 public class CacheManager {
+    private static ConcurrentMapCacheProvider concurrentCacheProvider = new ConcurrentMapCacheProvider();
+
     public static <K, V> Cache<K, V> buildCache(String region) {
-        return null;
+        return concurrentCacheProvider.buildCache(region);
     }
 
     public static void stop() {

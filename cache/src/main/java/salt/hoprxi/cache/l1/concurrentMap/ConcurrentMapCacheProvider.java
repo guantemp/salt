@@ -20,6 +20,7 @@ import salt.hoprxi.cache.Cache;
 import salt.hoprxi.cache.CacheProvider;
 
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 
 /***
  * @author <a href="www.hoprxi.com/authors/guan xiangHuan">guan xiangHuang</a>
@@ -27,11 +28,16 @@ import java.util.concurrent.ConcurrentHashMap;
  * @version 0.0.1 2020-01-21
  */
 public class ConcurrentMapCacheProvider implements CacheProvider {
-    private ConcurrentHashMap<String, Cache<?, ?>> caches = new ConcurrentHashMap<>();
+    private static ConcurrentHashMap<String, Cache<?, ?>> caches = new ConcurrentHashMap<>();
 
     @Override
     public <K, V> Cache<K, V> buildCache(String region) {
-        return null;
+        Cache<K, V> cache = (Cache<K, V>) caches.get(region);
+        if (cache == null) {
+            cache = new ConcurrentMapCacheBuilder<K, V>(region).expired(15, TimeUnit.MINUTES).build();
+            caches.put(region, cache);
+        }
+        return cache;
     }
 
     @Override
