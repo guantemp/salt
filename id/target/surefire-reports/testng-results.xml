@@ -1,5 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" ignored="0" total="0" passed="0">
+<testng-results skipped="0" failed="0" ignored="0" total="5" passed="5">
   <reporter-output>
   </reporter-output>
+  <suite name="Surefire suite" duration-ms="907" started-at="2020-12-17T17:25:56 CST" finished-at="2020-12-17T17:25:57 CST">
+    <groups>
+    </groups>
+    <test name="Surefire test" duration-ms="907" started-at="2020-12-17T17:25:56 CST" finished-at="2020-12-17T17:25:57 CST">
+      <class name="salt.hoprxi.AppTest">
+        <test-method status="PASS" signature="shouldAnswerWithTrue()" name="shouldAnswerWithTrue" duration-ms="24" started-at="2020-12-17T17:25:57 CST" finished-at="2020-12-17T17:25:57 CST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- shouldAnswerWithTrue -->
+      </class> <!-- salt.hoprxi.AppTest -->
+      <class name="salt.hoprxi.id.LongIdTest">
+        <test-method status="PASS" signature="timestamp() throws java.text.ParseException" name="timestamp" duration-ms="460" started-at="2020-12-17T17:25:57 CST" finished-at="2020-12-17T17:25:57 CST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- timestamp -->
+        <test-method status="PASS" signature="generate()" name="generate" duration-ms="673" started-at="2020-12-17T17:25:57 CST" finished-at="2020-12-17T17:25:57 CST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- generate -->
+      </class> <!-- salt.hoprxi.id.LongIdTest -->
+      <class name="salt.hoprxi.id.ObjectIdTest">
+        <test-method status="PASS" signature="id()" name="id" duration-ms="36" started-at="2020-12-17T17:25:57 CST" finished-at="2020-12-17T17:25:57 CST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- id -->
+        <test-method status="PASS" signature="timestamp()" name="timestamp" duration-ms="37" started-at="2020-12-17T17:25:57 CST" finished-at="2020-12-17T17:25:57 CST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- timestamp -->
+      </class> <!-- salt.hoprxi.id.ObjectIdTest -->
+    </test> <!-- Surefire test -->
+  </suite> <!-- Surefire suite -->
 </testng-results>

@@ -9,7 +9,6 @@
         <module name="crypto" />
         <module name="cache" />
         <module name="utils" />
-        <module name="egde" />
         <module name="id" />
         <module name="to" />
       </profile>

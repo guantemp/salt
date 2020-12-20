@@ -2,40 +2,40 @@
 <testng-results skipped="0" failed="0" ignored="0" total="7" passed="7">
   <reporter-output>
   </reporter-output>
-  <suite name="Surefire suite" duration-ms="423" started-at="2020-12-08T18:49:27 CST" finished-at="2020-12-08T18:49:27 CST">
+  <suite name="Surefire suite" duration-ms="963" started-at="2020-12-17T17:27:08 CST" finished-at="2020-12-17T17:27:09 CST">
     <groups>
     </groups>
-    <test name="Surefire test" duration-ms="423" started-at="2020-12-08T18:49:27 CST" finished-at="2020-12-08T18:49:27 CST">
+    <test name="Surefire test" duration-ms="963" started-at="2020-12-17T17:27:08 CST" finished-at="2020-12-17T17:27:09 CST">
       <class name="salt.hoprxi.utils.DigitPreferenceFilterTest">
-        <test-method status="PASS" signature="mantissaPreferenceFilter()[pri:0, instance:salt.hoprxi.utils.DigitPreferenceFilterTest@5622fdf]" name="mantissaPreferenceFilter" duration-ms="1" started-at="2020-12-08T18:49:27 CST" finished-at="2020-12-08T18:49:27 CST">
+        <test-method status="PASS" signature="mantissaPreferenceFilter()[pri:0, instance:salt.hoprxi.utils.DigitPreferenceFilterTest@5622fdf]" name="mantissaPreferenceFilter" duration-ms="1" started-at="2020-12-17T17:27:09 CST" finished-at="2020-12-17T17:27:09 CST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- mantissaPreferenceFilter -->
-        <test-method status="PASS" signature="preferenceFilter()[pri:0, instance:salt.hoprxi.utils.DigitPreferenceFilterTest@5622fdf]" name="preferenceFilter" duration-ms="0" started-at="2020-12-08T18:49:27 CST" finished-at="2020-12-08T18:49:27 CST">
+        <test-method status="PASS" signature="preferenceFilter()[pri:0, instance:salt.hoprxi.utils.DigitPreferenceFilterTest@5622fdf]" name="preferenceFilter" duration-ms="0" started-at="2020-12-17T17:27:09 CST" finished-at="2020-12-17T17:27:09 CST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- preferenceFilter -->
       </class> <!-- salt.hoprxi.utils.DigitPreferenceFilterTest -->
       <class name="salt.hoprxi.utils.UrlHelperTest">
-        <test-method status="PASS" signature="getAbsolutePath()[pri:0, instance:salt.hoprxi.utils.UrlHelperTest@4883b407]" name="getAbsolutePath" duration-ms="0" started-at="2020-12-08T18:49:27 CST" finished-at="2020-12-08T18:49:27 CST">
+        <test-method status="PASS" signature="getAbsolutePath()[pri:0, instance:salt.hoprxi.utils.UrlHelperTest@4883b407]" name="getAbsolutePath" duration-ms="0" started-at="2020-12-17T17:27:09 CST" finished-at="2020-12-17T17:27:09 CST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- getAbsolutePath -->
-        <test-method status="PASS" signature="toUniversalFilePath()[pri:0, instance:salt.hoprxi.utils.UrlHelperTest@4883b407]" name="toUniversalFilePath" duration-ms="0" started-at="2020-12-08T18:49:27 CST" finished-at="2020-12-08T18:49:27 CST">
+        <test-method status="PASS" signature="toUniversalFilePath()[pri:0, instance:salt.hoprxi.utils.UrlHelperTest@4883b407]" name="toUniversalFilePath" duration-ms="0" started-at="2020-12-17T17:27:09 CST" finished-at="2020-12-17T17:27:09 CST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- toUniversalFilePath -->
-        <test-method status="PASS" signature="toUrl()[pri:0, instance:salt.hoprxi.utils.UrlHelperTest@4883b407]" name="toUrl" duration-ms="0" started-at="2020-12-08T18:49:27 CST" finished-at="2020-12-08T18:49:27 CST">
+        <test-method status="PASS" signature="toUrl()[pri:0, instance:salt.hoprxi.utils.UrlHelperTest@4883b407]" name="toUrl" duration-ms="0" started-at="2020-12-17T17:27:09 CST" finished-at="2020-12-17T17:27:09 CST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- toUrl -->
-        <test-method status="PASS" signature="toUrlWithPoint()[pri:0, instance:salt.hoprxi.utils.UrlHelperTest@4883b407]" name="toUrlWithPoint" duration-ms="0" started-at="2020-12-08T18:49:27 CST" finished-at="2020-12-08T18:49:27 CST">
+        <test-method status="PASS" signature="toUrlWithPoint()[pri:0, instance:salt.hoprxi.utils.UrlHelperTest@4883b407]" name="toUrlWithPoint" duration-ms="0" started-at="2020-12-17T17:27:09 CST" finished-at="2020-12-17T17:27:09 CST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- toUrlWithPoint -->
       </class> <!-- salt.hoprxi.utils.UrlHelperTest -->
       <class name="salt.hoprxi.AppTest">
-        <test-method status="PASS" signature="shouldAnswerWithTrue()[pri:0, instance:salt.hoprxi.AppTest@6093dd95]" name="shouldAnswerWithTrue" duration-ms="387" started-at="2020-12-08T18:49:27 CST" finished-at="2020-12-08T18:49:27 CST">
+        <test-method status="PASS" signature="shouldAnswerWithTrue()[pri:0, instance:salt.hoprxi.AppTest@6093dd95]" name="shouldAnswerWithTrue" duration-ms="926" started-at="2020-12-17T17:27:08 CST" finished-at="2020-12-17T17:27:09 CST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- shouldAnswerWithTrue -->

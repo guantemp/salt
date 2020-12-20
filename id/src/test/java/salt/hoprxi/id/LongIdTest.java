@@ -40,6 +40,11 @@ public class LongIdTest {
     }
 
     @Test
+    public void generate1() {
+        System.out.println(LongId.generate());
+    }
+
+    @Test
     public void timestamp() throws ParseException {
         System.out.println("Recover time from Identity:" + LongId.timestamp(LongId.generate()));
         System.out.println("2019-01-01 00:00:00(UTC/GMT+08:00) to long:"
