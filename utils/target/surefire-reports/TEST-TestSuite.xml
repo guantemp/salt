@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="TestSuite" time="1.712" tests="7" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="TestSuite" time="1.103" tests="7" errors="0" skipped="0" failures="0">
   <properties>
     <property name="sun.desktop" value="windows"/>
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
@@ -18,10 +18,10 @@
     <property name="user.country" value="CN"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.boot.library.path" value="D:\Program Files\Java\jdk1.8.0_251\jre\bin"/>
-    <property name="sun.java.command" value="C:\Users\guan\AppData\Local\Temp\surefire8282189000204159547\surefirebooter3406208076810357891.jar C:\Users\guan\AppData\Local\Temp\surefire8282189000204159547 2020-12-17T17-27-06_729-jvmRun1 surefire3709946173345834982tmp surefire_05094466271257032403tmp"/>
+    <property name="sun.java.command" value="C:\Users\ADMINI~1\AppData\Local\Temp\surefire5916133237134718549\surefirebooter7621931591742244958.jar C:\Users\Administrator\AppData\Local\Temp\surefire5916133237134718549 2021-03-14T16-29-01_392-jvmRun1 surefire409724666914693002tmp surefire_09053846301201574057tmp"/>
     <property name="surefire.test.class.path" value="E:\workspace\salt\utils\target\test-classes;E:\workspace\salt\utils\target\classes;e:\mvn\org\testng\testng\7.3.0\testng-7.3.0.jar;e:\mvn\com\beust\jcommander\1.78\jcommander-1.78.jar;e:\mvn\org\apache\ant\ant\1.10.3\ant-1.10.3.jar;e:\mvn\org\apache\ant\ant-launcher\1.10.3\ant-launcher-1.10.3.jar;e:\mvn\junit\junit\4.12\junit-4.12.jar;e:\mvn\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;e:\mvn\com\google\inject\guice\4.2.2\guice-4.2.2-no_aop.jar;e:\mvn\javax\inject\javax.inject\1\javax.inject-1.jar;e:\mvn\aopalliance\aopalliance\1.0\aopalliance-1.0.jar;e:\mvn\com\google\guava\guava\25.1-android\guava-25.1-android.jar;e:\mvn\com\google\code\findbugs\jsr305\3.0.2\jsr305-3.0.2.jar;e:\mvn\org\checkerframework\checker-compat-qual\2.0.0\checker-compat-qual-2.0.0.jar;e:\mvn\com\google\errorprone\error_prone_annotations\2.1.3\error_prone_annotations-2.1.3.jar;e:\mvn\com\google\j2objc\j2objc-annotations\1.1\j2objc-annotations-1.1.jar;e:\mvn\org\codehaus\mojo\animal-sniffer-annotations\1.14\animal-sniffer-annotations-1.14.jar;e:\mvn\org\yaml\snakeyaml\1.21\snakeyaml-1.21.jar;e:\mvn\org\slf4j\slf4j-api\1.7.25\slf4j-api-1.7.25.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
-    <property name="user.home" value="C:\Users\guan"/>
+    <property name="user.home" value="C:\Users\Administrator"/>
     <property name="user.language" value="zh"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
     <property name="java.home" value="D:\Program Files\Java\jdk1.8.0_251\jre"/>
@@ -31,12 +31,12 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
-    <property name="surefire.real.class.path" value="C:\Users\guan\AppData\Local\Temp\surefire8282189000204159547\surefirebooter3406208076810357891.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\ADMINI~1\AppData\Local\Temp\surefire5916133237134718549\surefirebooter7621931591742244958.jar"/>
     <property name="sun.boot.class.path" value="D:\Program Files\Java\jdk1.8.0_251\jre\lib\resources.jar;D:\Program Files\Java\jdk1.8.0_251\jre\lib\rt.jar;D:\Program Files\Java\jdk1.8.0_251\jre\lib\sunrsasign.jar;D:\Program Files\Java\jdk1.8.0_251\jre\lib\jsse.jar;D:\Program Files\Java\jdk1.8.0_251\jre\lib\jce.jar;D:\Program Files\Java\jdk1.8.0_251\jre\lib\charsets.jar;D:\Program Files\Java\jdk1.8.0_251\jre\lib\jfr.jar;D:\Program Files\Java\jdk1.8.0_251\jre\classes"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="1.8.0_251-b08"/>
-    <property name="user.name" value="guan"/>
+    <property name="user.name" value="Administrator"/>
     <property name="path.separator" value=";"/>
     <property name="os.version" value="10.0"/>
     <property name="java.endorsed.dirs" value="D:\Program Files\Java\jdk1.8.0_251\jre\lib\endorsed"/>
@@ -45,15 +45,15 @@
     <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
     <property name="localRepository" value="e:\mvn"/>
     <property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/"/>
-    <property name="java.io.tmpdir" value="C:\Users\guan\AppData\Local\Temp\"/>
+    <property name="java.io.tmpdir" value="C:\Users\ADMINI~1\AppData\Local\Temp\"/>
+    <property name="idea.version" value="2020.3.2"/>
     <property name="java.version" value="1.8.0_251"/>
     <property name="user.dir" value="E:\workspace\salt\utils"/>
     <property name="os.arch" value="amd64"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
     <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob"/>
     <property name="sun.os.patch.level" value=""/>
-    <property name="idea.version2019.3.4" value="true"/>
-    <property name="java.library.path" value="D:\Program Files\Java\jdk1.8.0_251\jre\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;D:\Program Files\Java\jdk1.8.0_251\bin;D:\Program Files\Java\jdk1.8.0_251\jre\bin;D:\Program Files (x86)\apache-maven-3.6.3\bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;D:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\;D:\Program Files\Microsoft SQL Server\100\Tools\Binn\;D:\Program Files\Microsoft SQL Server\100\DTS\Binn\;D:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\VSShell\Common7\IDE\;D:\Program Files (x86)\Microsoft SQL Server\100\DTS\Binn\;d:\Program Files (x86)\SISS\hbposv10;D:\Program Files (x86)\jetty-distribution-9.4.27.v20200227;d:\Program Files\Git\cmd;D:\Program Files\nodejs\;C:\Users\guan\AppData\Local\Microsoft\WindowsApps;d:\Program Files\JetBrains\IntelliJ IDEA 2019.3.4\bin;;C:\Users\guan\AppData\Roaming\npm;."/>
+    <property name="java.library.path" value="D:\Program Files\Java\jdk1.8.0_251\jre\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\Python27\;C:\Python27\Scripts;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;D:\Program Files\nodejs\;C:\ProgramData\chocolatey\bin;C:\Users\Administrator\AppData\Local\Microsoft\WindowsApps;;d:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2020.3\bin;;C:\Users\Administrator\AppData\Roaming\npm;."/>
     <property name="java.vm.info" value="mixed mode"/>
     <property name="java.vendor" value="Oracle Corporation"/>
     <property name="java.vm.version" value="25.251-b08"/>
@@ -61,11 +61,11 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="52.0"/>
   </properties>
-  <testcase name="shouldAnswerWithTrue" classname="salt.hoprxi.AppTest" time="0.927"/>
-  <testcase name="mantissaPreferenceFilter" classname="salt.hoprxi.utils.DigitPreferenceFilterTest" time="0.001"/>
-  <testcase name="preferenceFilter" classname="salt.hoprxi.utils.DigitPreferenceFilterTest" time="0.001"/>
+  <testcase name="shouldAnswerWithTrue" classname="salt.hoprxi.AppTest" time="0.563"/>
+  <testcase name="mantissaPreferenceFilter" classname="salt.hoprxi.utils.DigitPreferenceFilterTest" time="0.02"/>
+  <testcase name="preferenceFilter" classname="salt.hoprxi.utils.DigitPreferenceFilterTest" time="0"/>
   <testcase name="getAbsolutePath" classname="salt.hoprxi.utils.UrlHelperTest" time="0"/>
-  <testcase name="toUniversalFilePath" classname="salt.hoprxi.utils.UrlHelperTest" time="0.001"/>
+  <testcase name="toUniversalFilePath" classname="salt.hoprxi.utils.UrlHelperTest" time="0"/>
   <testcase name="toUrl" classname="salt.hoprxi.utils.UrlHelperTest" time="0"/>
   <testcase name="toUrlWithPoint" classname="salt.hoprxi.utils.UrlHelperTest" time="0"/>
 </testsuite>

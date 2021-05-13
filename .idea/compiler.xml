@@ -6,17 +6,16 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="crypto" />
         <module name="cache" />
-        <module name="utils" />
         <module name="id" />
         <module name="to" />
+        <module name="utils" />
+        <module name="crypto" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="cache" target="1.8" />
       <module name="crypto" target="1.8" />
-      <module name="egde" target="1.8" />
       <module name="id" target="1.8" />
       <module name="to" target="1.8" />
       <module name="utils" target="1.8" />
