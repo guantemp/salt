@@ -21,6 +21,7 @@ import org.junit.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 
 /***
  * @author <a href="www.hoprxi.com/authors/guan xiangHuan">guan xiangHuang</a>
@@ -46,6 +47,9 @@ public class LongIdTest {
 
     @Test
     public void timestamp() throws ParseException {
+        System.out.println(Instant.ofEpochMilli(1427328000000l));
+        System.out.println("Machine：" + MacHash.hash());
+        System.out.println("Process id：" + Process.process());
         System.out.println("Recover time from Identity:" + LongId.timestamp(LongId.generate()));
         System.out.println("2021-01-01 00:00:00(UTC/GMT+08:00) to long:"
                 + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse("2021-05-01 00:00:00.000").getTime());

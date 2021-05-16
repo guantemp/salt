@@ -29,27 +29,27 @@ import java.util.concurrent.atomic.AtomicInteger;
  * +------+------------------------+------------------+--------------+------------+
  * | sign |   delta milliseconds   |  mac hash code   |   process id |  sequence  |
  * +------+------------------------+------------------+--------------+------------+
- *   1bit          43bits                9bits               1bit         10bits
+ *   1bit          42bits                5bits               5bit         11bits
  * }</pre>
- * <li>use the 43-bit identification milliseconds time(support 138 year)
- * <li>9-bit(512) slice logo
- * <li>1-bit(2) process
- * <li>10-bit(1024) sequence
+ * <li>use the 42-bit identification milliseconds time(support 139 year)
+ * <li>5-bit(32) slice logo
+ * <li>5-bit(32) process
+ * <li>11-bit(2048) sequence
  * </p>
  *
  * @author <a href="www.hoprxi.com/authors/guan xiangHuan">guan xiangHuan</a>
- * @version 0.0.3 2020-09-01
+ * @version 0.0.4 2021-05-16
  * @since JDK8.0
  */
 public class LongId {
-    private static final int MACHINE_MASK = 0x1FF;
-    private static final int MACHINE_LEFT_SHIFT = 9;
+    private static final int MACHINE_MASK = 0x1F;
+    private static final int MACHINE_LEFT_SHIFT = 5;
     //Process id
     private static final int PROCESS = Process.process();
-    private static final int SEQUENCE_MASK = 0x3FF;
-    private static final int SEQUENCE_LEFT_SHIFT = 10;
-    private static final int PROCESS_MASK = 0x1;
-    private static final int PROCESS_LEFT_SHIFT = 1;
+    private static final int SEQUENCE_MASK = 0x7FF;
+    private static final int SEQUENCE_LEFT_SHIFT = 11;
+    private static final int PROCESS_MASK = 0x1F;
+    private static final int PROCESS_LEFT_SHIFT = 5;
     // This is begin from 2015-03-26 00:00:00(UTC/GMT+08:00) --1427328000000
     private static final long START = 1619798400000l;
     private static final int TIMESTIAMP_LEFT_SHIFT = MACHINE_LEFT_SHIFT + PROCESS_LEFT_SHIFT + SEQUENCE_LEFT_SHIFT;
