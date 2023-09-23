@@ -1,0 +1,6 @@
+salt\hoprxi\id\ClockCallbackException.class
+salt\hoprxi\id\LongId.class
+salt\hoprxi\id\MacHash.class
+salt\hoprxi\id\ObjectId.class
+salt\hoprxi\id\Process.class
+salt\hoprxi\App.class

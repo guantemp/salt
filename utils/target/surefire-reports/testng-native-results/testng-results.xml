@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" ignored="0" total="4" passed="4">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Command line suite" duration-ms="3350" started-at="2023-09-20T21:59:25 CST" finished-at="2023-09-20T21:59:28 CST">
+    <groups>
+    </groups>
+    <test name="Command line test" duration-ms="3350" started-at="2023-09-20T21:59:25 CST" finished-at="2023-09-20T21:59:28 CST">
+      <class name="salt.hoprxi.utils.DigitPreferenceFilterTest">
+        <test-method status="PASS" signature="mantissaPreferenceFilter()[pri:0, instance:salt.hoprxi.utils.DigitPreferenceFilterTest@47c62251]" name="mantissaPreferenceFilter" duration-ms="13" started-at="2023-09-20T21:59:25 CST" finished-at="2023-09-20T21:59:25 CST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- mantissaPreferenceFilter -->
+        <test-method status="PASS" signature="preferenceFilter()[pri:0, instance:salt.hoprxi.utils.DigitPreferenceFilterTest@47c62251]" name="preferenceFilter" duration-ms="0" started-at="2023-09-20T21:59:25 CST" finished-at="2023-09-20T21:59:25 CST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- preferenceFilter -->
+      </class> <!-- salt.hoprxi.utils.DigitPreferenceFilterTest -->
+      <class name="salt.hoprxi.utils.RandomGeneratorTest">
+        <test-method status="PASS" signature="testValueOf()[pri:0, instance:salt.hoprxi.utils.RandomGeneratorTest@3e6fa38a]" name="testValueOf" duration-ms="5" started-at="2023-09-20T21:59:25 CST" finished-at="2023-09-20T21:59:25 CST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testValueOf -->
+      </class> <!-- salt.hoprxi.utils.RandomGeneratorTest -->
+      <class name="salt.hoprxi.utils.SelectorTest">
+        <test-method status="PASS" signature="testSelector()[pri:0, instance:salt.hoprxi.utils.SelectorTest@66a3ffec]" name="testSelector" duration-ms="3289" started-at="2023-09-20T21:59:25 CST" finished-at="2023-09-20T21:59:28 CST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testSelector -->
+      </class> <!-- salt.hoprxi.utils.SelectorTest -->
+    </test> <!-- Command line test -->
+  </suite> <!-- Command line suite -->
+</testng-results>

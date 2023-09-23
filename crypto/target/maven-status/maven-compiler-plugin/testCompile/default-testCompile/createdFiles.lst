@@ -1,0 +1,3 @@
+salt\hoprxi\AppTest.class
+salt\hoprxi\crypto\PasswordServiceTest.class
+salt\hoprxi\crypto\HashServiceTest.class

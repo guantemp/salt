@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" ignored="0" total="5" passed="5">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Command line suite" duration-ms="831" started-at="2023-09-20T21:59:32 CST" finished-at="2023-09-20T21:59:33 CST">
+    <groups>
+    </groups>
+    <test name="Command line test" duration-ms="831" started-at="2023-09-20T21:59:32 CST" finished-at="2023-09-20T21:59:33 CST">
+      <class name="salt.hoprxi.id.ObjectIdTest">
+        <test-method status="PASS" signature="id()[pri:0, instance:salt.hoprxi.id.ObjectIdTest@1e88b3c]" name="id" duration-ms="74" started-at="2023-09-20T21:59:33 CST" finished-at="2023-09-20T21:59:33 CST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- id -->
+        <test-method status="PASS" signature="out()[pri:0, instance:salt.hoprxi.id.ObjectIdTest@1e88b3c]" name="out" duration-ms="0" started-at="2023-09-20T21:59:33 CST" finished-at="2023-09-20T21:59:33 CST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- out -->
+        <test-method status="PASS" signature="timestamp()[pri:0, instance:salt.hoprxi.id.ObjectIdTest@1e88b3c]" name="timestamp" duration-ms="0" started-at="2023-09-20T21:59:33 CST" finished-at="2023-09-20T21:59:33 CST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- timestamp -->
+      </class> <!-- salt.hoprxi.id.ObjectIdTest -->
+      <class name="salt.hoprxi.id.LongIdTest">
+        <test-method status="PASS" signature="generate()[pri:0, instance:salt.hoprxi.id.LongIdTest@77caeb3e]" name="generate" duration-ms="645" started-at="2023-09-20T21:59:32 CST" finished-at="2023-09-20T21:59:33 CST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- generate -->
+        <test-method status="PASS" signature="timestamp()[pri:0, instance:salt.hoprxi.id.LongIdTest@77caeb3e]" name="timestamp" duration-ms="70" started-at="2023-09-20T21:59:33 CST" finished-at="2023-09-20T21:59:33 CST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- timestamp -->
+      </class> <!-- salt.hoprxi.id.LongIdTest -->
+    </test> <!-- Command line test -->
+  </suite> <!-- Command line suite -->
+</testng-results>
