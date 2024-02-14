@@ -57,6 +57,8 @@ public class LongIdTest {
         System.out.println("Process id：" + Process.process());
         System.out.println("Recover time from Identity:" + LongId.timestamp(LongId.generate()));
 
+        //System.out.println("2015-03-26 00:00:00(UTC/GMT+08:00) to long:"
+                //+ new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format("").to);
         System.out.println("2015-03-26 00:00:00(UTC/GMT+08:00) to long:"
                 + LocalDateTime.parse("2015-03-26 00:00:00.000", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")).atZone(ZoneId.of("UTC")).toInstant().toEpochMilli());
         System.out.println("1427328000000L to date: " + Instant.ofEpochMilli(1427328000000L));

@@ -37,7 +37,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * </p>
  *
  * @author <a href="www.hoprxi.com/authors/guan xiangHuan">guan xiangHuan</a>
- * @version 0.0.4 2021-05-16
+ * @version 0.0.5 2024-02-14
  * @since JDK8.0
  */
 public class LongId {
