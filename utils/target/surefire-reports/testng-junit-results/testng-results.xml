@@ -2,16 +2,16 @@
 <testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Command line suite" duration-ms="72" started-at="2023-09-20T21:59:28 CST" finished-at="2023-09-20T21:59:28 CST">
+  <suite name="Surefire suite" duration-ms="28" started-at="2024-01-11T22:06:59 CST" finished-at="2024-01-11T22:06:59 CST">
     <groups>
     </groups>
-    <test name="Command line test" duration-ms="72" started-at="2023-09-20T21:59:28 CST" finished-at="2023-09-20T21:59:28 CST">
+    <test name="Surefire test" duration-ms="28" started-at="2024-01-11T22:06:59 CST" finished-at="2024-01-11T22:06:59 CST">
       <class name="salt.hoprxi.AppTest">
-        <test-method status="PASS" signature="testApp()" name="testApp" duration-ms="9" started-at="2023-09-20T21:59:28 CST" finished-at="2023-09-20T21:59:28 CST">
+        <test-method status="PASS" signature="testApp()" name="testApp" duration-ms="9" started-at="2024-01-11T22:06:59 CST" finished-at="2024-01-11T22:06:59 CST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testApp -->
       </class> <!-- salt.hoprxi.AppTest -->
-    </test> <!-- Command line test -->
-  </suite> <!-- Command line suite -->
+    </test> <!-- Surefire test -->
+  </suite> <!-- Surefire suite -->
 </testng-results>

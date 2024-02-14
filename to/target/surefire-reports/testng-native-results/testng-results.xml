@@ -2,32 +2,32 @@
 <testng-results skipped="0" failed="0" ignored="0" total="5" passed="5">
   <reporter-output>
   </reporter-output>
-  <suite name="Surefire suite" duration-ms="1510" started-at="2023-09-22T12:01:37 CST" finished-at="2023-09-22T12:01:39 CST">
+  <suite name="Surefire suite" duration-ms="1180" started-at="2024-01-11T22:07:00 CST" finished-at="2024-01-11T22:07:01 CST">
     <groups>
     </groups>
-    <test name="Surefire test" duration-ms="1510" started-at="2023-09-22T12:01:37 CST" finished-at="2023-09-22T12:01:39 CST">
+    <test name="Surefire test" duration-ms="1180" started-at="2024-01-11T22:07:00 CST" finished-at="2024-01-11T22:07:01 CST">
       <class name="salt.hoprxi.to.ImageBytesConversionTest">
-        <test-method status="PASS" signature="bytesToImage()[pri:0, instance:salt.hoprxi.to.ImageBytesConversionTest@13805618]" name="bytesToImage" duration-ms="1448" started-at="2023-09-22T12:01:37 CST" finished-at="2023-09-22T12:01:39 CST">
+        <test-method status="PASS" signature="bytesToImage()[pri:0, instance:salt.hoprxi.to.ImageBytesConversionTest@13805618]" name="bytesToImage" duration-ms="1129" started-at="2024-01-11T22:07:00 CST" finished-at="2024-01-11T22:07:01 CST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- bytesToImage -->
-        <test-method status="PASS" signature="imageToByte()[pri:0, instance:salt.hoprxi.to.ImageBytesConversionTest@13805618]" name="imageToByte" duration-ms="2" started-at="2023-09-22T12:01:39 CST" finished-at="2023-09-22T12:01:39 CST">
+        <test-method status="PASS" signature="imageToByte()[pri:0, instance:salt.hoprxi.to.ImageBytesConversionTest@13805618]" name="imageToByte" duration-ms="0" started-at="2024-01-11T22:07:01 CST" finished-at="2024-01-11T22:07:01 CST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- imageToByte -->
       </class> <!-- salt.hoprxi.to.ImageBytesConversionTest -->
       <class name="salt.hoprxi.to.DigitalToChineseTest">
-        <test-method status="PASS" signature="testFormat()[pri:0, instance:salt.hoprxi.to.DigitalToChineseTest@cb644e]" name="testFormat" duration-ms="6" started-at="2023-09-22T12:01:37 CST" finished-at="2023-09-22T12:01:37 CST">
+        <test-method status="PASS" signature="testFormat()[pri:0, instance:salt.hoprxi.to.DigitalToChineseTest@cb644e]" name="testFormat" duration-ms="7" started-at="2024-01-11T22:07:00 CST" finished-at="2024-01-11T22:07:00 CST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testFormat -->
       </class> <!-- salt.hoprxi.to.DigitalToChineseTest -->
       <class name="salt.hoprxi.to.PinYinTest">
-        <test-method status="PASS" signature="testToPinYing()[pri:0, instance:salt.hoprxi.to.PinYinTest@56ef9176]" name="testToPinYing" duration-ms="19" started-at="2023-09-22T12:01:39 CST" finished-at="2023-09-22T12:01:39 CST">
+        <test-method status="PASS" signature="testToPinYing()[pri:0, instance:salt.hoprxi.to.PinYinTest@56ef9176]" name="testToPinYing" duration-ms="4" started-at="2024-01-11T22:07:01 CST" finished-at="2024-01-11T22:07:01 CST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testToPinYing -->
-        <test-method status="PASS" signature="testToShortPinYing()[pri:0, instance:salt.hoprxi.to.PinYinTest@56ef9176]" name="testToShortPinYing" duration-ms="0" started-at="2023-09-22T12:01:39 CST" finished-at="2023-09-22T12:01:39 CST">
+        <test-method status="PASS" signature="testToShortPinYing()[pri:0, instance:salt.hoprxi.to.PinYinTest@56ef9176]" name="testToShortPinYing" duration-ms="0" started-at="2024-01-11T22:07:01 CST" finished-at="2024-01-11T22:07:01 CST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testToShortPinYing -->

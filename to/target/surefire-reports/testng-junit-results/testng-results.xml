@@ -2,12 +2,12 @@
 <testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Surefire suite" duration-ms="11" started-at="2023-09-22T12:01:39 CST" finished-at="2023-09-22T12:01:39 CST">
+  <suite name="Surefire suite" duration-ms="13" started-at="2024-01-11T22:07:01 CST" finished-at="2024-01-11T22:07:01 CST">
     <groups>
     </groups>
-    <test name="Surefire test" duration-ms="11" started-at="2023-09-22T12:01:39 CST" finished-at="2023-09-22T12:01:39 CST">
+    <test name="Surefire test" duration-ms="13" started-at="2024-01-11T22:07:01 CST" finished-at="2024-01-11T22:07:01 CST">
       <class name="salt.hoprxi.AppTest">
-        <test-method status="PASS" signature="testApp()[pri:0, instance:testApp(salt.hoprxi.AppTest)]" name="testApp" duration-ms="1" started-at="2023-09-22T12:01:39 CST" finished-at="2023-09-22T12:01:39 CST">
+        <test-method status="PASS" signature="testApp()[pri:0, instance:testApp(salt.hoprxi.AppTest)]" name="testApp" duration-ms="1" started-at="2024-01-11T22:07:01 CST" finished-at="2024-01-11T22:07:01 CST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testApp -->
