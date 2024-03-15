@@ -30,15 +30,15 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Selector {
     //weight=1 对应的基本虚拟节点个数
     private int virtualNodeNum = 160;
-    private List<Divisor> physicsDivisors = new LinkedList<>();
+    private final List<Divisor<?>> physicsDivisors = new LinkedList<>();
     private int sum = 0;
     //定义一个0--2^32-1环
-    private SortedMap<Integer, Divisor> sortedMap = new TreeMap<>();
+    private SortedMap<Integer, Divisor<?>> sortedMap = new TreeMap<>();
 
     public Selector() {
     }
 
-    public Selector(List<Divisor> divisors) {
+    public Selector(List<Divisor<?>> divisors) {
         for (Divisor divisor : divisors) {
             sum += divisor.weight;
         }
@@ -46,14 +46,14 @@ public class Selector {
             refreshHashCircle();
     }
 
-    public Selector(Divisor[] divisors) {
+    public Selector(Divisor<?>[] divisors) {
         this(Arrays.asList(divisors));
     }
 
     /**
      * @param divisor add one server
      */
-    public void add(Divisor divisor) {
+    public void add(Divisor<?> divisor) {
         physicsDivisors.add(divisor);
         sum += divisor.weight;
         refreshHashCircle();
@@ -62,7 +62,7 @@ public class Selector {
     /**
      * @param divisor del one server
      */
-    public void delete(Divisor divisor) {
+    public void delete(Divisor<String> divisor) {
         physicsDivisors.remove(divisor);
         sum -= divisor.weight;
         refreshHashCircle();
@@ -93,11 +93,11 @@ public class Selector {
         String virtualNodeName = key + "&&virtual:0";
         byte[] bytes = md5(virtualNodeName);
         int hash = ketamaHash(bytes, 0);
-        SortedMap<Integer, Divisor> subMap = sortedMap.tailMap(hash);
+        SortedMap<Integer, Divisor<?>> subMap = sortedMap.tailMap(hash);
         if (subMap == null || subMap.isEmpty()) {
             return (T) (sortedMap.get(sortedMap.firstKey()).value());
         } else {
-            return (T) (subMap.get(subMap.firstKey()).value());
+            return (T) subMap.get(subMap.firstKey()).value();
         }
     }
 
@@ -143,7 +143,6 @@ public class Selector {
                 }
                 refreshHashCircle();
             }
-
 
             /**
              * @param data
