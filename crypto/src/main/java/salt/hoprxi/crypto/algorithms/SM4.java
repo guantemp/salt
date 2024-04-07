@@ -46,6 +46,10 @@ public class SM4 {
     private static final String ALGORITHM_NAME_CBC_NOPADDING = "SM4/CBC/NoPadding";
     private static final int DEFAULT_KEY_SIZE = 128;
 
+    static {
+        Security.addProvider(new BouncyCastleProvider());
+    }
+
     public static byte[] generateKey() throws NoSuchAlgorithmException, NoSuchProviderException {
         return generateKey(DEFAULT_KEY_SIZE);
     }
@@ -54,34 +58,6 @@ public class SM4 {
         KeyGenerator kg = KeyGenerator.getInstance(ALGORITHM_NAME, BouncyCastleProvider.PROVIDER_NAME);
         kg.init(keySize, new SecureRandom());
         return kg.generateKey().getEncoded();
-    }
-
-    public static byte[] encrypt_Ecb_Padding(byte[] key, byte[] data)
-            throws InvalidKeyException, NoSuchAlgorithmException, NoSuchProviderException,
-            NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException {
-        Cipher cipher = generateEcbCipher(ALGORITHM_NAME_ECB_PADDING, Cipher.ENCRYPT_MODE, key);
-        return cipher.doFinal(data);
-    }
-
-    public static byte[] decrypt_Ecb_Padding(byte[] key, byte[] cipherText)
-            throws IllegalBlockSizeException, BadPaddingException, InvalidKeyException,
-            NoSuchAlgorithmException, NoSuchProviderException, NoSuchPaddingException {
-        Cipher cipher = generateEcbCipher(ALGORITHM_NAME_ECB_PADDING, Cipher.DECRYPT_MODE, key);
-        return cipher.doFinal(cipherText);
-    }
-
-    public static byte[] encrypt_Ecb_NoPadding(byte[] key, byte[] data)
-            throws InvalidKeyException, NoSuchAlgorithmException, NoSuchProviderException,
-            NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException {
-        Cipher cipher = generateEcbCipher(ALGORITHM_NAME_ECB_NOPADDING, Cipher.ENCRYPT_MODE, key);
-        return cipher.doFinal(data);
-    }
-
-    public static byte[] decrypt_Ecb_NoPadding(byte[] key, byte[] cipherText)
-            throws IllegalBlockSizeException, BadPaddingException, InvalidKeyException,
-            NoSuchAlgorithmException, NoSuchProviderException, NoSuchPaddingException {
-        Cipher cipher = generateEcbCipher(ALGORITHM_NAME_ECB_NOPADDING, Cipher.DECRYPT_MODE, key);
-        return cipher.doFinal(cipherText);
     }
 
     public static byte[] encrypt_Cbc_Padding(byte[] key, byte[] iv, byte[] data)
@@ -97,22 +73,6 @@ public class SM4 {
             NoSuchAlgorithmException, NoSuchProviderException, NoSuchPaddingException,
             InvalidAlgorithmParameterException {
         Cipher cipher = generateCbcCipher(ALGORITHM_NAME_CBC_PADDING, Cipher.DECRYPT_MODE, key, iv);
-        return cipher.doFinal(cipherText);
-    }
-
-    public static byte[] encrypt_Cbc_NoPadding(byte[] key, byte[] iv, byte[] data)
-            throws InvalidKeyException, NoSuchAlgorithmException, NoSuchProviderException,
-            NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException,
-            InvalidAlgorithmParameterException {
-        Cipher cipher = generateCbcCipher(ALGORITHM_NAME_CBC_NOPADDING, Cipher.ENCRYPT_MODE, key, iv);
-        return cipher.doFinal(data);
-    }
-
-    public static byte[] decrypt_Cbc_NoPadding(byte[] key, byte[] iv, byte[] cipherText)
-            throws IllegalBlockSizeException, BadPaddingException, InvalidKeyException,
-            NoSuchAlgorithmException, NoSuchProviderException, NoSuchPaddingException,
-            InvalidAlgorithmParameterException {
-        Cipher cipher = generateCbcCipher(ALGORITHM_NAME_CBC_NOPADDING, Cipher.DECRYPT_MODE, key, iv);
         return cipher.doFinal(cipherText);
     }
 

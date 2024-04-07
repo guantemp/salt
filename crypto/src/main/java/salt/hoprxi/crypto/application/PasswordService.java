@@ -39,7 +39,6 @@ import java.security.interfaces.RSAPublicKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
-import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -58,10 +57,6 @@ public class PasswordService {
     private static final int STRONG_THRESHOLD = 20;
     private static final int VERY_STRONG_THRESHOLD = 40;
     private static final Pattern CHINESE_PATTERN = Pattern.compile("[\u4e00-\u9fa5]");
-
-    public static void main(String[] args) {
-
-    }
 
     /**
      * @param plainTextPassword
@@ -218,6 +213,17 @@ public class PasswordService {
 
     }
 
+    public static byte[] encrypt(byte[] data, SecretKey secretKey) {
+        try {
+            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+            cipher.init(Cipher.ENCRYPT_MODE, secretKey);
+            return cipher.doFinal(data);
+        } catch (NoSuchPaddingException | NoSuchAlgorithmException | InvalidKeyException | IllegalBlockSizeException |
+                 BadPaddingException e) {
+            throw new RuntimeException("Encrypt data[" + data + "] exception", e);
+        }
+    }
+
     /**
      * @param data
      * @param secretKey
@@ -231,6 +237,17 @@ public class PasswordService {
             return cipher.doFinal(data);
         } catch (NoSuchPaddingException | NoSuchAlgorithmException | InvalidKeyException | IllegalBlockSizeException |
                  BadPaddingException | InvalidAlgorithmParameterException e) {
+            throw new RuntimeException("Encrypt data[" + data + "] exception", e);
+        }
+    }
+
+    public static byte[] decrypt(byte[] data, SecretKey secretKey) {
+        try {
+            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+            cipher.init(Cipher.DECRYPT_MODE, secretKey);
+            return cipher.doFinal(data);
+        } catch (NoSuchPaddingException | NoSuchAlgorithmException | InvalidKeyException | IllegalBlockSizeException |
+                 BadPaddingException e) {
             throw new RuntimeException("Encrypt data[" + data + "] exception", e);
         }
     }
@@ -398,7 +415,7 @@ public class PasswordService {
         SubjectPublicKeyInfo subjectPublicKeyInfo = SubjectPublicKeyInfo.getInstance(new ASN1InputStream(PasswordService.generatePublicKey(2048).getEncoded()).readObject());
         X500Name issueDn = new X500Name("C=CN,ST=SiChuan,L=LeShan,O=Skybility,OU=Cloudbility,CN=Atlas Personal License CA");
         X500Name subjectDn = new X500Name("C=CN,ST=SiChuan,L=LeShan,O=Skybility,OU=Cloudbility,CN=Atlas Personal License CA");
-        Instant instant = Instant.now();
+        //Instant instant = Instant.now();
         X509v3CertificateBuilder builder = new X509v3CertificateBuilder(issueDn, serial, notBefore, notAfter, Locale.CHINA, subjectDn, subjectPublicKeyInfo);
         //证书签名数据
         ContentSigner signGen = new JcaContentSignerBuilder("SHA256withRSA").build(PasswordService.generatePrivateKey(2048));

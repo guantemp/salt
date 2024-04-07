@@ -19,32 +19,42 @@ public class SelectorTest {
     public void testSelector() {
         Selector selector = new Selector(new Selector.Divisor[0]);
         for (int i = 0; i < 5; i++) {
-            Selector.Divisor<String> divisor = new Selector.Divisor(1, "192.168.1." + i);
-            selector.add(divisor);
+            selector.add(new Selector.Divisor(1, "192.168.1." + i));
         }
         //System.out.println(selector);
-        String divisor = selector.select("1rewtgrewy");
+        String divisor = selector.select("13257685291810811");
         System.out.println(divisor);
-        divisor = selector.select("2SA双AZ发生阿萨法奥拉夫D说");
+        divisor = selector.select("13254064915397646");
         System.out.println(divisor);
-        divisor = selector.select("3法阿8979+8526斯蒂芬");
+        divisor = selector.select("13254064915397651");
         System.out.println(divisor);
-        divisor = selector.select("4rewtgrew");
+        for (int i = 0; i < 2; i++) {
+            selector.add(new Selector.Divisor(1, "192.168.10." + i));
+        }
+        divisor = selector.select("13254064917494814");
         System.out.println(divisor);
-        divisor = selector.select("3法阿8979+8526斯蒂芬");
+        divisor = selector.select("13254064917494820");
+        System.out.println(divisor);
+        divisor = selector.select("13254742192734115");
+        System.out.println(divisor);
+
+        divisor = selector.select("13254064915397651");
         Assert.assertEquals(divisor, "192.168.1.1");
-        divisor = selector.select("2SA双AZ发生阿萨法奥拉夫D说");
-        Assert.assertEquals(divisor, "192.168.1.3");
+        divisor = selector.select("13254064915397646");
+        Assert.assertEquals(divisor, "192.168.1.4");
         System.out.println();
-        Selector.Divisor<String> re = new Selector.Divisor("192.168.1.0");
+
+        Selector.Divisor<String> re = new Selector.Divisor("192.168.1.5");
         selector.delete(re);
-        divisor = selector.select("3法阿8979+8526斯蒂芬");
+        divisor = selector.select("13254064915397651");
         Assert.assertEquals(divisor, "192.168.1.1");
+        divisor = selector.select("13257685291810811");
+        System.out.println(divisor);
 
         Map<String, Integer> resMap = new HashMap<>();
         for (int i = 0; i < 1000000; i++) {
             Integer widgetId = ThreadLocalRandom.current().nextInt();
-            String test = selector.select("&&" + widgetId.toString());
+            String test = selector.select("&&" + widgetId);
             if (resMap.containsKey(test)) {
                 resMap.put(test, resMap.get(test) + 1);
             } else {
@@ -117,7 +127,7 @@ public class SelectorTest {
         divisor = selector.select("3法阿8979+8526斯蒂芬");
         Assert.assertEquals(divisor, "192.168.1.1");
         divisor = selector.select("2SA双AZ发生阿萨法奥拉夫D说");
-        Assert.assertEquals(divisor, "192.168.1.3");
+        Assert.assertEquals(divisor, "192.168.1.45");
     }
 
 }

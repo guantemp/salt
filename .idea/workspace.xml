@@ -4,11 +4,28 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="20482602-c4f2-4d7c-8556-c526a976ada0" name="Changes" comment="202402142116">
+    <list default="true" id="20482602-c4f2-4d7c-8556-c526a976ada0" name="Changes" comment="202404061037">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/utils/src/test/java/salt/hoprxi/utils/ResourceWherePathTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/id/target/id-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/id/target/id-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crypto/hoprxi.p12" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/hoprxi.p12" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/algorithms/SM4.java" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/algorithms/SM4.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/application/PasswordService.java" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/application/PasswordService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crypto/src/test/java/salt/hoprxi/AppTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/src/test/java/salt/hoprxi/AppTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crypto/src/test/java/salt/hoprxi/crypto/PasswordServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/src/test/java/salt/hoprxi/crypto/PasswordServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crypto/target/classes/salt/hoprxi/crypto/algorithms/SM4.class" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/target/classes/salt/hoprxi/crypto/algorithms/SM4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crypto/target/classes/salt/hoprxi/crypto/application/PasswordService.class" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/target/classes/salt/hoprxi/crypto/application/PasswordService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crypto/target/test-classes/salt/hoprxi/AppTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/target/test-classes/salt/hoprxi/AppTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crypto/target/test-classes/salt/hoprxi/crypto/PasswordServiceTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/target/test-classes/salt/hoprxi/crypto/PasswordServiceTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/src/main/java/salt/hoprxi/utils/ResourceWherePath.java" beforeDir="false" afterPath="$PROJECT_DIR$/utils/src/main/java/salt/hoprxi/utils/ResourceWherePath.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utils/src/main/java/salt/hoprxi/utils/Selector.java" beforeDir="false" afterPath="$PROJECT_DIR$/utils/src/main/java/salt/hoprxi/utils/Selector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/target/utils-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/utils/target/utils-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/src/test/java/salt/hoprxi/utils/SelectorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/utils/src/test/java/salt/hoprxi/utils/SelectorTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/target/classes/salt/hoprxi/utils/ResourceWherePath.class" beforeDir="false" afterPath="$PROJECT_DIR$/utils/target/classes/salt/hoprxi/utils/ResourceWherePath.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/target/classes/salt/hoprxi/utils/Selector$Divisor.class" beforeDir="false" afterPath="$PROJECT_DIR$/utils/target/classes/salt/hoprxi/utils/Selector$Divisor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/target/classes/salt/hoprxi/utils/Selector.class" beforeDir="false" afterPath="$PROJECT_DIR$/utils/target/classes/salt/hoprxi/utils/Selector.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/target/test-classes/salt/hoprxi/utils/SelectorTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/utils/target/test-classes/salt/hoprxi/utils/SelectorTest.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +36,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="JUnit3 Test Class" />
+        <option value="TestNG Test Class" />
       </list>
     </option>
   </component>
@@ -51,25 +70,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;1.8&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/workspace/salt&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "TestNG",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit3": "junit.framework.TestCase",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.TestNG": "",
+    "jdk.selected.JAVA_MODULE": "1.8",
+    "last_opened_file_path": "E:/workspace/salt",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "MavenSettings"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;ChangesTree.GroupingKeys&quot;: [
-      &quot;directory&quot;
+  "keyToStringList": {
+    "ChangesTree.GroupingKeys": [
+      "directory"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\workspace\salt\cache" />
@@ -78,11 +100,23 @@
       <recent name="E:\workspace\salt\to" />
       <recent name="E:\workspace\salt\utils\src" />
     </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+      <recent name="junit.framework.TestCase" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="salt.hoprxi" />
+      <recent name="salt.hoprxi.crypto" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="salt.hoprxi.utils" />
+      <recent name="salt.hoprxi.crypto" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="salt.hoprxi.crypto" />
     </key>
   </component>
-  <component name="RunManager" selected="TestNG.LongIdTest">
+  <component name="RunManager" selected="TestNG.PasswordServiceTest">
     <configuration name="CacheFactoryTest" type="TestNG">
       <module name="cache" />
       <shortenClasspath name="NONE" />
@@ -131,6 +165,27 @@
       <option name="SUITE_NAME" value="" />
       <option name="PACKAGE_NAME" value="salt.hoprxi.utils" />
       <option name="MAIN_CLASS_NAME" value="salt.hoprxi.utils.DigitPreferenceFilterTest" />
+      <option name="GROUP_NAME" value="" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="PARAMETERS" value="" />
+      <option name="OUTPUT_DIRECTORY" value="" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <option name="PROPERTIES_FILE" value="" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EncryptionServiceTest" type="TestNG">
+      <module name="crypto" />
+      <shortenClasspath name="NONE" />
+      <useClassPathOnly />
+      <option name="SUITE_NAME" value="" />
+      <option name="PACKAGE_NAME" value="salt.hoprxi.crypto" />
+      <option name="MAIN_CLASS_NAME" value="salt.hoprxi.crypto.EncryptionServiceTest" />
       <option name="GROUP_NAME" value="" />
       <option name="TEST_OBJECT" value="CLASS" />
       <option name="PARAMETERS" value="" />
@@ -316,6 +371,26 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ResourceWherePathTest" type="TestNG">
+      <module name="utils" />
+      <shortenClasspath name="NONE" />
+      <option name="SUITE_NAME" value="" />
+      <option name="PACKAGE_NAME" value="salt.hoprxi.utils" />
+      <option name="MAIN_CLASS_NAME" value="salt.hoprxi.utils.ResourceWherePathTest" />
+      <option name="GROUP_NAME" value="" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="PARAMETERS" value="" />
+      <option name="OUTPUT_DIRECTORY" value="" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <option name="PROPERTIES_FILE" value="" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="SelectorTest" type="TestNG">
       <module name="utils" />
       <shortenClasspath name="NONE" />
@@ -346,6 +421,8 @@
       <item itemvalue="TestNG.PinYinTest" />
       <item itemvalue="TestNG.HashServiceTest" />
       <item itemvalue="TestNG.PasswordServiceTest" />
+      <item itemvalue="TestNG.ResourceWherePathTest" />
+      <item itemvalue="TestNG.EncryptionServiceTest" />
       <item itemvalue="TestNG.CaffeineCacheTest" />
       <item itemvalue="TestNG.LettuceStandAloneRedisClientTest" />
       <item itemvalue="TestNG.L1_2CacheTest" />
@@ -381,7 +458,14 @@
       <workItem from="1705236359807" duration="599000" />
       <workItem from="1707913584730" duration="4628000" />
       <workItem from="1707921944467" duration="843000" />
-      <workItem from="1710471923136" duration="2965000" />
+      <workItem from="1710471923136" duration="3005000" />
+      <workItem from="1710485040345" duration="694000" />
+      <workItem from="1710984982202" duration="34000" />
+      <workItem from="1710993849928" duration="3934000" />
+      <workItem from="1711336776864" duration="14979000" />
+      <workItem from="1711724376923" duration="4600000" />
+      <workItem from="1711948499899" duration="1398000" />
+      <workItem from="1712368074890" duration="24493000" />
     </task>
     <task id="LOCAL-00001" summary="202309191815">
       <created>1695118536340</created>
@@ -439,7 +523,14 @@
       <option name="project" value="LOCAL" />
       <updated>1707916613673</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="202403151319">
+      <created>1710479965217</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1710479965217</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -467,7 +558,9 @@
     <MESSAGE value="202402142055" />
     <MESSAGE value="202402142109" />
     <MESSAGE value="202402142116" />
-    <option name="LAST_COMMIT_MESSAGE" value="202402142116" />
+    <MESSAGE value="202403151319" />
+    <MESSAGE value="202404061037" />
+    <option name="LAST_COMMIT_MESSAGE" value="202404061037" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">

@@ -21,14 +21,13 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Objects;
-import java.util.ResourceBundle;
 
 /**
  * @author <a href="www.hoprxi.com/authors/guan xiangHuan">guan xiangHuan</a>
  * @version 0.0.3 2023-01-10
  * @since JDK8.0
  */
-public class ResourceWherePath {
+public final class ResourceWherePath {
     private static final String PARENT_SEPARATOR_PATH = ".." + File.separatorChar;
     private static final char SEPARATOR = '.';
 
@@ -59,45 +58,6 @@ public class ResourceWherePath {
             basePath = basePath.substring(0, basePath.lastIndexOf(File.separatorChar));
         }
         return basePath + relativePath;
-    }
-
-    /**
-     * @param args
-     * @throws MalformedURLException
-     */
-
-    public static void main(String[] args) throws MalformedURLException {
-        long start = System.currentTimeMillis();
-        System.out.println("beging test path:");
-        String serial = '/' + ResourceWherePath.class.getPackage().getName().replace('.', '/');
-        System.out.println(serial);
-        System.out.println("\nThread.currentThread().getContextClassLoader.getResource(\"\")");
-        System.out.println(Thread.currentThread().getContextClassLoader().getResource(""));
-        System.out.println("\nResourceWherePath.class.getResource(\"\")");
-        System.out.println(ResourceWherePath.class.getResource(""));
-        System.out.println("\nResourceWherePath.class.getResource(\"/\")");
-        System.out.println(ResourceWherePath.class.getResource("/"));
-        System.out.println("\nResourceWherePath.class.getClassLoader().getResource(\"\")");
-        System.out.println(ResourceWherePath.class.getClassLoader().getResource(""));
-        System.out.println("\nResourceWherePath.class.getResource(NtpMessage.class)");
-        System.out.println(ResourceWherePath.class.getResource("NtpMessage.class"));
-        System.out.println("\nClassLoader.getSystemResource(\"\")");
-        System.out.println(ClassLoader.getSystemResource(""));
-
-        System.out.println("\nResourceBundle.getBundle(\"FileWatchDog\") ");
-        System.out.println(ResourceBundle.getBundle("watch_dog"));
-        System.out.println("\nResourceWherePath.toUniversalFilePath(\"salt.hoprxi.utils.NLS.class\")");
-        System.out.println(ResourceWherePath.toUniversalFilePath("salt.hoprxi.utils.NLS.class"));
-        System.out.println("\nSystem.getProperty(\"user.dir\")");
-        System.out.println(System.getProperty("user.dir"));
-        System.out.println("\nResourceWherePath.getAbsolutePath(\"file:/d:/s/a/y\",\"../../../sd.xml\")");
-        System.out.println(ResourceWherePath.getAbsolutePath("file:" + File.separatorChar + "d:" + File.separatorChar + "s" + File.separatorChar + "a" + File.separatorChar + "y", ".." + File.separatorChar + ".." + File.separatorChar + ".." + File.separatorChar + "sd.xml"));
-        //System.out.println(ResourceWherePath.getAbsolutePath(Thread.currentThread().getContextClassLoader().getResource("").toString(), ".." + File.separatorChar + ".." + File.separatorChar + ".." + File.separatorChar + "sd.xml"));
-        System.out.println("\nResourceWherePath.toURL(\"salt/hoprxi/utils/Version.class\")");
-        System.out.println(ResourceWherePath.toUrl("salt/hoprxi/utils/Version.class"));
-        System.out.println("\nResourceWherePath.toUrlWithPoint(\"salt.hoprxi.utils.Version.class\"))");
-        System.out.println(ResourceWherePath.toUrlWithPoint("salt.hoprxi.utils.Version.class"));
-        System.out.println("\nExecute time:" + (System.currentTimeMillis() - start));
     }
 
     /**

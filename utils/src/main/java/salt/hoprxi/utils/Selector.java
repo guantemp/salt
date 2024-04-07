@@ -29,14 +29,11 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class Selector {
     //weight=1 对应的基本虚拟节点个数
-    private int virtualNodeNum = 160;
-    private final List<Divisor<?>> physicsDivisors = new LinkedList<>();
+    private final int virtualNodeNum = 160;
+    private final List<Divisor<?>> physicsNodes = new LinkedList<>();
     private int sum = 0;
     //定义一个0--2^32-1环
-    private SortedMap<Integer, Divisor<?>> sortedMap = new TreeMap<>();
-
-    public Selector() {
-    }
+    private final SortedMap<Integer, Divisor<?>> virtualNodes = new TreeMap<>();
 
     public Selector(List<Divisor<?>> divisors) {
         for (Divisor divisor : divisors) {
@@ -54,7 +51,7 @@ public class Selector {
      * @param divisor add one server
      */
     public void add(Divisor<?> divisor) {
-        physicsDivisors.add(divisor);
+        physicsNodes.add(divisor);
         sum += divisor.weight;
         refreshHashCircle();
     }
@@ -63,27 +60,27 @@ public class Selector {
      * @param divisor del one server
      */
     public void delete(Divisor<String> divisor) {
-        physicsDivisors.remove(divisor);
+        physicsNodes.remove(divisor);
         sum -= divisor.weight;
         refreshHashCircle();
     }
 
     private void refreshHashCircle() {
-        double[] percentage = new double[physicsDivisors.size()];
-        for (int i = 0, j = physicsDivisors.size(); i < j; i++) {
-            percentage[i] = physicsDivisors.get(i).weight / (double) sum * 100;
+        double[] percentage = new double[physicsNodes.size()];
+        for (int i = 0, j = physicsNodes.size(); i < j; i++) {
+            percentage[i] = physicsNodes.get(i).weight / (double) sum * 100;
         }
         Arrays.sort(percentage);
         double min = percentage[0];
-        sortedMap.clear();
-        for (Divisor divisor : physicsDivisors) {
+        virtualNodes.clear();
+        for (Divisor divisor : physicsNodes) {
             int proportion = (int) Math.round(divisor.weight / (double) sum * 100 / min);
             //System.out.print(proportion + "\t");
             for (int i = 0; i < virtualNodeNum / 4 * proportion; i++) {
                 String virtualNodeName = divisor.value + "&&virtual:" + i;
                 byte[] bytes = md5(virtualNodeName);
                 for (int j = 0; j < 4; j++) {
-                    sortedMap.put(ketamaHash(bytes, j), divisor);
+                    virtualNodes.put(ketamaHash(bytes, j), divisor);
                 }
             }
         }
@@ -93,9 +90,10 @@ public class Selector {
         String virtualNodeName = key + "&&virtual:0";
         byte[] bytes = md5(virtualNodeName);
         int hash = ketamaHash(bytes, 0);
-        SortedMap<Integer, Divisor<?>> subMap = sortedMap.tailMap(hash);
-        if (subMap == null || subMap.isEmpty()) {
-            return (T) (sortedMap.get(sortedMap.firstKey()).value());
+        System.out.println(key +" hash is:"+hash);
+        SortedMap<Integer, Divisor<?>> subMap = virtualNodes.tailMap(hash);
+        if (subMap.isEmpty()) {
+            return (T) (virtualNodes.get(virtualNodes.firstKey()).value());
         } else {
             return (T) subMap.get(subMap.firstKey()).value();
         }
@@ -108,46 +106,47 @@ public class Selector {
     @Override
     public String toString() {
         return new StringJoiner(", ", Selector.class.getSimpleName() + "[", "]")
+                .add("virtualNodeNum=" + virtualNodeNum)
+                .add("physicsDivisors=" + physicsNodes)
                 .add("sum=" + sum)
-                .add("sortedMapSize=" + sortedMap.size())
-                .add("sortedMap=" + sortedMap)
+                .add("sortedMap=" + virtualNodes)
                 .toString();
     }
 
     /*
-            private static void refreshHashCircle() {
-                // 当集群变动时，刷新hash环，其余的集群在hash环上的位置不会发生变动
-                virtualNodes.clear();
-                for (String realGroup : realGroups) {
-                    for (int i = 0; i < VIRTUAL_NODE_NUM; i++) {
-                        String virtualNodeName = getVirtualNodeName(realGroup, i);
-                        int hash = HashUtil.getHash(virtualNodeName);
-                        System.out.println("[" + virtualNodeName + "] launched @ " + hash);
-                        virtualNodes.put(hash, virtualNodeName);
+                private static void refreshHashCircle() {
+                    // 当集群变动时，刷新hash环，其余的集群在hash环上的位置不会发生变动
+                    virtualNodes.clear();
+                    for (String realGroup : realGroups) {
+                        for (int i = 0; i < VIRTUAL_NODE_NUM; i++) {
+                            String virtualNodeName = getVirtualNodeName(realGroup, i);
+                            int hash = HashUtil.getHash(virtualNodeName);
+                            System.out.println("[" + virtualNodeName + "] launched @ " + hash);
+                            virtualNodes.put(hash, virtualNodeName);
+                        }
                     }
                 }
-            }
 
-            private static void addGroup(String identifier) {
-                realGroups.add(identifier);
-                refreshHashCircle();
-            }
-
-            private static void removeGroup(String identifier) {
-                int i = 0;
-                for (String group : realGroups) {
-                    if (group.equals(identifier)) {
-                        realGroups.remove(i);
-                    }
-                    i++;
+                private static void addGroup(String identifier) {
+                    realGroups.add(identifier);
+                    refreshHashCircle();
                 }
-                refreshHashCircle();
-            }
 
-            /**
-             * @param data
-             * @return
-             */
+                private static void removeGroup(String identifier) {
+                    int i = 0;
+                    for (String group : realGroups) {
+                        if (group.equals(identifier)) {
+                            realGroups.remove(i);
+                        }
+                        i++;
+                    }
+                    refreshHashCircle();
+                }
+
+                /**
+                 * @param data
+                 * @return
+                 */
     public int FNVHash1(String data) {
         final int p = 16777619;
         int hash = (int) 2166136261L;
@@ -165,11 +164,6 @@ public class Selector {
         return hash;
     }
 
-    /**
-     * @param digest
-     * @param number
-     * @return
-     */
     private int ketamaHash(byte[] digest, int number) {
         /*
         long rv = (long) (digest[3] & 255) << 24 |
@@ -181,8 +175,7 @@ public class Selector {
         return Math.abs((int) ((((long) (digest[3 + number * 4] & 0xFF) << 24)
                 | ((long) (digest[2 + number * 4] & 0xFF) << 16)
                 | ((long) (digest[1 + number * 4] & 0xFF) << 8)
-                | (digest[number * 4] & 0xFF))
-                & 0xFFFFFFFF));
+                | (digest[number * 4] & 0xFF))));
     }
 
     private byte[] md5(String data) {
@@ -200,7 +193,7 @@ public class Selector {
 
     public static class Divisor<T> {
         int weight;
-        private T value;
+        private final T value;
 
         public Divisor(T value) {
             this(1, value);
@@ -213,10 +206,6 @@ public class Selector {
 
         public T value() {
             return value;
-        }
-
-        public String name() {
-            return "120.77.47.145";
         }
 
         @Override
