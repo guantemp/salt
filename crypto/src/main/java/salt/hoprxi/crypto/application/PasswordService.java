@@ -23,14 +23,14 @@ import org.bouncycastle.cert.X509v3CertificateBuilder;
 import org.bouncycastle.operator.ContentSigner;
 import org.bouncycastle.operator.OperatorCreationException;
 import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
+import org.bouncycastle.util.encoders.Base64;
 
 import javax.crypto.*;
 import javax.crypto.spec.IvParameterSpec;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.security.*;
 import java.security.cert.Certificate;
 import java.security.cert.*;
@@ -48,7 +48,7 @@ import java.util.regex.Pattern;
 /***
  * @author <a href="www.hoprxi.com/author/guan xiangHuan">guan xiangHuan</a>
  * @since JDK8.0
- * @version 0.0.3 2022-08-19
+ * @version 0.0.4 2024-04-24
  */
 public class PasswordService {
     private static final String DIGITS = "0123456789";
@@ -57,6 +57,170 @@ public class PasswordService {
     private static final int STRONG_THRESHOLD = 20;
     private static final int VERY_STRONG_THRESHOLD = 40;
     private static final Pattern CHINESE_PATTERN = Pattern.compile("[\u4e00-\u9fa5]");
+    private static Pattern EXCLUDE = Pattern.compile("^-{1,}.*");
+
+    public static void main(String[] args) throws NoSuchAlgorithmException, CertificateException, KeyStoreException, UnrecoverableKeyException, IOException {
+        String param1 = null, param2 = null, param3 = null, param4 = null;
+        String fileName = "keystore.jks";
+        boolean encryptSign = false, fileSign = false, storeSign = false, helpSign = false;
+        for (int i = 0, j = args.length; i < j; i++) {
+            switch (args[i]) {
+                case "-f":
+                case "--file":
+                    fileSign = true;
+                    if (j > i + 1 && !EXCLUDE.matcher(args[i + 1]).matches()) {
+                        fileName = args[i + 1];
+                    }
+                    break;
+                case "-e":
+                    encryptSign = true;
+                    if (j > i + 1 && !EXCLUDE.matcher(args[i + 1]).matches())
+                        param1 = args[i + 1];
+                    if (j > i + 2 && !EXCLUDE.matcher(args[i + 2]).matches())
+                        param2 = args[i + 2];
+                    if (j > i + 3 && !EXCLUDE.matcher(args[i + 3]).matches())
+                        param3 = args[i + 3];
+                    if (j > i + 4 && !EXCLUDE.matcher(args[i + 4]).matches())
+                        param4 = args[i + 4];
+                    break;
+                case "-S":
+                    storeSign = true;
+                    if (j > i + 1) {
+                        if (EXCLUDE.matcher(args[i + 1]).matches())
+                            break;
+                        else
+                            param1 = args[i + 1];
+                    }
+                    if (j > i + 2) {
+                        if (EXCLUDE.matcher(args[i + 2]).matches())
+                            break;
+                        else
+                            param2 = args[i + 2];
+                    }
+                    if (j > i + 3) {
+                        if (EXCLUDE.matcher(args[i + 3]).matches())
+                            break;
+                        else
+                            param3 = args[i + 3];
+                    }
+                    break;
+                case "-h":
+                case "--help":
+                    helpSign = true;
+                    break;
+            }
+        }
+        if (helpSign || args.length == 0) {
+            System.out.println("Non-option arguments:\n" +
+                    "command              \n" +
+                    "\n" +
+                    "Option                         Description        \n" +
+                    "------                         -----------        \n" +
+                    "-S <KeyValuePair>              configure a setting\n" +
+                    "-e <KeyValuePair>              encrypt a passwd\n" +
+                    "-l, --list                     entries in the keystore\n" +
+                    "-h, --help                     Show help          \n" +
+                    "-p, --passwd                   Encrypt password\n" +
+                    "-pp,--PasswordProtection       Encrypt password protection\n" +
+                    "-f, --file                     Show verbose output\n");
+        } else {
+            if (encryptSign) {
+                if (fileSign) {
+                    encryptWithStorePasswd(param1, fileName, param2, param3, param4);
+                } else {
+                    encrypt(param1, param2);
+                }
+            }
+            if (storeSign) {
+                store(param1, param2, param3, fileName);
+            }
+        }
+    }
+
+    private static void encryptWithStorePasswd(String source, String fileName, String entry, String filePasswd, String entryPasswd) throws NoSuchAlgorithmException, CertificateException, KeyStoreException, UnrecoverableKeyException {
+        try (FileInputStream fis = new FileInputStream(fileName)) {
+            KeyStore keyStore = KeyStore.getInstance("JCEKS");
+            keyStore.load(fis, filePasswd.toCharArray());
+            if (entryPasswd == null) entryPasswd = filePasswd;
+            SecretKey secKey = (SecretKey) keyStore.getKey(entry, entryPasswd.toCharArray());
+            encrypt(source, secKey);
+        } catch (FileNotFoundException e) {
+            System.out.println("Not find key store file：" + fileName);
+        } catch (IOException e) {
+            System.out.println("Keystore password was incorrect" + filePasswd);
+        } catch (UnrecoverableKeyException e) {
+            System.out.println("Is a bad key is used during decryption" + entryPasswd);
+        }
+    }
+
+    private static void encrypt(String source, String passwd) throws NoSuchAlgorithmException {
+        KeyGenerator gen = KeyGenerator.getInstance("AES");
+        gen.init(256, new SecureRandom(passwd.getBytes(StandardCharsets.UTF_8)));
+        SecretKey secretKey = gen.generateKey();
+        encrypt(source, secretKey);
+    }
+
+    private static void encrypt(String source, SecretKey secretKey) {
+        SecureRandom secureRandom = new SecureRandom();//SecureRandom.getInstance("SHA1PRNG");
+        byte[] iv = new byte[16];
+        secureRandom.nextBytes(iv);
+        IvParameterSpec ivParameterSpec = new IvParameterSpec(iv);
+
+        byte[] sources = source.getBytes(StandardCharsets.UTF_8);
+        byte[] mix = new byte[iv.length + sources.length];
+        secureRandom.nextBytes(iv);
+        System.arraycopy(iv, 0, mix, 0, 16);
+        System.arraycopy(sources, 0, mix, 16, sources.length);
+
+        byte[] aesData = PasswordService.encrypt(mix, secretKey, ivParameterSpec);
+
+        System.out.println("Item                  Result \n" +
+                "------                -----------        \n" +
+                "source                " + source + "\n" +
+                "passwd(base64)        " + Base64.toBase64String(secretKey.getEncoded()) + "\n" +
+                "encrypted             " + Base64.toBase64String(aesData)
+        );
+    }
+
+
+    private static void store(String param1, String param2, String param3, String filename) throws KeyStoreException, CertificateException, IOException, NoSuchAlgorithmException {
+        String protectPasswd = "", entry = "security.keystore.password", entryPasswd = PasswordService.generateVeryStrongPassword();
+        if (param1 != null && param2 != null && param3 != null) {
+            protectPasswd = param1;
+            entry = param2;
+            entryPasswd = param3;
+        } else if (param1 != null && param2 != null) {
+            entry = param1;
+            entryPasswd = param2;
+        } else if (param1 != null) {
+            entryPasswd = param1;
+        }
+        System.out.println(param1 + ":" + param2 + ":" + param3);
+        System.out.println(protectPasswd + ":" + entry + ":" + entryPasswd);
+        KeyStore keyStore = KeyStore.getInstance("JCEKS");
+        keyStore.load(null, null);
+        File file = new File(filename);
+        if (file.exists()) {
+            keyStore.load(Files.newInputStream(file.toPath()), protectPasswd.toCharArray());
+        }
+
+        KeyGenerator gen = KeyGenerator.getInstance("AES");
+        gen.init(256, new SecureRandom(entryPasswd.getBytes(StandardCharsets.UTF_8)));
+        SecretKey customizedKey = gen.generateKey();
+        keyStore.setEntry(entry, new KeyStore.SecretKeyEntry(customizedKey), new KeyStore.PasswordProtection(entryPasswd.toCharArray()));
+
+        FileOutputStream fos = new FileOutputStream(file);
+        keyStore.store(Files.newOutputStream(file.toPath()), protectPasswd.toCharArray());
+        fos.close();
+
+        System.out.println("Password has been saved to ‘" + file.getAbsolutePath() + "’\n" +
+                "--------------               ------------------        \n" +
+                "Protect Password             " + protectPasswd + "\n" +
+                "Entry                        " + entry + "\n" +
+                "Entry Password               " + entryPasswd + "\n" +
+                "Entry Protect Password       " + entryPasswd
+        );
+    }
 
     /**
      * @param plainTextPassword
@@ -213,17 +377,6 @@ public class PasswordService {
 
     }
 
-    public static byte[] encrypt(byte[] data, SecretKey secretKey) {
-        try {
-            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-            cipher.init(Cipher.ENCRYPT_MODE, secretKey);
-            return cipher.doFinal(data);
-        } catch (NoSuchPaddingException | NoSuchAlgorithmException | InvalidKeyException | IllegalBlockSizeException |
-                 BadPaddingException e) {
-            throw new RuntimeException("Encrypt data[" + data + "] exception", e);
-        }
-    }
-
     /**
      * @param data
      * @param secretKey
@@ -231,6 +384,8 @@ public class PasswordService {
      * @return
      */
     public static byte[] encrypt(byte[] data, SecretKey secretKey, IvParameterSpec spec) {
+        Objects.requireNonNull(secretKey, "secretKey is required");
+        Objects.requireNonNull(spec, "Iv Parameter Spec is required");
         try {
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
             cipher.init(Cipher.ENCRYPT_MODE, secretKey, spec);

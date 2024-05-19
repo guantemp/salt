@@ -40,10 +40,8 @@ import java.security.*;
  */
 public class SM4 {
     private static final String ALGORITHM_NAME = "SM4";
-    private static final String ALGORITHM_NAME_ECB_PADDING = "SM4/ECB/PKCS5Padding";
-    private static final String ALGORITHM_NAME_ECB_NOPADDING = "SM4/ECB/NoPadding";
     private static final String ALGORITHM_NAME_CBC_PADDING = "SM4/CBC/PKCS5Padding";
-    private static final String ALGORITHM_NAME_CBC_NOPADDING = "SM4/CBC/NoPadding";
+
     private static final int DEFAULT_KEY_SIZE = 128;
 
     static {

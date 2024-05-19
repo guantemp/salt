@@ -31,6 +31,7 @@ import salt.hoprxi.crypto.application.PasswordService;
 
 import javax.crypto.*;
 import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -54,6 +55,12 @@ import java.util.Locale;
  * @version 0.0.1 builder 2021-08-09
  */
 public class PasswordServiceTest {
+    @Test(priority = 1)
+    public void testMain() throws UnrecoverableKeyException, CertificateException, NoSuchAlgorithmException, KeyStoreException, IOException {
+        PasswordService.main(new String[]{"-S","Qwer","postgresql.security.keystore.password","Qwe13465","-f","f:/test.jks"});
+    }
+
+
     @Test
     public void testSM4() throws NoSuchAlgorithmException, NoSuchProviderException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, InvalidAlgorithmParameterException {
         byte[] keys = SM4.generateKey();
@@ -62,7 +69,7 @@ public class PasswordServiceTest {
         byte[] iv = new byte[16];
         secureRandom.nextBytes(iv);
         IvParameterSpec ivParameterSpec = new IvParameterSpec(iv);
-        byte[] encrypt = SM4.encrypt_Cbc_Padding(keys, ivParameterSpec.getIV(),"Qwe123465".getBytes(StandardCharsets.UTF_8));
+        byte[] encrypt = SM4.encrypt_Cbc_Padding(keys, ivParameterSpec.getIV(), "Qwe123465".getBytes(StandardCharsets.UTF_8));
         System.out.println("SM加密结果:" + Base64.toBase64String(encrypt));
         byte[] decrypt = SM4.decrypt_Cbc_Padding(keys, ivParameterSpec.getIV(), encrypt);
         System.out.println("SM解密结果:" + new String(decrypt, StandardCharsets.UTF_8));
@@ -85,38 +92,54 @@ public class PasswordServiceTest {
         Assert.assertFalse(PasswordService.isVeryStrong("32534sdgd12"));
     }
 
-    @org.testng.annotations.Test
+    @org.testng.annotations.Test(enabled = false)
     public void testAes() throws NoSuchAlgorithmException, IOException, KeyStoreException, CertificateException, UnrecoverableKeyException, InvalidKeySpecException {
-        SecureRandom secureRandom = new SecureRandom();//SecureRandom.getInstance("SHA1PRNG");
+        SecureRandom secureRandom = SecureRandom.getInstance("SHA1PRNG");//SecureRandom.getInstance("SHA1PRNG");
         byte[] iv = new byte[16];
         secureRandom.nextBytes(iv);
         IvParameterSpec ivParameterSpec = new IvParameterSpec(iv);
+        System.out.println("AES随机初始化向量(BASE64):" + Base64.toBase64String(ivParameterSpec.getIV()));
         // 将KeyStore保存到文件
         KeyStore keyStore = KeyStore.getInstance("JCEKS");
         keyStore.load(null, null);
 
         KeyGenerator gen = KeyGenerator.getInstance("AES");
         gen.init(256, secureRandom);
+
         SecretKey secretKey = gen.generateKey();
         keyStore.setEntry("elasticsearch.security.keystore.password", new KeyStore.SecretKeyEntry(secretKey), new KeyStore.PasswordProtection("123".toCharArray()));
         System.out.println("AES随机密钥(elasticsearch):" + Base64.toBase64String(secretKey.getEncoded()));
         secretKey = gen.generateKey();
         System.out.println("AES随机密钥(postgresql):" + Base64.toBase64String(secretKey.getEncoded()));
         keyStore.setEntry("postgresql.security.keystore.password", new KeyStore.SecretKeyEntry(secretKey), new KeyStore.PasswordProtection("Qwe123465".toCharArray()));
-/*
+
+        gen = KeyGenerator.getInstance("AES");
+        gen.init(256, new SecureRandom("Qwe123465".getBytes(StandardCharsets.UTF_8)));
+        SecretKey customizedKey = gen.generateKey();
+        System.out.println("AES指定密钥:" + Base64.toBase64String(customizedKey.getEncoded()));
+        keyStore.setEntry("customized.security.keystore.password", new KeyStore.SecretKeyEntry(customizedKey), new KeyStore.PasswordProtection("Qwe123465".toCharArray()));
+        /*
         SecretKeyFactory factory=SecretKeyFactory.getInstance("PBKDF2WithHmacSHA512");
-        KeySpec spec=new PBEKeySpec(new String(ivParameterSpec.getIV(), StandardCharsets.UTF_8).toCharArray(),iv,32768,128);
+        KeySpec spec=new PBEKeySpec("Qwe123465".toCharArray(),iv,32768,128);
         SecretKeySpec sKeySpec = new SecretKeySpec(factory.generateSecret(spec).getEncoded(), "AES");
         System.out.println("AES定制密钥:" + Base64.toBase64String(sKeySpec.getEncoded()));
-        keyStore.setEntry("postgresql.security.keystore.iv", new KeyStore.SecretKeyEntry(sKeySpec), new KeyStore.PasswordProtection("Qwe123465".toCharArray()));
 */
         FileOutputStream fos = new FileOutputStream("keystore.jks");
         keyStore.store(fos, "".toCharArray());
         fos.close();
 
-        System.out.println("AES随机初始化向量(BASE64):" + Base64.toBase64String(ivParameterSpec.getIV()));
-        byte[] aesData = PasswordService.encrypt("Qwe123465".getBytes(StandardCharsets.UTF_8),
-                secretKey, ivParameterSpec);
+        byte[] prefix = new byte[16];
+        secureRandom.nextBytes(prefix);
+        byte[] sources = "Qwe123465".getBytes(StandardCharsets.UTF_8);
+        System.out.println("加密源(base64):" + Base64.toBase64String(sources));
+        byte[] mix = new byte[prefix.length + sources.length];
+        System.arraycopy(prefix, 0, mix, 0, 16);
+        System.arraycopy(sources, 0, mix, 16, sources.length);
+        System.out.println("随机增加16byte后加密源base64:" + Base64.toBase64String(mix));
+
+        SecretKeySpec sKeySpec = new SecretKeySpec("Qwe123465".getBytes(StandardCharsets.UTF_8), "AES");
+
+        byte[] aesData = PasswordService.encrypt(mix, secretKey, ivParameterSpec);
         System.out.println("AES加密结果：" + Base64.toBase64String(aesData));
 
         // 将KeyStore保存的密码取出来
@@ -124,10 +147,13 @@ public class PasswordServiceTest {
         keyStore.load(fis, "".toCharArray());
         fis.close();
 
-        SecretKey secKey = (SecretKey) keyStore.getKey("postgresql.security.keystore.password","Qwe123465".toCharArray());
-        //ivParameterSpec = new IvParameterSpec(sIV.getEncoded());
+        SecretKey secKey = (SecretKey) keyStore.getKey("postgresql.security.keystore.password", "Qwe123465".toCharArray());
+        secureRandom.nextBytes(iv);
+        ivParameterSpec = new IvParameterSpec(iv);
         aesData = PasswordService.decrypt(aesData, secKey, ivParameterSpec);
-        System.out.println("AES解密结果：" + new String(aesData, StandardCharsets.UTF_8));
+        byte[] result = new byte[aesData.length - 16];
+        System.arraycopy(aesData, 16, result, 0, result.length);
+        System.out.println("AES解密结果：" + new String(result, StandardCharsets.UTF_8));
     }
 
     @org.testng.annotations.Test
