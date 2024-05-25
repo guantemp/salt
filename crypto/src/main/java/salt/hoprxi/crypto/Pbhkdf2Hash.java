@@ -35,10 +35,9 @@ public class Pbhkdf2Hash implements HashService {
     private static final int HASH = 256;
     private static final int ITERATIONS = 16384;
     private static final String SECRET_NAME = "PBKDF2WithHmacSHA512";
-    private static final String SECRET_RANDOM = "SHA1PRNG";//NativePRNG
 
     @Override
-    public boolean check(String plainText, String securedPlainTextHash) {
+    public boolean matches(String plainText, String securedPlainTextHash) {
         String[] parts = securedPlainTextHash.split(":");
         byte[] salt = fromHex(parts[0]);
         byte[] hash = fromHex(parts[1]);
@@ -92,7 +91,7 @@ public class Pbhkdf2Hash implements HashService {
      * @throws NoSuchAlgorithmException
      */
     private byte[] getSalt() throws NoSuchAlgorithmException {
-        SecureRandom sr = SecureRandom.getInstance(SECRET_RANDOM);
+        SecureRandom sr = SecureRandom.getInstanceStrong();
         byte[] salt = new byte[32];
         sr.nextBytes(salt);
         return salt;

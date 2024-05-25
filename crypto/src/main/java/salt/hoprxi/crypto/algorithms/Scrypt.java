@@ -30,6 +30,7 @@ import java.util.Base64;
  * @author amdelamar, Will Glozer
  * @see <a href="https://en.wikipedia.org/wiki/Scrypt">https://en.wikipedia.org/wiki/Scrypt</a>
  */
+@Deprecated
 public class Scrypt {
     private static final int DEFAULT_SALT_LENGTH = 32;
     //CPU/内存消耗参数，必须大于1, 是2的n次幂并且小于2^(128 * r / 8)

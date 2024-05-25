@@ -23,6 +23,7 @@ import salt.hoprxi.to.ByteToHex;
  * @since JDK8.0
  * @version 0.0.1 2019-08-12
  */
+@Deprecated
 public class SM3Digest {
     //SM3值的长度
     private static final int BYTE_LENGTH = 32;

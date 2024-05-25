@@ -24,6 +24,7 @@ import java.security.SecureRandom;
  *  @author Damien Miller
  *  * @since 4.1.1
  */
+@Deprecated
 public class Bcrypt {
     // BCrypt parameters
     private static final int GENSALT_DEFAULT_LOG2_ROUNDS = 10;

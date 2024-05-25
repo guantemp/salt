@@ -23,11 +23,12 @@ import salt.hoprxi.crypto.algorithms.Bcrypt;
  * @since JDK8.0
  * @version 0.0.1 2018-01-02
  */
+@Deprecated
 public final class BcryptHash implements HashService {
-    private static final int SALT = 10;
+    private static final int SALT = 16;
 
     @Override
-    public boolean check(String plainText, String securedPlainTextHash) {
+    public boolean matches(String plainText, String securedPlainTextHash) {
         return Bcrypt.checkpw(plainText, securedPlainTextHash);
     }
 

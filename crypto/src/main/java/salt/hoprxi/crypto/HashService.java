@@ -32,5 +32,5 @@ public interface HashService {
      * @param securedPlainTextHash
      * @return
      */
-    boolean check(String plainText, String securedPlainTextHash);
+    boolean matches(String plainText, String securedPlainTextHash);
 }

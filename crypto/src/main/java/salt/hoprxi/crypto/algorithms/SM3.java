@@ -24,6 +24,7 @@ import salt.hoprxi.to.ByteToNumber;
  * @since JDK8.0
  * @version 0.0.1 2019-08-12
  */
+@Deprecated
 public class SM3 {
     public static final byte[] iv = {0x73, (byte) 0x80, 0x16, 0x6f, 0x49,
             0x14, (byte) 0xb2, (byte) 0xb9, 0x17, 0x24, 0x42, (byte) 0xd7,
