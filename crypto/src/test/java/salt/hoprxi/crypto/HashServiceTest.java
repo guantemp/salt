@@ -18,6 +18,10 @@ package salt.hoprxi.crypto;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import salt.hoprxi.crypto.hash.Argon2Hash;
+import salt.hoprxi.crypto.hash.Pbhkdf2Hash;
+import salt.hoprxi.crypto.hash.SM3Hash;
+import salt.hoprxi.crypto.hash.ScryptHash;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;

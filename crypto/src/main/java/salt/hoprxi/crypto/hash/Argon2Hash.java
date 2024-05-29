@@ -14,11 +14,12 @@
  *  limitations under the License.
  */
 
-package salt.hoprxi.crypto;
+package salt.hoprxi.crypto.hash;
 
 
 import org.bouncycastle.crypto.generators.Argon2BytesGenerator;
 import org.bouncycastle.crypto.params.Argon2Parameters;
+import salt.hoprxi.crypto.HashService;
 
 import java.security.SecureRandom;
 import java.util.Base64;
@@ -105,9 +106,8 @@ public class Argon2Hash implements HashService {
                 throw new IllegalArgumentException("Invalid algorithm type: " + parts[0]);
         }
 
-        Argon2Parameters.Builder paramsBuilder = builder;
         if (parts[2].startsWith("v=")) {
-            paramsBuilder.withVersion(Integer.parseInt(parts[2].substring(2)));
+            builder.withVersion(Integer.parseInt(parts[2].substring(2)));
         }
 
         String[] performanceParams = parts[3].split(",");
@@ -116,16 +116,16 @@ public class Argon2Hash implements HashService {
         } else if (!performanceParams[0].startsWith("m=")) {
             throw new IllegalArgumentException("Invalid memory parameter");
         } else {
-            paramsBuilder.withMemoryAsKB(Integer.parseInt(performanceParams[0].substring(2)));
+            builder.withMemoryAsKB(Integer.parseInt(performanceParams[0].substring(2)));
             if (!performanceParams[1].startsWith("t=")) {
                 throw new IllegalArgumentException("Invalid iterations parameter");
             } else {
-                paramsBuilder.withIterations(Integer.parseInt(performanceParams[1].substring(2)));
+                builder.withIterations(Integer.parseInt(performanceParams[1].substring(2)));
                 if (!performanceParams[2].startsWith("p=")) {
                     throw new IllegalArgumentException("Invalid parallelity parameter");
                 } else {
-                    paramsBuilder.withParallelism(Integer.parseInt(performanceParams[2].substring(2)));
-                    paramsBuilder.withSalt(Base64.getDecoder().decode(parts[4]));//4 salt value
+                    builder.withParallelism(Integer.parseInt(performanceParams[2].substring(2)));
+                    builder.withSalt(Base64.getDecoder().decode(parts[4]));//4 salt value
                 }
             }
         }

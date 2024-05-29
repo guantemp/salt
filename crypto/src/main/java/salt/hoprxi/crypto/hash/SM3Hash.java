@@ -14,10 +14,11 @@
  *  limitations under the License.
  */
 
-package salt.hoprxi.crypto;
+package salt.hoprxi.crypto.hash;
 
 
 import org.bouncycastle.crypto.digests.SM3Digest;
+import salt.hoprxi.crypto.HashService;
 import salt.hoprxi.to.ByteToHex;
 
 import java.nio.charset.StandardCharsets;

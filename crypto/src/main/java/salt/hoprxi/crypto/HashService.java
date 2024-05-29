@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022. www.hoprxi.com All Rights Reserved.
+ * Copyright (c) 2024. www.hoprxi.com All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,14 +22,14 @@ package salt.hoprxi.crypto;
  */
 public interface HashService {
     /**
-     * @param plainText
+     * @param plainText plain text
      * @return
      */
     String hash(String plainText);
 
     /**
-     * @param plainText
-     * @param securedPlainTextHash
+     * @param plainText plain text
+     * @param securedPlainTextHash hash value
      * @return
      */
     boolean matches(String plainText, String securedPlainTextHash);

@@ -4,36 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="20482602-c4f2-4d7c-8556-c526a976ada0" name="Changes" comment="202405191100">
-      <change afterPath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/Argon2Hash.java" afterDir="false" />
+    <list default="true" id="20482602-c4f2-4d7c-8556-c526a976ada0" name="Changes" comment="新增argon2 hash&#10;修改scrcpt为bouncycastle实现">
+      <change afterPath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/AesUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/SM4Util.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/crypto/src/test/java/salt/hoprxi/crypto/AesUtilTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/crypto/src/test/java/salt/hoprxi/crypto/SM4UtilTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crypto/hoprxi.p12" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/crypto/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/BcryptHash.java" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/BcryptHash.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/Argon2Hash.java" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/hash/Argon2Hash.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/HashService.java" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/HashService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/Pbhkdf2Hash.java" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/Pbhkdf2Hash.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/SM3Hash.java" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/SM3Hash.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/SM4Encryption.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/ScryptHash.java" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/ScryptHash.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/algorithms/Bcrypt.java" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/algorithms/Bcrypt.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/algorithms/SM3.java" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/algorithms/SM3.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/algorithms/SM3Digest.java" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/algorithms/SM3Digest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/algorithms/Scrypt.java" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/algorithms/Scrypt.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/application/PasswordService.java" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/application/PasswordService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/Pbhkdf2Hash.java" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/hash/Pbhkdf2Hash.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/SM3Hash.java" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/hash/SM3Hash.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/ScryptHash.java" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/hash/ScryptHash.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/algorithms/SM4.java" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/algorithms/SM4.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/application/PasswordService.java" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/PasswordService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/crypto/src/test/java/salt/hoprxi/crypto/HashServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/src/test/java/salt/hoprxi/crypto/HashServiceTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/crypto/src/test/java/salt/hoprxi/crypto/PasswordServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/src/test/java/salt/hoprxi/crypto/PasswordServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crypto/target/classes/salt/hoprxi/crypto/BcryptHash.class" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/target/classes/salt/hoprxi/crypto/BcryptHash.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crypto/target/classes/salt/hoprxi/crypto/HashService.class" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/target/classes/salt/hoprxi/crypto/HashService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crypto/target/classes/salt/hoprxi/crypto/Pbhkdf2Hash.class" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/target/classes/salt/hoprxi/crypto/Pbhkdf2Hash.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crypto/target/classes/salt/hoprxi/crypto/SM3Hash.class" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/target/classes/salt/hoprxi/crypto/SM3Hash.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crypto/target/classes/salt/hoprxi/crypto/SM4Encryption.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/crypto/target/classes/salt/hoprxi/crypto/ScryptHash.class" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/target/classes/salt/hoprxi/crypto/ScryptHash.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crypto/target/classes/salt/hoprxi/crypto/algorithms/Bcrypt.class" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/target/classes/salt/hoprxi/crypto/algorithms/Bcrypt.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crypto/target/classes/salt/hoprxi/crypto/algorithms/SM3.class" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/target/classes/salt/hoprxi/crypto/algorithms/SM3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crypto/target/classes/salt/hoprxi/crypto/algorithms/SM3Digest.class" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/target/classes/salt/hoprxi/crypto/algorithms/SM3Digest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crypto/target/classes/salt/hoprxi/crypto/Pbhkdf2Hash.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/crypto/target/classes/salt/hoprxi/crypto/SM3Hash.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/crypto/target/classes/salt/hoprxi/crypto/ScryptHash.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/crypto/target/classes/salt/hoprxi/crypto/algorithms/SM4.class" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/target/classes/salt/hoprxi/crypto/algorithms/SM4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crypto/target/classes/salt/hoprxi/crypto/algorithms/Scrypt.class" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/target/classes/salt/hoprxi/crypto/algorithms/Scrypt.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crypto/target/classes/salt/hoprxi/crypto/application/PasswordService.class" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/target/classes/salt/hoprxi/crypto/application/PasswordService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crypto/target/classes/salt/hoprxi/crypto/application/PasswordService.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/crypto/target/test-classes/salt/hoprxi/crypto/HashServiceTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/target/test-classes/salt/hoprxi/crypto/HashServiceTest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/crypto/target/test-classes/salt/hoprxi/crypto/PasswordServiceTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/target/test-classes/salt/hoprxi/crypto/PasswordServiceTest.class" afterDir="false" />
     </list>
@@ -46,8 +37,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JUnit3 Test Class" />
-        <option value="TestNG Test Class" />
         <option value="Class" />
+        <option value="TestNG Test Class" />
       </list>
     </option>
   </component>
@@ -80,29 +71,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "TestNG",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit3": "junit.framework.TestCase",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.TestNG": "",
-    "jdk.selected.JAVA_MODULE": "1.8",
-    "last_opened_file_path": "E:/workspace/salt",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "Errors",
-    "spring.configuration.checksum": "5ae9b7f211e23aac3df5f2b8f3b8eada"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;TestNG&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit3&quot;: &quot;junit.framework.TestCase&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.TestNG&quot;: &quot;&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;1.8&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/workspace/salt&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;Errors&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;5ae9b7f211e23aac3df5f2b8f3b8eada&quot;
   },
-  "keyToStringList": {
-    "ChangesTree.GroupingKeys": [
-      "directory"
+  &quot;keyToStringList&quot;: {
+    &quot;ChangesTree.GroupingKeys&quot;: [
+      &quot;directory&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\workspace\salt\cache" />
@@ -119,8 +110,8 @@
       <recent name="E:\workspace\salt\crypto\target\classes" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
-      <recent name="salt.hoprxi" />
       <recent name="salt.hoprxi.crypto" />
+      <recent name="salt.hoprxi" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
       <recent name="salt.hoprxi.crypto" />
@@ -130,7 +121,43 @@
       <recent name="salt.hoprxi.crypto" />
     </key>
   </component>
-  <component name="RunManager" selected="TestNG.HashServiceTest">
+  <component name="RunManager" selected="TestNG.AesUtilTest">
+    <configuration default="true" type="SwaggerCodegen">
+      <option name="activeConfigurationType" value="FILE" />
+      <option name="configurationPath" value="" />
+      <option name="customJreEnabled" value="false" />
+      <option name="customTemplatesPath" value="" />
+      <option name="enableDebugLogging" value="false" />
+      <option name="generateToPath" value="" />
+      <option name="generationParameters">
+        <list />
+      </option>
+      <option name="generatorPath" value="" />
+      <option name="jdkPath" value="Default" />
+      <option name="language" value="" />
+      <option name="specificationPath" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="AesUtilTest" type="TestNG">
+      <module name="crypto" />
+      <shortenClasspath name="NONE" />
+      <option name="SUITE_NAME" value="" />
+      <option name="PACKAGE_NAME" value="salt.hoprxi.crypto" />
+      <option name="MAIN_CLASS_NAME" value="salt.hoprxi.crypto.AesUtilTest" />
+      <option name="GROUP_NAME" value="" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="PARAMETERS" value="" />
+      <option name="OUTPUT_DIRECTORY" value="" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <option name="PROPERTIES_FILE" value="" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="CacheFactoryTest" type="TestNG">
       <module name="cache" />
       <shortenClasspath name="NONE" />
@@ -405,6 +432,27 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="SM4UtilTest" type="TestNG">
+      <module name="crypto" />
+      <shortenClasspath name="NONE" />
+      <useClassPathOnly />
+      <option name="SUITE_NAME" value="" />
+      <option name="PACKAGE_NAME" value="salt.hoprxi.crypto" />
+      <option name="MAIN_CLASS_NAME" value="salt.hoprxi.crypto.SM4UtilTest" />
+      <option name="GROUP_NAME" value="" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="PARAMETERS" value="" />
+      <option name="OUTPUT_DIRECTORY" value="" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <option name="PROPERTIES_FILE" value="" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="SelectorTest" type="TestNG">
       <module name="utils" />
       <shortenClasspath name="NONE" />
@@ -429,6 +477,8 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="TestNG.SM4UtilTest" />
+      <item itemvalue="TestNG.AesUtilTest" />
       <item itemvalue="TestNG.SelectorTest" />
       <item itemvalue="TestNG.RandomGeneratorTest" />
       <item itemvalue="TestNG.DigitPreferenceFilterTest" />
@@ -488,7 +538,9 @@
       <workItem from="1715909478624" duration="8713000" />
       <workItem from="1716086444161" duration="14508000" />
       <workItem from="1716163907373" duration="18425000" />
-      <workItem from="1716601411202" duration="9206000" />
+      <workItem from="1716601411202" duration="10022000" />
+      <workItem from="1716686846227" duration="599000" />
+      <workItem from="1716905186040" duration="13030000" />
     </task>
     <task id="LOCAL-00001" summary="202309191815">
       <created>1695118536340</created>
@@ -567,7 +619,14 @@
       <option name="project" value="LOCAL" />
       <updated>1716087653112</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="新增argon2 hash&#10;修改scrcpt为bouncycastle实现">
+      <created>1716646903392</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1716646903392</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -599,7 +658,8 @@
     <MESSAGE value="202404061037" />
     <MESSAGE value="202404072245" />
     <MESSAGE value="202405191100" />
-    <option name="LAST_COMMIT_MESSAGE" value="202405191100" />
+    <MESSAGE value="新增argon2 hash&#10;修改scrcpt为bouncycastle实现" />
+    <option name="LAST_COMMIT_MESSAGE" value="新增argon2 hash&#10;修改scrcpt为bouncycastle实现" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">

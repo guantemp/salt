@@ -27,12 +27,10 @@ import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
 import org.bouncycastle.util.encoders.Base64;
 import org.junit.Assert;
 import org.testng.annotations.Test;
-import salt.hoprxi.crypto.algorithms.SM4;
-import salt.hoprxi.crypto.application.PasswordService;
+import salt.hoprxi.to.ByteToHex;
 
 import javax.crypto.*;
 import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.SecretKeySpec;
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -43,7 +41,6 @@ import java.security.*;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
-import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.time.Instant;
@@ -63,20 +60,35 @@ public class PasswordServiceTest {
 
     @Test
     public void testSM4() throws NoSuchAlgorithmException, NoSuchProviderException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, InvalidAlgorithmParameterException {
-        Security.addProvider(new BouncyCastleProvider());
-        KeyGenerator kg = KeyGenerator.getInstance("SM4", BouncyCastleProvider.PROVIDER_NAME);
-        kg.init(256, new SecureRandom("Qwe123465".getBytes(StandardCharsets.UTF_8)));
-        SecretKey key = kg.generateKey();
-
-        byte[] keys = SM4.generateKey();
-        System.out.println("SM4随机密钥(BASE64):" + Base64.toBase64String(keys));
         SecureRandom secureRandom = new SecureRandom();//SecureRandom.getInstance("SHA1PRNG");
         byte[] iv = new byte[16];
         secureRandom.nextBytes(iv);
         IvParameterSpec ivParameterSpec = new IvParameterSpec(iv);
-        byte[] encrypt = SM4.encrypt_Cbc_Padding(keys, ivParameterSpec.getIV(), "Qwe123465".getBytes(StandardCharsets.UTF_8));
-        System.out.println("SM加密结果:" + Base64.toBase64String(encrypt));
-        byte[] decrypt = SM4.decrypt_Cbc_Padding(keys, ivParameterSpec.getIV(), encrypt);
+
+        Security.addProvider(new BouncyCastleProvider());
+
+        KeyGenerator kg = KeyGenerator.getInstance("AES", BouncyCastleProvider.PROVIDER_NAME);
+        kg.init(128, new SecureRandom("Qwe13465".getBytes(StandardCharsets.UTF_8)));//固定密码
+        SecretKey key = kg.generateKey();
+
+        byte[] prefix = new byte[16];
+        secureRandom.nextBytes(prefix);
+        byte[] sources = "Qwe123465".getBytes(StandardCharsets.UTF_8);
+        System.out.println("被加密源文本(base64):" + Base64.toBase64String(sources));
+        byte[] mix = new byte[prefix.length + sources.length];
+        System.arraycopy(prefix, 0, mix, 0, 16);
+        System.arraycopy(sources, 0, mix, 16, sources.length);
+        System.out.println("前置随机增加16byte(iv)后被加密源文本(base64):" + Base64.toBase64String(mix));
+
+        Cipher cipher = Cipher.getInstance("SM4/CBC/PKCS5Padding", BouncyCastleProvider.PROVIDER_NAME);
+        cipher.init(Cipher.ENCRYPT_MODE, key, ivParameterSpec);
+        byte[] encrypt = cipher.doFinal("Qwe123465".getBytes(StandardCharsets.UTF_8));
+        System.out.println("SM加密结果:" + ByteToHex.toHexStr(encrypt));
+
+
+        //cipher = Cipher.getInstance("SM4/CBC/PKCS5Padding", BouncyCastleProvider.PROVIDER_NAME);
+        cipher.init(Cipher.DECRYPT_MODE, key, ivParameterSpec);
+        byte[] decrypt = cipher.doFinal(encrypt);
         System.out.println("SM解密结果:" + new String(decrypt, StandardCharsets.UTF_8));
     }
 
@@ -98,7 +110,7 @@ public class PasswordServiceTest {
     }
 
     @org.testng.annotations.Test
-    public void testAes() throws NoSuchAlgorithmException, IOException, KeyStoreException, CertificateException, UnrecoverableKeyException, InvalidKeySpecException {
+    public void testAes() throws NoSuchAlgorithmException, IOException, KeyStoreException, CertificateException, UnrecoverableKeyException, InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
         SecureRandom secureRandom = SecureRandom.getInstance("SHA1PRNG");//SecureRandom.getInstance("SHA1PRNG");
         byte[] iv = new byte[16];
         secureRandom.nextBytes(iv);
@@ -142,7 +154,7 @@ public class PasswordServiceTest {
         System.arraycopy(sources, 0, mix, 16, sources.length);
         System.out.println("随机增加16byte(iv)后加密源base64:" + Base64.toBase64String(mix));
 
-        SecretKeySpec sKeySpec = new SecretKeySpec("Qwe123465".getBytes(StandardCharsets.UTF_8), "AES");
+//        SecretKeySpec sKeySpec = new SecretKeySpec("Qwe123465".getBytes(StandardCharsets.UTF_8), "AES");
 
         byte[] aesData = PasswordService.encrypt(mix, secretKey, ivParameterSpec);
 //        System.out.println("AES加密结果(byte)：");
@@ -150,6 +162,9 @@ public class PasswordServiceTest {
 //            System.out.println(b);
         String temp = Base64.toBase64String(aesData);
         System.out.println("AES加密结果(base64)：" + temp);
+
+        byte[] encrytpt = PasswordService.encryptAesSpec(sources, customizedKey, ivParameterSpec);
+        System.out.println("AES加密结果(hex):" + ByteToHex.toHexStr(encrytpt));
 //        for(byte b:Base64.decode(temp))
 //            System.out.println(b);
 
@@ -160,15 +175,8 @@ public class PasswordServiceTest {
 
         SecretKey secKey = (SecretKey) keyStore.getKey("postgresql.security.keystore.password", "Qwe123465".toCharArray());
         secureRandom.nextBytes(iv);
-        ivParameterSpec = new IvParameterSpec(iv);
-        byte[] decryptData = PasswordService.decrypt(aesData, secKey, ivParameterSpec);
-        byte[] result = new byte[decryptData.length - 16];
-        System.arraycopy(decryptData, 16, result, 0, result.length);
-        System.out.println("AES解密结果：" + new String(result, StandardCharsets.UTF_8));
-
-
-        result = PasswordService.decryptRemoveIV(aesData, secKey);
-        System.out.println("AES解密结果：" + new String(result, StandardCharsets.UTF_8));
+        byte[] decryptData = PasswordService.decryptAesSpec(aesData, secKey);
+        System.out.println("AES解密结果：" + new String(decryptData, StandardCharsets.UTF_8));
     }
 
     @org.testng.annotations.Test

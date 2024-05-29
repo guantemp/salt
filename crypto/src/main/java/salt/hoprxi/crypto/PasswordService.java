@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022. www.hoprxi.com All Rights Reserved.
+ * Copyright (c) 2024. www.hoprxi.com All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package salt.hoprxi.crypto.application;
+package salt.hoprxi.crypto;
 
 import org.bouncycastle.asn1.ASN1InputStream;
 import org.bouncycastle.asn1.x500.X500Name;
@@ -179,20 +179,8 @@ public class PasswordService {
         encrypt(planText, secretKey, password);
     }
 
-    private static void encrypt(String planText, SecretKey secretKey, String password) {
-        SecureRandom secureRandom = new SecureRandom();//SecureRandom.getInstance("SHA1PRNG");
-        byte[] iv = new byte[16];
-        secureRandom.nextBytes(iv);
-        IvParameterSpec ivParameterSpec = new IvParameterSpec(iv);
-
-        byte[] sources = planText.getBytes(StandardCharsets.UTF_8);
-        byte[] mix = new byte[iv.length + sources.length];
-        secureRandom.nextBytes(iv);
-        System.arraycopy(iv, 0, mix, 0, 16);
-        System.arraycopy(sources, 0, mix, 16, sources.length);
-
-        byte[] aesData = PasswordService.encrypt(mix, secretKey, ivParameterSpec);
-
+    private static void encrypt(String planText, SecretKey secretKey, String password) throws NoSuchAlgorithmException {
+        byte[] aesData = AesUtil.encryptSpec(planText.getBytes(StandardCharsets.UTF_8), secretKey);
         System.out.println("The plan text encrypted\n" +
                 "------                -----------        \n" +
                 "plan_text                " + planText + "\n" +
@@ -385,14 +373,21 @@ public class PasswordService {
     /**
      * @param data
      * @param secretKey
-     * @param spec
+     * @param iv        IvParameterSpec
      * @return
      */
-    public static byte[] decrypt(byte[] data, SecretKey secretKey, IvParameterSpec spec) {
+    public static byte[] encryptAesSpec(byte[] data, SecretKey secretKey, IvParameterSpec iv) {
+        Objects.requireNonNull(data, "data is required");
+        Objects.requireNonNull(secretKey, "secretKey is required");
+        Objects.requireNonNull(iv, "Iv Parameter Spec is required");
+        byte[] prefix = iv.getIV();
+        byte[] mix = new byte[prefix.length + data.length];
+        System.arraycopy(prefix, 0, mix, 0, 16);
+        System.arraycopy(data, 0, mix, 16, data.length);
         try {
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-            cipher.init(Cipher.DECRYPT_MODE, secretKey, spec);
-            return cipher.doFinal(data);
+            cipher.init(Cipher.ENCRYPT_MODE, secretKey, iv);
+            return cipher.doFinal(mix);
         } catch (NoSuchPaddingException | NoSuchAlgorithmException | InvalidKeyException | IllegalBlockSizeException |
                  BadPaddingException | InvalidAlgorithmParameterException e) {
             throw new RuntimeException("Encrypt data[" + Arrays.toString(data) + "] exception", e);
@@ -404,16 +399,24 @@ public class PasswordService {
      * @param secretKey
      * @return
      */
-    public static byte[] decryptRemoveIV(byte[] data, SecretKey secretKey) throws NoSuchAlgorithmException {
-        SecureRandom secureRandom = SecureRandom.getInstanceStrong();//SecureRandom.getInstance("SHA1PRNG");
+    public static byte[] decryptAesSpec(byte[] data, SecretKey secretKey) {
+        SecureRandom secureRandom = new SecureRandom();//SecureRandom.getInstance("SHA1PRNG");
         byte[] iv = new byte[16];
         secureRandom.nextBytes(iv);
         IvParameterSpec ivParameterSpec = new IvParameterSpec(iv);
 
-        byte[] aesData = decrypt(data, secretKey, ivParameterSpec);
-        byte[] result = new byte[aesData.length - 16];
-        System.arraycopy(aesData, 16, result, 0, result.length);
-        return result;
+        try {
+            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+            cipher.init(Cipher.DECRYPT_MODE, secretKey, ivParameterSpec);
+            byte[] aesData = cipher.doFinal(data);
+            byte[] result = new byte[aesData.length - 16];
+            System.arraycopy(aesData, 16, result, 0, result.length);
+            return result;
+        } catch (NoSuchPaddingException | NoSuchAlgorithmException | InvalidKeyException | IllegalBlockSizeException |
+                 BadPaddingException | InvalidAlgorithmParameterException e) {
+            throw new RuntimeException("Encrypt data[" + Arrays.toString(data) + "] exception", e);
+        }
+
     }
 
     public static PrivateKey generatePrivateKey(int keySize) throws NoSuchAlgorithmException, InvalidKeySpecException {
