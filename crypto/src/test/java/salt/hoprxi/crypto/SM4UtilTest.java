@@ -54,7 +54,7 @@ public class SM4UtilTest {
         System.out.println("SM4加密结果(base64):" + Base64.getEncoder().encodeToString(encrypt));
     }
 
-    @Test
+    @Test(priority = 1)
     public void testDecryptSpec() throws NoSuchAlgorithmException, NoSuchProviderException {
         Security.addProvider(new BouncyCastleProvider());
 

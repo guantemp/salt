@@ -31,4 +31,47 @@
             <version>1.78.1</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/resource</directory>
+                <includes>
+                    <include>**/*.conf</include>
+                    <include>**/*.json</include>
+                    <include>**/*.xml</include>
+                    <include>**/*.xls</include>
+                </includes>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <!--  主程序  -->
+                            <mainClass>salt.hoprxi.crypto.PasswordService</mainClass>
+                            <!--把第三方jar放到打包后jar文件中的manifest的classpath中，即maven-dependency中的依赖-->
+                            <addClasspath>true</addClasspath>
+                            <!--第三方jar将打包到lib目录下，classpath的前缀是lib/-->
+                            <classpathPrefix>lib/</classpathPrefix>
+                        </manifest>
+                        <!--(配置文件外置目录) -->
+                        <manifestEntries>
+                            <Class-Path>conf/</Class-Path>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

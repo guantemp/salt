@@ -50,7 +50,7 @@ public class AesUtilTest {
         System.out.println("SM4加密结果(base64):" + Base64.getEncoder().encodeToString(encrypt));
     }
 
-    @Test
+    @Test(priority = 1)
     public void testDecryptSpec() throws NoSuchAlgorithmException {
         KeyGenerator kg = KeyGenerator.getInstance("AES");
         kg.init(256, new SecureRandom("Qwe13465".getBytes(StandardCharsets.UTF_8)));//固定密码

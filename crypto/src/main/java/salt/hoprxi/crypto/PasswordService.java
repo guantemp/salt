@@ -26,7 +26,6 @@ import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
 import org.bouncycastle.util.encoders.Base64;
 
 import javax.crypto.*;
-import javax.crypto.spec.IvParameterSpec;
 import java.io.*;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
@@ -179,8 +178,8 @@ public class PasswordService {
         encrypt(planText, secretKey, password);
     }
 
-    private static void encrypt(String planText, SecretKey secretKey, String password) throws NoSuchAlgorithmException {
-        byte[] aesData = AesUtil.encryptSpec(planText.getBytes(StandardCharsets.UTF_8), secretKey);
+    private static void encrypt(String planText, SecretKey key, String password) throws NoSuchAlgorithmException {
+        byte[] aesData = AesUtil.encryptSpec(planText.getBytes(StandardCharsets.UTF_8), key);
         System.out.println("The plan text encrypted\n" +
                 "------                -----------        \n" +
                 "plan_text                " + planText + "\n" +
@@ -349,74 +348,6 @@ public class PasswordService {
             strength += (letterCount + digitCount);
         }
         return strength;
-    }
-
-    /**
-     * @param data
-     * @param secretKey
-     * @param spec
-     * @return
-     */
-    public static byte[] encrypt(byte[] data, SecretKey secretKey, IvParameterSpec spec) {
-        Objects.requireNonNull(secretKey, "secretKey is required");
-        Objects.requireNonNull(spec, "Iv Parameter Spec is required");
-        try {
-            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-            cipher.init(Cipher.ENCRYPT_MODE, secretKey, spec);
-            return cipher.doFinal(data);
-        } catch (NoSuchPaddingException | NoSuchAlgorithmException | InvalidKeyException | IllegalBlockSizeException |
-                 BadPaddingException | InvalidAlgorithmParameterException e) {
-            throw new RuntimeException("Encrypt data[" + Arrays.toString(data) + "] exception", e);
-        }
-    }
-
-    /**
-     * @param data
-     * @param secretKey
-     * @param iv        IvParameterSpec
-     * @return
-     */
-    public static byte[] encryptAesSpec(byte[] data, SecretKey secretKey, IvParameterSpec iv) {
-        Objects.requireNonNull(data, "data is required");
-        Objects.requireNonNull(secretKey, "secretKey is required");
-        Objects.requireNonNull(iv, "Iv Parameter Spec is required");
-        byte[] prefix = iv.getIV();
-        byte[] mix = new byte[prefix.length + data.length];
-        System.arraycopy(prefix, 0, mix, 0, 16);
-        System.arraycopy(data, 0, mix, 16, data.length);
-        try {
-            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-            cipher.init(Cipher.ENCRYPT_MODE, secretKey, iv);
-            return cipher.doFinal(mix);
-        } catch (NoSuchPaddingException | NoSuchAlgorithmException | InvalidKeyException | IllegalBlockSizeException |
-                 BadPaddingException | InvalidAlgorithmParameterException e) {
-            throw new RuntimeException("Encrypt data[" + Arrays.toString(data) + "] exception", e);
-        }
-    }
-
-    /**
-     * @param data
-     * @param secretKey
-     * @return
-     */
-    public static byte[] decryptAesSpec(byte[] data, SecretKey secretKey) {
-        SecureRandom secureRandom = new SecureRandom();//SecureRandom.getInstance("SHA1PRNG");
-        byte[] iv = new byte[16];
-        secureRandom.nextBytes(iv);
-        IvParameterSpec ivParameterSpec = new IvParameterSpec(iv);
-
-        try {
-            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-            cipher.init(Cipher.DECRYPT_MODE, secretKey, ivParameterSpec);
-            byte[] aesData = cipher.doFinal(data);
-            byte[] result = new byte[aesData.length - 16];
-            System.arraycopy(aesData, 16, result, 0, result.length);
-            return result;
-        } catch (NoSuchPaddingException | NoSuchAlgorithmException | InvalidKeyException | IllegalBlockSizeException |
-                 BadPaddingException | InvalidAlgorithmParameterException e) {
-            throw new RuntimeException("Encrypt data[" + Arrays.toString(data) + "] exception", e);
-        }
-
     }
 
     public static PrivateKey generatePrivateKey(int keySize) throws NoSuchAlgorithmException, InvalidKeySpecException {

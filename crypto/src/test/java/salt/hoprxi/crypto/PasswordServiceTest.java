@@ -21,7 +21,6 @@ import org.bouncycastle.asn1.x500.X500Name;
 import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo;
 import org.bouncycastle.cert.X509CertificateHolder;
 import org.bouncycastle.cert.X509v3CertificateBuilder;
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.operator.ContentSigner;
 import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
 import org.bouncycastle.util.encoders.Base64;
@@ -56,40 +55,6 @@ public class PasswordServiceTest {
     @Test(priority = 1)
     public void testMain() throws CertificateException, NoSuchAlgorithmException, KeyStoreException, IOException {
         PasswordService.main(new String[]{"-e", "阿达沙发上", "Qwe123465"});
-    }
-
-    @Test
-    public void testSM4() throws NoSuchAlgorithmException, NoSuchProviderException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, InvalidAlgorithmParameterException {
-        SecureRandom secureRandom = new SecureRandom();//SecureRandom.getInstance("SHA1PRNG");
-        byte[] iv = new byte[16];
-        secureRandom.nextBytes(iv);
-        IvParameterSpec ivParameterSpec = new IvParameterSpec(iv);
-
-        Security.addProvider(new BouncyCastleProvider());
-
-        KeyGenerator kg = KeyGenerator.getInstance("AES", BouncyCastleProvider.PROVIDER_NAME);
-        kg.init(128, new SecureRandom("Qwe13465".getBytes(StandardCharsets.UTF_8)));//固定密码
-        SecretKey key = kg.generateKey();
-
-        byte[] prefix = new byte[16];
-        secureRandom.nextBytes(prefix);
-        byte[] sources = "Qwe123465".getBytes(StandardCharsets.UTF_8);
-        System.out.println("被加密源文本(base64):" + Base64.toBase64String(sources));
-        byte[] mix = new byte[prefix.length + sources.length];
-        System.arraycopy(prefix, 0, mix, 0, 16);
-        System.arraycopy(sources, 0, mix, 16, sources.length);
-        System.out.println("前置随机增加16byte(iv)后被加密源文本(base64):" + Base64.toBase64String(mix));
-
-        Cipher cipher = Cipher.getInstance("SM4/CBC/PKCS5Padding", BouncyCastleProvider.PROVIDER_NAME);
-        cipher.init(Cipher.ENCRYPT_MODE, key, ivParameterSpec);
-        byte[] encrypt = cipher.doFinal("Qwe123465".getBytes(StandardCharsets.UTF_8));
-        System.out.println("SM加密结果:" + ByteToHex.toHexStr(encrypt));
-
-
-        //cipher = Cipher.getInstance("SM4/CBC/PKCS5Padding", BouncyCastleProvider.PROVIDER_NAME);
-        cipher.init(Cipher.DECRYPT_MODE, key, ivParameterSpec);
-        byte[] decrypt = cipher.doFinal(encrypt);
-        System.out.println("SM解密结果:" + new String(decrypt, StandardCharsets.UTF_8));
     }
 
     @Test
@@ -145,28 +110,15 @@ public class PasswordServiceTest {
         keyStore.store(fos, "".toCharArray());
         fos.close();
 
-        byte[] prefix = new byte[16];
-        secureRandom.nextBytes(prefix);
-        byte[] sources = "Qwe123465".getBytes(StandardCharsets.UTF_8);
-        System.out.println("加密源(base64):" + Base64.toBase64String(sources));
-        byte[] mix = new byte[prefix.length + sources.length];
-        System.arraycopy(prefix, 0, mix, 0, 16);
-        System.arraycopy(sources, 0, mix, 16, sources.length);
-        System.out.println("随机增加16byte(iv)后加密源base64:" + Base64.toBase64String(mix));
+        byte[] sources = "Qwe123465德w".getBytes(StandardCharsets.UTF_8);
+        byte[] aesData = AesUtil.encryptSpec(sources, secretKey);
 
 //        SecretKeySpec sKeySpec = new SecretKeySpec("Qwe123465".getBytes(StandardCharsets.UTF_8), "AES");
-
-        byte[] aesData = PasswordService.encrypt(mix, secretKey, ivParameterSpec);
 //        System.out.println("AES加密结果(byte)：");
 //        for (byte b : aesData)
 //            System.out.println(b);
-        String temp = Base64.toBase64String(aesData);
-        System.out.println("AES加密结果(base64)：" + temp);
-
-        byte[] encrytpt = PasswordService.encryptAesSpec(sources, customizedKey, ivParameterSpec);
-        System.out.println("AES加密结果(hex):" + ByteToHex.toHexStr(encrytpt));
-//        for(byte b:Base64.decode(temp))
-//            System.out.println(b);
+        System.out.println("AES加密结果(base64)：" + Base64.toBase64String(aesData));
+        System.out.println("AES加密结果(hex):" + ByteToHex.toHexStr(aesData));
 
         // 将KeyStore保存的密码取出来
         FileInputStream fis = new FileInputStream("keystore.jks");
@@ -175,7 +127,7 @@ public class PasswordServiceTest {
 
         SecretKey secKey = (SecretKey) keyStore.getKey("postgresql.security.keystore.password", "Qwe123465".toCharArray());
         secureRandom.nextBytes(iv);
-        byte[] decryptData = PasswordService.decryptAesSpec(aesData, secKey);
+        byte[] decryptData = AesUtil.decryptSpec(aesData, secKey);
         System.out.println("AES解密结果：" + new String(decryptData, StandardCharsets.UTF_8));
     }
 

@@ -41,16 +41,15 @@ public class AesUtil {
 
     public static byte[] encryptSpec(byte[] data, SecretKey key) throws NoSuchAlgorithmException {
         Objects.requireNonNull(data, "data is required");
-        Objects.requireNonNull(key, "secretKey is required");
+        Objects.requireNonNull(key, "key is required");
         SecureRandom secureRandom = new SecureRandom();//SecureRandom.getInstance("SHA1PRNG");
         byte[] iv = new byte[16];
         secureRandom.nextBytes(iv);
         IvParameterSpec ivParameterSpec = new IvParameterSpec(iv);
 
-        byte[] prefix = new byte[16];
-        secureRandom.nextBytes(prefix);
-        byte[] mix = new byte[prefix.length + data.length];
-        System.arraycopy(prefix, 0, mix, 0, 16);
+        secureRandom.nextBytes(iv);
+        byte[] mix = new byte[iv.length + data.length];
+        System.arraycopy(iv, 0, mix, 0, 16);
         System.arraycopy(data, 0, mix, 16, data.length);
         try {
             Cipher cipher = Cipher.getInstance(ALGORITHM_NAME_CBC_PADDING);
@@ -68,6 +67,8 @@ public class AesUtil {
      * @return
      */
     public static byte[] decryptSpec(byte[] data, SecretKey key) {
+        Objects.requireNonNull(data, "data is required");
+        Objects.requireNonNull(key, "key is required");
         SecureRandom secureRandom = new SecureRandom();//SecureRandom.getInstance("SHA1PRNG");
         byte[] iv = new byte[16];
         secureRandom.nextBytes(iv);
