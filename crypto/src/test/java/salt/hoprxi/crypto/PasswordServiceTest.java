@@ -21,7 +21,8 @@ import org.testng.annotations.Test;
 import salt.hoprxi.crypto.util.AESUtil;
 import salt.hoprxi.to.ByteToHex;
 
-import javax.crypto.*;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -40,20 +41,27 @@ public class PasswordServiceTest {
     @Test(priority = 1)
     public void testMain() throws CertificateException, NoSuchAlgorithmException, KeyStoreException, IOException {
 
+        System.out.println("Store default file:");
         PasswordService.main(new String[]{"-S", "Qwe123465Gj"});
         PasswordService.main(new String[]{"-S", "postgresql.security.keystore.aes.password", "Qwe123465Pg"});
         PasswordService.main(new String[]{"-S", "elasticsearch.security.keystore.aes.password", "Qwe123465Pg", "Qwe123465"});
         PasswordService.main(new String[]{"-l"});
-        PasswordService.main(new String[]{"-S", "Qwe123465Gj","-f","f:\\keystore.jks"});
-        PasswordService.main(new String[]{"-S", "postgresql.security.keystore.aes.password", "Qwe123465Pg","-f","f:\\keystore.jks"});
-        PasswordService.main(new String[]{"-S", "elasticsearch.security.keystore.aes.password", "Qwe123465Pg", "Qwe123465","-f","f:\\keystore.jks"});
-        PasswordService.main(new String[]{"-l","-f","f:\\keystore.jks"});
 
-        PasswordService.main(new String[]{"-S", "Qwe123465Gj","-f","f:\\keystore_p.jks","Qwe"});
-        PasswordService.main(new String[]{"-S", "postgresql.security.keystore.aes.password", "Qwe123465Pg","-f","f:\\keystore_p.jks","Qwe"});
-        PasswordService.main(new String[]{"-S", "elasticsearch.security.keystore.aes.password", "Qwe123465Pg", "Qwe123465","-f","f:\\keystore_p.jks","Qwe"});
-        PasswordService.main(new String[]{"-l","-f","f:\\keystore_p.jks","Qwe"});
-        //PasswordService.main(new String[]{"-e", "阿达沙发上", "Qwe123465"});
+        System.out.println("\nStore default specific file with protect password:");
+        PasswordService.main(new String[]{"-S", "Qwe123465Gj", "-f", "f:\\keystore_p.jks", "Qwe123465"});
+        PasswordService.main(new String[]{"-S", "postgresql.security.keystore.aes.password", PasswordService.nextStrongPasswd(), "-f", "f:\\keystore_p.jks", "Qwe123465"});
+        PasswordService.main(new String[]{"-S", "elasticsearch.security.keystore.aes.password", PasswordService.nextStrongPasswd(), "Qwe123465", "-f", "f:\\keystore_p.jks", "Qwe123465"});
+        PasswordService.main(new String[]{"-l", "-f", "f:\\keystore_p.jks", "Qwe123465"});
+
+        System.out.println("\ndelete:");
+        PasswordService.main(new String[]{"-d"});
+        PasswordService.main(new String[]{"-l"});
+
+        System.out.println("\nencrypt:");
+        PasswordService.main(new String[]{"-e", "阿达沙发上"});
+        PasswordService.main(new String[]{"-e", "阿达沙发上", PasswordService.nextStrongPasswd()});
+        PasswordService.main(new String[]{"-e", "在多喝点水啥地方啥的三大发生的话", "postgresql.security.keystore.aes.password", "-f", "f:\\keystore_p.jks", "Qwe123465"});
+        PasswordService.main(new String[]{"-e", "阿尔斯特去了但是过来的", "elasticsearch.security.keystore.aes.password", "Qwe123465", "-f", "f:\\keystore_p.jks", "Qwe123465"});
     }
 
     @Test
@@ -74,7 +82,7 @@ public class PasswordServiceTest {
     }
 
     @org.testng.annotations.Test
-    public void testAes() throws NoSuchAlgorithmException, IOException, KeyStoreException, CertificateException, UnrecoverableKeyException, InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
+    public void testAes() throws NoSuchAlgorithmException, IOException, KeyStoreException, CertificateException, UnrecoverableKeyException {
         SecureRandom secureRandom = SecureRandom.getInstance("SHA1PRNG");//SecureRandom.getInstance("SHA1PRNG");
         byte[] iv = new byte[16];
         secureRandom.nextBytes(iv);
@@ -97,6 +105,7 @@ public class PasswordServiceTest {
         gen = KeyGenerator.getInstance("AES");
         gen.init(256, new SecureRandom("Qwe123465".getBytes(StandardCharsets.UTF_8)));
         SecretKey customizedKey = gen.generateKey();
+        System.out.println(Base64.getEncoder().encodeToString(customizedKey.getEncoded()));
         System.out.println("AES指定密钥:" + Base64.getEncoder().encodeToString(customizedKey.getEncoded()));
         keyStore.setEntry("customized.security.keystore.password", new KeyStore.SecretKeyEntry(customizedKey), new KeyStore.PasswordProtection("Qwe123465".toCharArray()));
         /*
@@ -110,7 +119,7 @@ public class PasswordServiceTest {
         fos.close();
 
         byte[] sources = "Qwe123465德w".getBytes(StandardCharsets.UTF_8);
-        byte[] aesData = AESUtil.encryptSpec(sources, secretKey);
+        byte[] aesData = AESUtil.encryptSpec(sources, customizedKey);
 
 //        SecretKeySpec sKeySpec = new SecretKeySpec("Qwe123465".getBytes(StandardCharsets.UTF_8), "AES");
 //        System.out.println("AES加密结果(byte)：");
@@ -124,10 +133,11 @@ public class PasswordServiceTest {
         keyStore.load(fis, "".toCharArray());
         fis.close();
 
-        SecretKey secKey = (SecretKey) keyStore.getKey("postgresql.security.keystore.password", "Qwe123465".toCharArray());
+        SecretKey secKey = (SecretKey) keyStore.getKey("customized.security.keystore.password", "Qwe123465".toCharArray());
+        keyStore.deleteEntry("");
+        System.out.println(Base64.getEncoder().encodeToString(secKey.getEncoded()));
         secureRandom.nextBytes(iv);
         byte[] decryptData = AESUtil.decryptSpec(aesData, secKey);
         System.out.println("AES解密结果：" + new String(decryptData, StandardCharsets.UTF_8));
     }
-
 }
