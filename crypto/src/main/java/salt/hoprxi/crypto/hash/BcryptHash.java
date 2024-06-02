@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022. www.hoprxi.com All Rights Reserved.
+ * Copyright (c) 2024. www.hoprxi.com All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,9 +13,10 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package salt.hoprxi.crypto;
+package salt.hoprxi.crypto.hash;
 
 
+import salt.hoprxi.crypto.HashService;
 import salt.hoprxi.crypto.algorithms.Bcrypt;
 
 /***

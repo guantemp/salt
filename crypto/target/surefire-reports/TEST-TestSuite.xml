@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="TestSuite" time="5.501" tests="14" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="TestSuite" time="4.394" tests="19" errors="0" skipped="0" failures="0">
   <properties>
     <property name="sun.desktop" value="windows"/>
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
@@ -7,7 +7,7 @@
     <property name="java.specification.version" value="1.8"/>
     <property name="sun.cpu.isalist" value="amd64"/>
     <property name="sun.jnu.encoding" value="GBK"/>
-    <property name="java.class.path" value="E:\workspace\salt\crypto\target\test-classes;E:\workspace\salt\crypto\target\classes;e:\mvn\salt\hoprxi\to\1.0-SNAPSHOT\to-1.0-SNAPSHOT.jar;e:\mvn\org\bouncycastle\bcpkix-jdk15on\1.64\bcpkix-jdk15on-1.64.jar;e:\mvn\org\bouncycastle\bcprov-jdk15on\1.64\bcprov-jdk15on-1.64.jar;e:\mvn\org\bouncycastle\bcmail-jdk15\1.46\bcmail-jdk15-1.46.jar;e:\mvn\org\bouncycastle\bcprov-jdk15\1.46\bcprov-jdk15-1.46.jar;e:\mvn\org\testng\testng\7.3.0\testng-7.3.0.jar;e:\mvn\com\beust\jcommander\1.78\jcommander-1.78.jar;e:\mvn\org\apache\ant\ant\1.10.3\ant-1.10.3.jar;e:\mvn\org\apache\ant\ant-launcher\1.10.3\ant-launcher-1.10.3.jar;e:\mvn\junit\junit\4.12\junit-4.12.jar;e:\mvn\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;e:\mvn\com\google\inject\guice\4.2.2\guice-4.2.2-no_aop.jar;e:\mvn\javax\inject\javax.inject\1\javax.inject-1.jar;e:\mvn\aopalliance\aopalliance\1.0\aopalliance-1.0.jar;e:\mvn\com\google\guava\guava\25.1-android\guava-25.1-android.jar;e:\mvn\com\google\code\findbugs\jsr305\3.0.2\jsr305-3.0.2.jar;e:\mvn\org\checkerframework\checker-compat-qual\2.0.0\checker-compat-qual-2.0.0.jar;e:\mvn\com\google\errorprone\error_prone_annotations\2.1.3\error_prone_annotations-2.1.3.jar;e:\mvn\com\google\j2objc\j2objc-annotations\1.1\j2objc-annotations-1.1.jar;e:\mvn\org\codehaus\mojo\animal-sniffer-annotations\1.14\animal-sniffer-annotations-1.14.jar;e:\mvn\org\yaml\snakeyaml\1.21\snakeyaml-1.21.jar;e:\mvn\org\slf4j\slf4j-api\1.7.36\slf4j-api-1.7.36.jar;e:\mvn\org\apache\logging\log4j\log4j-api\2.19.0\log4j-api-2.19.0.jar;e:\mvn\org\apache\logging\log4j\log4j-core\2.19.0\log4j-core-2.19.0.jar;"/>
+    <property name="java.class.path" value="E:\workspace\salt\crypto\target\test-classes;E:\workspace\salt\crypto\target\classes;e:\mvn\salt\hoprxi\to\1.0-SNAPSHOT\to-1.0-SNAPSHOT.jar;e:\mvn\org\bouncycastle\bcpkix-jdk18on\1.78.1\bcpkix-jdk18on-1.78.1.jar;e:\mvn\org\bouncycastle\bcutil-jdk18on\1.78.1\bcutil-jdk18on-1.78.1.jar;e:\mvn\org\bouncycastle\bcprov-jdk18on\1.78.1\bcprov-jdk18on-1.78.1.jar;e:\mvn\org\testng\testng\7.3.0\testng-7.3.0.jar;e:\mvn\com\beust\jcommander\1.78\jcommander-1.78.jar;e:\mvn\org\apache\ant\ant\1.10.3\ant-1.10.3.jar;e:\mvn\org\apache\ant\ant-launcher\1.10.3\ant-launcher-1.10.3.jar;e:\mvn\junit\junit\4.12\junit-4.12.jar;e:\mvn\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;e:\mvn\com\google\inject\guice\4.2.2\guice-4.2.2-no_aop.jar;e:\mvn\javax\inject\javax.inject\1\javax.inject-1.jar;e:\mvn\aopalliance\aopalliance\1.0\aopalliance-1.0.jar;e:\mvn\com\google\guava\guava\25.1-android\guava-25.1-android.jar;e:\mvn\com\google\code\findbugs\jsr305\3.0.2\jsr305-3.0.2.jar;e:\mvn\org\checkerframework\checker-compat-qual\2.0.0\checker-compat-qual-2.0.0.jar;e:\mvn\com\google\errorprone\error_prone_annotations\2.1.3\error_prone_annotations-2.1.3.jar;e:\mvn\com\google\j2objc\j2objc-annotations\1.1\j2objc-annotations-1.1.jar;e:\mvn\org\codehaus\mojo\animal-sniffer-annotations\1.14\animal-sniffer-annotations-1.14.jar;e:\mvn\org\yaml\snakeyaml\1.21\snakeyaml-1.21.jar;e:\mvn\org\slf4j\slf4j-api\1.7.36\slf4j-api-1.7.36.jar;e:\mvn\org\apache\logging\log4j\log4j-api\2.19.0\log4j-api-2.19.0.jar;e:\mvn\org\apache\logging\log4j\log4j-core\2.19.0\log4j-core-2.19.0.jar;"/>
     <property name="java.vm.vendor" value="Oracle Corporation"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="user.variant" value=""/>
@@ -18,8 +18,8 @@
     <property name="user.country" value="CN"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.boot.library.path" value="D:\Program Files\Java\jdk1.8.0_202\jre\bin"/>
-    <property name="sun.java.command" value="C:\Users\guan\AppData\Local\Temp\surefire4281793513621355915\surefirebooter-20240111220712897_3.jar C:\Users\guan\AppData\Local\Temp\surefire4281793513621355915 2024-01-11T22-07-12_473-jvmRun1 surefire-20240111220712897_1tmp surefire_0-20240111220712897_2tmp"/>
-    <property name="surefire.test.class.path" value="E:\workspace\salt\crypto\target\test-classes;E:\workspace\salt\crypto\target\classes;e:\mvn\salt\hoprxi\to\1.0-SNAPSHOT\to-1.0-SNAPSHOT.jar;e:\mvn\org\bouncycastle\bcpkix-jdk15on\1.64\bcpkix-jdk15on-1.64.jar;e:\mvn\org\bouncycastle\bcprov-jdk15on\1.64\bcprov-jdk15on-1.64.jar;e:\mvn\org\bouncycastle\bcmail-jdk15\1.46\bcmail-jdk15-1.46.jar;e:\mvn\org\bouncycastle\bcprov-jdk15\1.46\bcprov-jdk15-1.46.jar;e:\mvn\org\testng\testng\7.3.0\testng-7.3.0.jar;e:\mvn\com\beust\jcommander\1.78\jcommander-1.78.jar;e:\mvn\org\apache\ant\ant\1.10.3\ant-1.10.3.jar;e:\mvn\org\apache\ant\ant-launcher\1.10.3\ant-launcher-1.10.3.jar;e:\mvn\junit\junit\4.12\junit-4.12.jar;e:\mvn\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;e:\mvn\com\google\inject\guice\4.2.2\guice-4.2.2-no_aop.jar;e:\mvn\javax\inject\javax.inject\1\javax.inject-1.jar;e:\mvn\aopalliance\aopalliance\1.0\aopalliance-1.0.jar;e:\mvn\com\google\guava\guava\25.1-android\guava-25.1-android.jar;e:\mvn\com\google\code\findbugs\jsr305\3.0.2\jsr305-3.0.2.jar;e:\mvn\org\checkerframework\checker-compat-qual\2.0.0\checker-compat-qual-2.0.0.jar;e:\mvn\com\google\errorprone\error_prone_annotations\2.1.3\error_prone_annotations-2.1.3.jar;e:\mvn\com\google\j2objc\j2objc-annotations\1.1\j2objc-annotations-1.1.jar;e:\mvn\org\codehaus\mojo\animal-sniffer-annotations\1.14\animal-sniffer-annotations-1.14.jar;e:\mvn\org\yaml\snakeyaml\1.21\snakeyaml-1.21.jar;e:\mvn\org\slf4j\slf4j-api\1.7.36\slf4j-api-1.7.36.jar;e:\mvn\org\apache\logging\log4j\log4j-api\2.19.0\log4j-api-2.19.0.jar;e:\mvn\org\apache\logging\log4j\log4j-core\2.19.0\log4j-core-2.19.0.jar;"/>
+    <property name="sun.java.command" value="C:\Users\guan\AppData\Local\Temp\surefire5823517381418834506\surefirebooter-20240531105710098_3.jar C:\Users\guan\AppData\Local\Temp\surefire5823517381418834506 2024-05-31T10-57-09_573-jvmRun1 surefire-20240531105710098_1tmp surefire_0-20240531105710098_2tmp"/>
+    <property name="surefire.test.class.path" value="E:\workspace\salt\crypto\target\test-classes;E:\workspace\salt\crypto\target\classes;e:\mvn\salt\hoprxi\to\1.0-SNAPSHOT\to-1.0-SNAPSHOT.jar;e:\mvn\org\bouncycastle\bcpkix-jdk18on\1.78.1\bcpkix-jdk18on-1.78.1.jar;e:\mvn\org\bouncycastle\bcutil-jdk18on\1.78.1\bcutil-jdk18on-1.78.1.jar;e:\mvn\org\bouncycastle\bcprov-jdk18on\1.78.1\bcprov-jdk18on-1.78.1.jar;e:\mvn\org\testng\testng\7.3.0\testng-7.3.0.jar;e:\mvn\com\beust\jcommander\1.78\jcommander-1.78.jar;e:\mvn\org\apache\ant\ant\1.10.3\ant-1.10.3.jar;e:\mvn\org\apache\ant\ant-launcher\1.10.3\ant-launcher-1.10.3.jar;e:\mvn\junit\junit\4.12\junit-4.12.jar;e:\mvn\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;e:\mvn\com\google\inject\guice\4.2.2\guice-4.2.2-no_aop.jar;e:\mvn\javax\inject\javax.inject\1\javax.inject-1.jar;e:\mvn\aopalliance\aopalliance\1.0\aopalliance-1.0.jar;e:\mvn\com\google\guava\guava\25.1-android\guava-25.1-android.jar;e:\mvn\com\google\code\findbugs\jsr305\3.0.2\jsr305-3.0.2.jar;e:\mvn\org\checkerframework\checker-compat-qual\2.0.0\checker-compat-qual-2.0.0.jar;e:\mvn\com\google\errorprone\error_prone_annotations\2.1.3\error_prone_annotations-2.1.3.jar;e:\mvn\com\google\j2objc\j2objc-annotations\1.1\j2objc-annotations-1.1.jar;e:\mvn\org\codehaus\mojo\animal-sniffer-annotations\1.14\animal-sniffer-annotations-1.14.jar;e:\mvn\org\yaml\snakeyaml\1.21\snakeyaml-1.21.jar;e:\mvn\org\slf4j\slf4j-api\1.7.36\slf4j-api-1.7.36.jar;e:\mvn\org\apache\logging\log4j\log4j-api\2.19.0\log4j-api-2.19.0.jar;e:\mvn\org\apache\logging\log4j\log4j-core\2.19.0\log4j-core-2.19.0.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="C:\Users\guan"/>
     <property name="user.language" value="zh"/>
@@ -31,7 +31,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
-    <property name="surefire.real.class.path" value="C:\Users\guan\AppData\Local\Temp\surefire4281793513621355915\surefirebooter-20240111220712897_3.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\guan\AppData\Local\Temp\surefire5823517381418834506\surefirebooter-20240531105710098_3.jar"/>
     <property name="sun.boot.class.path" value="D:\Program Files\Java\jdk1.8.0_202\jre\lib\resources.jar;D:\Program Files\Java\jdk1.8.0_202\jre\lib\rt.jar;D:\Program Files\Java\jdk1.8.0_202\jre\lib\sunrsasign.jar;D:\Program Files\Java\jdk1.8.0_202\jre\lib\jsse.jar;D:\Program Files\Java\jdk1.8.0_202\jre\lib\jce.jar;D:\Program Files\Java\jdk1.8.0_202\jre\lib\charsets.jar;D:\Program Files\Java\jdk1.8.0_202\jre\lib\jfr.jar;D:\Program Files\Java\jdk1.8.0_202\jre\classes"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
@@ -53,7 +53,7 @@
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
     <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob"/>
     <property name="sun.os.patch.level" value=""/>
-    <property name="java.library.path" value="D:\Program Files\Java\jdk1.8.0_202\jre\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Intel\Shared Files\cpp\bin\Intel64;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;D:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\;D:\Program Files\Microsoft SQL Server\100\Tools\Binn\;D:\Program Files\Microsoft SQL Server\100\DTS\Binn\;D:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\VSShell\Common7\IDE\;D:\Program Files (x86)\Microsoft SQL Server\100\DTS\Binn\;D:\Program Files\Java\jdk1.8.0_281\bin;D:\Program Files (x86)\Java\jre1.8.0_281\bin;D:\Program Files\Java\jdk1.8.0_281;D:\Program Files\nodejs\node_global\;d:\P;ogram Files\Git\cmd;D:\Pro;ram Files\nodejs\;d:\P;ogram Files\Git\cmd;D:\Pro;ram Files\nodejs\;d:\P;ogram Files\Git\cmd;C:\Program Files\dotnet\;D:\Program Files (x86)\NetSarang\Xshell 7\;D:\Program Files (x86)\NetSarang\Xftp 7\;d:\Program Files (x86)\Tencent\微信web开发者工具\dll;;;d:\Program Files\Git\cmd;C:\Users\guan\AppData\Local\Microsoft\WindowsApps;d:\Program Files\JetBrains\IntelliJ IDEA 2020.3.2\bin;;C:\Users\guan\AppData\Roaming\npm;."/>
+    <property name="java.library.path" value="D:\Program Files\Java\jdk1.8.0_202\jre\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Intel\Shared Files\cpp\bin\Intel64;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;D:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\;D:\Program Files\Microsoft SQL Server\100\Tools\Binn\;D:\Program Files\Microsoft SQL Server\100\DTS\Binn\;D:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\VSShell\Common7\IDE\;D:\Program Files (x86)\Microsoft SQL Server\100\DTS\Binn\;D:\Program Files\Java\jdk1.8.0_281\bin;D:\Program Files (x86)\Java\jre1.8.0_281\bin;D:\Program Files\Java\jdk1.8.0_281;D:\Program Files\nodejs\node_global\;d:\P;ogram Files\Git\cmd;D:\Pro;ram Files\nodejs\;d:\P;ogram Files\Git\cmd;D:\Pro;ram Files\nodejs\;d:\P;ogram Files\Git\cmd;C:\Program Files\dotnet\;D:\Program Files (x86)\NetSarang\Xshell 7\;D:\Program Files (x86)\NetSarang\Xftp 7\;d:\Program Files (x86)\Tencent\微信web开发者工具\dll;;;d:\P;ogram Files\Git\cmd;d:\Program Files\Git\cmd;C:\Users\guan\AppData\Local\Microsoft\WindowsApps;d:\Program Files\JetBrains\IntelliJ IDEA 2020.3.2\bin;;C:\Users\guan\AppData\Roaming\npm;."/>
     <property name="java.vm.info" value="mixed mode"/>
     <property name="java.vendor" value="Oracle Corporation"/>
     <property name="java.vm.version" value="25.202-b08"/>
@@ -61,85 +61,112 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="52.0"/>
   </properties>
-  <testcase name="bcryptEncryptAndCheck" classname="salt.hoprxi.crypto.HashServiceTest" time="0.194">
-    <system-out><![CDATA[$2a$10$K72k0VeHyO0tjD1evW1/o.VVAbdebozmbjTUVVvql915HV4OYbUxO
+  <testcase name="testKeyPair" classname="salt.hoprxi.crypto.EncryptServiceTest" time="0.55">
+    <system-out><![CDATA[RSA私钥：
+MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCrVNEBsiAttq6PnlVC6UXBFELWvacoUS0ub+AfcXJK+MhV21j7HhfHqk1IIx9AnLE5xe3Pq6UjWCbmvigTerpsuUn3nk3qwPOcg/GFAB6Yu8aaaN7eEMkvHSPuCXnp8lpfjeZSN/Kwxw3hnztquPGHFTwC/CtynFMiuTTT8GZ/p+rPQHF8kaYZpamhpRSC8q9dMJu1Wl7QYxzD8I62T3caLrZ37ES19myon9hdAghd/4XXO+/ppuOPy9rjn1Q2i9jSCaPcNnujntI77PcWGsEYA4R8a3175iz0DUy8te6XcG46z4Ujjfl1mi1c9IFBJw+brzFTrxtuDcY1F9WgL14jAgMBAAECggEAJYBuM0nTA06OTP9iOEApNYcCzlA663dBRX3Vd+x0EPb9mtVlV6oRmHGtctHFQHZL0JKDaEZw4hikgzMyQHlHnw67owiyk2TireqvjeYlzFaltRypU8Am2TouqCbI2a1jnLDJrktywsD/R9h7v/N1YpUCSsD5nZ+cDuitKIrhVKWH4ZriwME9dHbx5boPqhITl2oPU+xlnEE73X80x0hZ5oHuqb4Nu+xzpZ+NURqSO8wjU5kweVfVK/WBPfJB9Ayh5gdUCf/Ap1HgVwOO8z0oX6oi6URMlQ+x1bcAWIsGoebqiWLVY8GMYzBzdZDxM2fsh6i+FBRzRK6ZcVrk5doz6QKBgQDY8qbIFoA23coJi5Ko/eOtzH7egg2eq4mHQhCnrTcqISnC83aiZ5J2uBkG69Hm8KN03RHXdeQ2e+Egx2xOzye+jedyEPUMzd5UIGMjKZVUqznB2YiiSTWsZAMdHRE7x2NrmUZq3q/r8MQIylk/tkjespJfJ9ByLoLLn6mGlqH4rwKBgQDKLBKGn5Xv1kD72xwV5IDZ9ND0ynElkZH3U2J570Bu1DlYCBQPzy5pprrpWBAb42v2/4txnmyz+FU1ytSr4hbZNLXsB0Hios9maP3YTL6b3NVr2CJ6zj9g7q4Cuzn+lnzlgEOdUa6P7IGmC28lICEPmYPL9tJ75jnwLisUHVLmzQKBgHSqUKwrBXn73UkyyISeO9DbtqIbmA1qu8OD8IbrLE44lUekO3jsb6PuLm89Y5xobc5Lj+upFzeBeLhy5bifyAS+NOdvXQgssVHWNNnU49wrVBz9yW9UJUv2YIJIflsCR2G2hFq2NC6SRClh/4q2kQtJRlNrirnMb0PnMXgSCzo7AoGBAIYOMzqRFxqxNuXJpBXgLpBXhTbMBbqji+YzpFi2DENw9ZUpxiO1fVEQ/V88xXG4mx5s1EnCgtHTGK1SkTJn+D6OdRLMvSNKUbvWYnvKZ5lyFRItfq9vkxbzLO8itpHZt3d2VV87ikRkzpMLgedcJo/xezMDtw3w2vonoujziMUBAoGAZo1wjk79Le/5uIxz8rBmPDoxxJobNNj7EYsvG+0mAaPomsBKKZOeCfAvNm/FT1m/hx/ilZGNCFcI2PdcktknFyArLcNFFU7iAVRBZg1TIZK+/g3j1RpVa5vg/rd4bUolo21q8+Mah9612el6brKDgDKkl9IALFU0hjwelpxl+9o=
+RSA公钥：
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAq1TRAbIgLbauj55VQulFwRRC1r2nKFEtLm/gH3FySvjIVdtY+x4Xx6pNSCMfQJyxOcXtz6ulI1gm5r4oE3q6bLlJ955N6sDznIPxhQAemLvGmmje3hDJLx0j7gl56fJaX43mUjfysMcN4Z87arjxhxU8AvwrcpxTIrk00/Bmf6fqz0BxfJGmGaWpoaUUgvKvXTCbtVpe0GMcw/COtk93Gi62d+xEtfZsqJ/YXQIIXf+F1zvv6abjj8va459UNovY0gmj3DZ7o57SO+z3FhrBGAOEfGt9e+Ys9A1MvLXul3BuOs+FI435dZotXPSBQScPm68xU68bbg3GNRfVoC9eIwIDAQAB
+私钥加密:
+DI2kYDfxXOZP/DOMooE3acZHSbfAd/+z5h/1aNmKdrGArbfHIK3XvrDASk1x0/L0PdOZpVsEFACzPLlE5kV8RhTub1wphGItf3myY37bS5E4T8O1tnHcRVHBVYdJAwpTEii6RxWv6mg8XugoQy+DhtWgfwWkrhTyrGF3ADb/IT2uLl2bEH0tW0EGxWilKEXC1d/KlWOU01p6pjrjnSS6D3ZaqYgcFs5NKtM5d+cLVaxRJt2jBw2anXfxasZdNutWXowyEGNTlqnUCd9JwwUxXB3tHV9nuZZcumvLpE1FoT6bcyX9ucnNRr0+FVLvLb7jx+XKlLCchXnj4MBIM26mPIrNJsWmNKGv9Qs7GiM2MDhx0R63JpVjjhk+MYd6ZWUwoZZQIgSASL+aJKlzphH6rMq2ms3w0Z6tW0w1gJvYn7xrJdq3Gk7wyOBTNBULrIUuJfGOZ24AY5uQJscrbtd1vgxstQv+riwJjJxD9nCxIvj0Lt64RPJI61ZkmkM1vy35SdK3+WI+VB7I9ReigMwDzZCjHLJrXVssPoq4sjnAvuSrz+5ZQEZpOsJgvol8o3oZa/5uezh/pZ0haTYK1Zz5E1QjDIS8/0lIxzLdtxBh9jWy82G2eA2ssoURVsDQ6e9C1Y8HUKiVo0AZayj5G2cewOmsUKdy0f50U/BB5c1F8RY=
+公钥解密:
+寒山阿萨法千万人情味去我姥姥爱上合适的第三方挖了文人士大夫为了网天然了问题了合适的发生大幅了剃光头了过了23人我还是封杀哥哥老大哥电话3晚了点共和国饿他跟3 二哥和老公扔了涉案特了啊头； 为爱跳舞艾尔文特委屈我去儿童委屈月初℃
+公钥加密:
+ptxW7MUScL+TZhqcILl8aEMbwwL6DAhfq0Q7xfMkuvs8d2pWdT/5Xr4WiPgKCACLOiZu2AfTKAxWtDtM5mQMnkC4aSjbGqqNruFLgTZXW2ImVyZV4AFocRphRnO3xHzuNUKTM14FYrcdb3Zbh90Hh7PEfo6fdvTvxhYks/02Vtiy1r7zCLp/ZLtmv42UCUXJ7+FdGbRmg3JX3xDp5u5O56LOq5/jQ+UmwJgddA0CCyZvcGq2c00GCLFcMpdGeaaQu2i2zKPKgh9anAblpdR7FuLn7mmljaTKItwiLVISN3PQwK/gjkcmVUrK9zmHSjaaMhnGPZkl3Syt4sODRfCyRmsmyaf1q9X2Ny/GptG7EgnrfJCBCprGQ/Qc3RJ56/gIS/mSkuqoEKHOoOfVngAXtSuxk1R3G9jX/WWy+G5e/Qy4QhdWqKD0AFIJjDHQamoE60PjAT31xXC/Jco8pQKGq/MtSF81A3y/4d8MTbszqeOto+idyNtxCbQ3mu8axP1JVHU8Ram7oqzrECwlykuzsRg22orz3pVmxG9BYRrDhO7OqKXLjd5YSJS2k+gVYnsEXELc7FBk3x8cC5JMAuLKakMZ5oDHySwPRBqLLg7ORyqXuKjafsH8IAXNbuWMA0MVBDnW1H50ZATcJbM5WJnwL7XdVN4BU5nYkIFXaapPV0U=
+私钥解密
+寒山阿萨法千万人情味去我姥姥爱上合适的第三方挖了文人士大夫为了网天然了问题了合适的发生大幅了剃光头了过了23人我还是封杀哥哥老大哥电话3晚了点共和国饿他跟3 二哥和老公扔了涉案特了啊头； 为爱跳舞艾尔文特委屈我去儿童委屈月初℃
 ]]></system-out>
   </testcase>
-  <testcase name="pbhkdf2EncryptAndCheck" classname="salt.hoprxi.crypto.HashServiceTest" time="0.625">
-    <system-out><![CDATA[1c33e283de413d5e65590b8473d9ba7a0a534d5e387f78f815d6cdb0e9eb7b7f:07dac3ce46fead4c00b9d48f43544127ac130012b6aa83ab017c69926f6d32e3
+  <testcase name="testSign" classname="salt.hoprxi.crypto.EncryptServiceTest" time="0.156">
+    <system-out><![CDATA[签名:
+c5KBlBCwoa5Lasgz3L9KCoVdeJQ1rRxHmRtTTydy9k5rB5BF3SsdyWdSXh1GJ6RYjGm+M+l7eYOOPSTSJdNJeTmd7sBuY3/y+28o8O7EtCJwT8Bp6YBWvAlI/fSXoO0ho583L5I4FClPmoh5uzscxk/w+QwBxJ8FimIqm07BOyzq6nZmw2C17CVEMNJjQLvV21zEZqda3Tjcs/ij3zSHY332dBaTpSBU3bx80a64BtFAF40Z22BBOTRrZ09A6E6jPw3JtXAUqaDnSo6NQO7C1NW/jHN7yeHbSMxwzukXqDNaeaVQqijWaoDoTCVgzxye4dOsUoWH5PFlA9Jrq4QNRg==
+]]></system-out>
+  </testcase>
+  <testcase name="testStored" classname="salt.hoprxi.crypto.EncryptServiceTest" time="0.637"/>
+  <testcase name="bcryptEncryptAndCheck" classname="salt.hoprxi.crypto.HashServiceTest" time="0.17">
+    <system-out><![CDATA[$2a$10$Ao.yrQRZHVashGFyog26/ORuZ69gwEBT27oHKiLraTxm/pOXNq/te
+95
+]]></system-out>
+  </testcase>
+  <testcase name="pbhkdf2EncryptAndCheck" classname="salt.hoprxi.crypto.HashServiceTest" time="0.131">
+    <system-out><![CDATA[923e625d21dc7e41ce2b18488daebe29811fd1ab0fa96cff44447ddb8db7cc30:713b61a6cf1698e2da40c09dbc469aa5bd7cfce1961022e7d85a9ff193e28c7a
 ]]></system-out>
     <system-err><![CDATA[SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
 SLF4J: Defaulting to no-operation (NOP) logger implementation
 SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
 ]]></system-err>
   </testcase>
-  <testcase name="scryptCheck" classname="salt.hoprxi.crypto.HashServiceTest" time="1.383">
-    <system-out><![CDATA[$s0$e0802$hE3cF2Gt8DBQxyZnEybJyVX4nd21f5/9sszNbfY9KuY=$A5tO8lkdtbbEIdgvNu6WvgKWfN82D/JhsLknNxWZqk8=
-false
-$s0$e0802$pxZzmoFKM3djZhjlSaNVnvrd9Rbp7xecVB0MFGEYfss=$zX6RRAC5VnBFwdtwbA3+9p3dHfmkrKFH7cd+xXrBsNE=
+  <testcase name="scryptCheck" classname="salt.hoprxi.crypto.HashServiceTest" time="0.833">
+    <system-out><![CDATA[$s0$100801$NdMMV/gOZWiMRlqzYl6nwQ==$isKMecwypQMBAWjrkSsKEzTi/IcdYM0hz6djfMf9Zj0=
 ]]></system-out>
   </testcase>
-  <testcase name="scryptSha" classname="salt.hoprxi.crypto.HashServiceTest" time="0.002">
+  <testcase name="sha512" classname="salt.hoprxi.crypto.HashServiceTest" time="0.002">
     <system-out><![CDATA[yMYWUsbT0PhMA1A7+sWlmxuU+hdD9qf/FcUGmJAx7T1gPpqgPWURXROkRc8Ezf/3fa95d+O/j2y7LGVh+K67Bw==
 9fHTwvuIp+p+xvQeBJNp3eYsHijaO4CV9cvSLjsptAhIs0dzZSqSwpq7LsRKtKdZzi9wm1gnKddY4ADe9utA4A==
 ]]></system-out>
   </testcase>
-  <testcase name="scryptSha" classname="salt.hoprxi.crypto.HashServiceTest" time="0.001">
+  <testcase name="sha512" classname="salt.hoprxi.crypto.HashServiceTest" time="0.001">
     <system-out><![CDATA[yMYWUsbT0PhMA1A7+sWlmxuU+hdD9qf/FcUGmJAx7T1gPpqgPWURXROkRc8Ezf/3fa95d+O/j2y7LGVh+K67Bw==
 9fHTwvuIp+p+xvQeBJNp3eYsHijaO4CV9cvSLjsptAhIs0dzZSqSwpq7LsRKtKdZzi9wm1gnKddY4ADe9utA4A==
 ]]></system-out>
   </testcase>
-  <testcase name="SM3EncryptAndCheck" classname="salt.hoprxi.crypto.HashServiceTest" time="0.016">
-    <system-out><![CDATA[c7ae0aec3d2f9beb84dc1885aa7a576baa7a07b38060afc64c5600f93a5456b5
-81d4d3b338b10a5d1889e195bebe04ecaed2951a2e59242182ae2ca86769533a
-56b9426eeeeee996ba3cf66ab7d5a5e1d3f63b7f1986dd1ab415de7e252e5499
+  <testcase name="SM3EncryptAndCheck" classname="salt.hoprxi.crypto.HashServiceTest" time="0.003">
+    <system-out><![CDATA[gdTTszixCl0YieGVvr4E7K7SlRouWSQhgq4sqGdpUzo=
+VrlCbu7u6Za6PPZqt9Wl4dP2O38Zht0atBXefiUuVJk=
 ]]></system-out>
   </testcase>
-  <testcase name="SM3EncryptAndCheck" classname="salt.hoprxi.crypto.HashServiceTest" time="0.009">
-    <system-out><![CDATA[c7ae0aec3d2f9beb84dc1885aa7a576baa7a07b38060afc64c5600f93a5456b5
-81d4d3b338b10a5d1889e195bebe04ecaed2951a2e59242182ae2ca86769533a
-56b9426eeeeee996ba3cf66ab7d5a5e1d3f63b7f1986dd1ab415de7e252e5499
+  <testcase name="SM3EncryptAndCheck" classname="salt.hoprxi.crypto.HashServiceTest" time="0.001">
+    <system-out><![CDATA[gdTTszixCl0YieGVvr4E7K7SlRouWSQhgq4sqGdpUzo=
+VrlCbu7u6Za6PPZqt9Wl4dP2O38Zht0atBXefiUuVJk=
 ]]></system-out>
   </testcase>
-  <testcase name="testAes" classname="salt.hoprxi.crypto.PasswordServiceTest" time="0.206">
-    <system-out><![CDATA[AES密钥:
-uQy4toFgZ9deKahHj1I3Eg==
-IV：
-NH0bij0c/9S+XHJ8ZrzGMw==
-AES加密：
-vdMn7z8F6F9cprDTXQUmjEtTOV3n0q9tyRPsMtC5XWFbF3aU9gMrFFr8h19ryqVx0uguSCHhPPl4S54/lYSA2vcT1JK8SHiB6nd/AI/B5gXVGYKfkm2HBxA4TLe7RvqZJLgw2/QHvGCPHsevp7RYPajJtYk3fztBRHAhFKkjzEvyj3EYnPsRjezFmGsKCNBYtOGBdlGAY7gK/CJAaTcaSdRs5BMi6deRq4ftfTdNrx2UvqPidJuDlfHYO2ztV4cYz8A7bdVLARcEml5gVesNvX75ZR90atqCTeczm2Tpjqkq7u3X2qhatXw79hYm8WEtXLw+wXFY+mBS99SaVTqPHA==
-AES解密：
-十多个和我亲吻了去三分大赛是大幅杀跌奥拉夫危34 第三个大厦还有了我3天然砂去了好多个电话2U影你可以阿瑟提前我萨尔图父亲而我忘了为了网络为了2 问了很多人说沙发啥的委屈儿童核武器
+  <testcase name="argon2Check" classname="salt.hoprxi.crypto.HashServiceTest" time="0.164">
+    <system-out><![CDATA[$argon2id$v=19$m=16384,t=2,p=1$nYw6k5vncHci7Qu1ztq45g==$IxtRyqPRYJjR/3vlhy/JrZM0UV8l+Ic6JprbuMEej9o=
 ]]></system-out>
   </testcase>
-  <testcase name="testGeneratePassword" classname="salt.hoprxi.crypto.PasswordServiceTest" time="0.007">
-    <system-out><![CDATA[Q7-N|18I
-(27mXpI6dV8wF<
-2}Xd*C#Rs
-uPixf;f/#n7L"O$<Jn>
+  <testcase name="testAes" classname="salt.hoprxi.crypto.PasswordServiceTest" time="0.477">
+    <system-out><![CDATA[AES随机初始化向量(BASE64):xnJxFJ0S0wm4o0t29m0L5g==
+AES随机密钥(elasticsearch):jBGTcI1Mm36ASDQmBXXXcH/FbtE+MjiasZf/aY5GJvw=
+AES随机密钥(postgresql):PLRMfOFACQh3rU/IU9NUV9tEivaLLnDuRyQA0EmHhRU=
+AES指定密钥:MSF3h/XhNIUjGaZHltP+WHwAAZil6UssgnxcAzwUg1Q=
+AES加密结果(base64)：Sj6t+nwGOK7475Z6EVsHgaUYPSQFtbdj1S6rEDEyFNo=
+AES加密结果(hex):4a3eadfa7c0638aef8ef967a115b0781a5183d2405b5b763d52eab10313214da
+AES解密结果：Qwe123465德w
+]]></system-out>
+  </testcase>
+  <testcase name="testGeneratePassword" classname="salt.hoprxi.crypto.PasswordServiceTest" time="0.003">
+    <system-out><![CDATA[?k!0)pBO)
+5nM!+V4>GS~:Pl#
 ]]></system-out>
   </testcase>
   <testcase name="testIsStrong" classname="salt.hoprxi.crypto.PasswordServiceTest" time="0.0"/>
-  <testcase name="testKeyPair" classname="salt.hoprxi.crypto.PasswordServiceTest" time="0.738">
-    <system-out><![CDATA[RSA私钥：
-MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCPG6pOcHbOc6iv/Ec/dBVaBWN4phG/mpJqx2z7wp5190uVd6xyzRN1Moog4x8sDcKLq5EYlnwcNajNkkyRaL7JkAUATMQ2yGO1nhRq1tXao6NteL9Ffv9S+/l1XN9qR3pk9GMqs0nWbzltX+UwEmO8jUUD+EjawDV9shfAEQi7hjfIjUL6aL07ouPqPAhfI4W21uWJJDeNdP9KP7VD0/e/S64WE/hLc/huOZwNcD26UxU6+exvuuewpyNFS6RMloemveZuOlHzoBhJTKSYn3HF1pq2inoLda3rMm2qF074ySq7T4Yted8OjAlAYJRdftnFdD4d42xJy+/dkxhlrtVDAgMBAAECggEAdqqyJikL21X84zGGww83RVaCjWDoBsHd9702me1gCOHvQxnhXbDAGca2016CUr12POsffgwLDjlQqGZQJ6N70RgjjYQakHLKe6eBtrY+zvYyZmxh7vbIMb/Ps4o3mKF81InyUU4qRC4mqJOEMMCPA6MBP7F6eCo6MOik2RdG7ne1QyvtB9Rmh8Eir45ZZcgOQ6pTnpcbSDLJi7aUJMDoQkZnfTPmTJvSDTkyKu/naeIvlhIeN5KXOtZZXpAuJI6WcPrg1oEV03oLKtTUF3yKHTrVidQ0b3lmaDaxE0nNtTTueuky4R4IPHTULG++IcJbFdsD8h8aJexB7IpJCWBkwQKBgQDaeAkQ300u17xv5NCDTN8O6MNDtpDy+M800x89QdrNBGkKsUJXpQtOU2NvI3tv0/qyR5y0uuAM3YvLHsuyCzNUM68YVGAcyaZ7+JOAb0WfPK4ihHm4MNsu5f/avauFvP+U8khwdwUUFCDF7u1RC9/I1NktnAchWJty3kG8+MrmJQKBgQCnsV0KBzPotCKM90huBp2cGLEf6kROpWOk3KblF7G6hjTvk99dyv3oIX3hXzmR5T6th5y8Wkq/7dZlqA5zuMEGTcfCOTKsdLTqakY0WJsf29rvydsZy51eypJwzvmOON+J4JU1ZUbPTOO0OBG4SeS5eFJI3HFlQslrDhvHfbqtRwKBgB5/lVxqn/7DFUZVnhpGV/lf2yqPyQpyW5LXSkwl7mKik/tvJYDQxJRJpd71CB1jbWMIBkNgtzh0kTho8yzGzYKauH3gAY7jQ7+Ywxax8fk54mFlNwzUnTSd3SrvQYupB9EGRcCVjPrxmGWpZi3jR3lk5XCtkH1CPmk5x9mWrdSVAoGAJJHVTF6Nv22pKzyyGuxuaqAn4GHiS5RdypIkA0nLhHXIDYcd6wJdpMXJAeEWWO65YHZ2g8zdCEYBv2GK5UmhLpK/wWdf2aQJ4CUU8k1wZt43PJu0oEd7JjTfAqLgYVedyB+l6mMPsh1+esrPcnUK4DeRGjqYsBCEhEgrXrHYh/kCgYEAnDJxbmyo9A+EzsQrSDGHpkH8hiznmFAi8QZQUYDQQttpxkp1CPAGdFG6OUyAjQmpaTn2RYFeq2FoO3xUyw5mMcwDZgbts5phNUMmYqBfQJP9Jm6c2UMLs4I3V/vZrKVKMC6ljJUxb+q+YoafJR61Z/NsEXducb4Q2L8uVM6fagg=
-RSA公钥：
-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjxuqTnB2znOor/xHP3QVWgVjeKYRv5qSasds+8KedfdLlXescs0TdTKKIOMfLA3Ci6uRGJZ8HDWozZJMkWi+yZAFAEzENshjtZ4UatbV2qOjbXi/RX7/Uvv5dVzfakd6ZPRjKrNJ1m85bV/lMBJjvI1FA/hI2sA1fbIXwBEIu4Y3yI1C+mi9O6Lj6jwIXyOFttbliSQ3jXT/Sj+1Q9P3v0uuFhP4S3P4bjmcDXA9ulMVOvnsb7rnsKcjRUukTJaHpr3mbjpR86AYSUykmJ9xxdaatop6C3Wt6zJtqhdO+Mkqu0+GLXnfDowJQGCUXX7ZxXQ+HeNsScvv3ZMYZa7VQwIDAQAB
-私钥加密:
-YKUU3Z+LUWaWyN63seVg/8LeF/mVhiC10Vgx3Yma05hll8jZXXbpbSZnzPo5qjRNX7f4exi/MpyXUYuWWDKBnfDHs1+cLFZfJ8sg5ihFRtaZ+vILVf6JcfQXI48Xst/N7TyKNsWkeTRLBs5GLaqDpOC2hrQ/1sgOhvrOt9i5XNTZwkARtby/9PEzj/tVvQv6TCanA+qXMwnDK4UjYMUPIiUhGv+gtjVKnFner+C4dBR6ElcvCKLGOCsySMcKyDcD7Ak3PQbpvQoOfSYib5f/bBaLpB/Rp05QeBAgB1Wy3KP3IZmW6DoiKRO0hA9RvO7MUaZYDeRW5MXsFOlQhyKOdFADe1dySQDdkfx5XeXRxO0dVcxp7sojSWqy+nemFZXcaToxiGYQiFnSqrtwkCcRXP3uSAgLMngNh7YNZWrweVODunMklRTExCz7tlL2/CUjDwW9pLpxN8GJmAAegYCgZUcDcYPyZezNUtgQWJgz+UvD9t+cAiHETRsytjYblzziTUDSUXLvC306XTlg98cG8yulSYVMo5XeqU05XgK/OaLlfn5cjI/qJhzhm4AhSRv0+vIlwEc3tKyBYEiKzxZHxDDRKlqsDmdZZrVrTWj693OcdYpID069TiYA9uaHxTbqK2DX1YLrblavBi/sL5q70ISzPRBezhFFb8QxBY65JAc=
-公钥解密:
-寒山阿萨法千万人情味去我姥姥爱上合适的第三方挖了文人士大夫为了网天然了问题了合适的发生大幅了剃光头了过了23人我还是封杀哥哥老大哥电话3晚了点共和国饿他跟3 二哥和老公扔了涉案特了啊头； 为爱跳舞艾尔文特委屈我去儿童委屈月初℃
-公钥加密:
-XMT9LSLWz2JP1xMf7Fk8lRlDQWTUy8bBGE9DkmjRspHL9zQQTdyUueT3w63qGOdxwBHTnjUiJeg5qaWKTLnn1HSGlP+AD7GAzT+sqwyBEeLddtHWviBAkCrjpbNSoD15qLDt4+/hXR9K3c9gSTSyw8+C4OYk2E9lGaDiyoAZqG24XYP/TA5lIl4Esgy8Pn/pkQ5YH2mm/0KYDIg+RW7HkfJo0mKFkfRs1i2M4pcPQsPCrPIat4oA6YF0Nzy+pCbSclK7qRFE0YtcfwmLrM8AYMQzJDs2hP9bw321JMttFw1cwBuz6bkgqJzgqb3uPQwuZuAICUIr3DOJ7MLgQSR4xxLqvr7ZzUaXA3Ul8g06E/4HznX7uHq1lnsWHR0cohsERi5k/OKCYcNIMozsyEvuFH3ju/u945/CsLNIxUEbbaz81IzNEHgCAwxGQPN1llj99x/FNjuGt6+iEHTJuk/+TykJ60174LS2vYqlMJMMsic3CvEEvwmmke+geovsDsjXXfdBVIOvzJ5gEoJ3goQkz7VbKW75zLXXDL1rfj9mMZGoHCmUW4D5OpWqFntmGtW/PHsRgPuvCHSvhlPX+ypYK0kAAzbGAIVxzf1/s+R0DzGGd8J+LXeYUmP8E/dU81OO5dzJ1e53QSDHiJzUrZRyvKxtswgbN+zm5mdWLOcha+g=
-私钥解密
-寒山阿萨法千万人情味去我姥姥爱上合适的第三方挖了文人士大夫为了网天然了问题了合适的发生大幅了剃光头了过了23人我还是封杀哥哥老大哥电话3晚了点共和国饿他跟3 二哥和老公扔了涉案特了啊头； 为爱跳舞艾尔文特委屈我去儿童委屈月初℃
+  <testcase name="testMain" classname="salt.hoprxi.crypto.PasswordServiceTest" time="0.001">
+    <system-out><![CDATA[The plan text encrypted
+------                -----------        
+plan_text                阿达沙发上
+password                 Qwe123465
+encrypted(base64)        KX/EToZM/7VgFpbMDSCWK2oGQZPR/9syKSXyKmA8dRw=
 ]]></system-out>
   </testcase>
-  <testcase name="testSign" classname="salt.hoprxi.crypto.PasswordServiceTest" time="0.327">
-    <system-out><![CDATA[签名:
-IDPQlpFqmDjdImMoNyhzWrgyqIttfN+Zd4HQO1y0m6RFM9MpMPmdXR27ufd1iaskB0U85ncvZcVAZgdJN1IiWPvYpQauN3LSsab5NrSbVw3F5P+Mj/CbGV/M+sXNoCSj0U6GDAf/teLyc/kKd1S7SL7o/z6MC4R/0Z2/64AtPe/Jqb6T1w/KY6xcd5LgvcDPEkhVDwB8jN5WHoWR31yqYeVFpsUXHgYIAr+M4BDH5rmmND98K05fwGc/k5rcUds9cR+sitayWVrF0ZZVLbo6t6pTdmzfR18YnLEGnsFtOGd+rrb6pdf0EULgvWkcC63cJqRSmWfC31P6+24yBrRcKg==
+  <testcase name="testEncryptSpec" classname="salt.hoprxi.crypto.util.AESUtilTest" time="0.001">
+    <system-out><![CDATA[加密原文(text:base64):Qwe123465Dw$UXdlMTIzNDY1RHc=
+SM4加密结果(hex):20dc880d69589eb3f2e86eb981f5c8be19047a8c77e061d671187707638e0265
+SM4加密结果(base64):INyIDWlYnrPy6G65gfXIvhkEeox34GHWcRh3B2OOAmU=
 ]]></system-out>
   </testcase>
-  <testcase name="testStored" classname="salt.hoprxi.crypto.PasswordServiceTest" time="1.352"/>
-  <testcase name="shouldAnswerWithTrue on shouldAnswerWithTrue(salt.hoprxi.AppTest)" classname="salt.hoprxi.AppTest" time="0.001"/>
+  <testcase name="testDecryptSpec" classname="salt.hoprxi.crypto.util.AESUtilTest" time="0.001">
+    <system-out><![CDATA[SM4解密结果(base64):Qwe123465Dw
+SM4解密结果(base64):Qwe123465Dw中文
+]]></system-out>
+  </testcase>
+  <testcase name="testEncryptSpec" classname="salt.hoprxi.crypto.util.SM4UtilTest" time="0.599">
+    <system-out><![CDATA[加密原文(text:base64):Qwe123465Dw中文$UXdlMTIzNDY1RHfkuK3mloc=
+SM4加密结果(hex):bd2d879c1aca4fd5d786d61b56b5db11450a30bc83e9b80fc058e4bb88727f1a8887ba3e16f28e47ba4c2468e426bf69
+SM4加密结果(base64):vS2HnBrKT9XXhtYbVrXbEUUKMLyD6bgPwFjku4hyfxqIh7o+FvKOR7pMJGjkJr9p
+]]></system-out>
+  </testcase>
+  <testcase name="testDecryptSpec" classname="salt.hoprxi.crypto.util.SM4UtilTest" time="0.011">
+    <system-out><![CDATA[SM4解密结果(base64):Qwe123465Dw中文
+SM4解密结果(base64):Qwe123465Dw
+]]></system-out>
+  </testcase>
 </testsuite>

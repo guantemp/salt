@@ -15,30 +15,19 @@
  */
 package salt.hoprxi.crypto;
 
-import org.bouncycastle.asn1.ASN1InputStream;
-import org.bouncycastle.asn1.x500.X500Name;
-import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo;
-import org.bouncycastle.cert.X509CertificateHolder;
-import org.bouncycastle.cert.X509v3CertificateBuilder;
-import org.bouncycastle.operator.ContentSigner;
-import org.bouncycastle.operator.OperatorCreationException;
-import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
 import org.bouncycastle.util.encoders.Base64;
+import salt.hoprxi.crypto.util.AESUtil;
 
-import javax.crypto.*;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
 import java.io.*;
-import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.security.*;
-import java.security.cert.Certificate;
-import java.security.cert.*;
-import java.security.interfaces.RSAPrivateKey;
-import java.security.interfaces.RSAPublicKey;
-import java.security.spec.InvalidKeySpecException;
-import java.security.spec.PKCS8EncodedKeySpec;
-import java.security.spec.X509EncodedKeySpec;
-import java.util.*;
+import java.security.cert.CertificateException;
+import java.util.EnumSet;
+import java.util.Enumeration;
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 /***
@@ -55,20 +44,35 @@ public class PasswordService {
     private static final Pattern CHINESE_PATTERN = Pattern.compile("[\u4e00-\u9fa5]");
     private static final Pattern EXCLUDE = Pattern.compile("^-{1,}.*");
 
+    private enum ActionTag {
+        DELETE, LIST, STORE, ENCRYPT, FILE
+    }
+
     public static void main(String[] args) throws NoSuchAlgorithmException, CertificateException, KeyStoreException, IOException {
-        String param1 = null, param2 = null, param3 = null, param4 = null;
-        String fileName = "keystore.jks";
-        boolean encryptSign = false, fileSign = false, storeSign = false, helpSign = false;
+        String param1 = null, param2 = null, param3 = null;
+        String fileName = "keystore.jks", protectPasswd = "";
+        EnumSet<ActionTag> set = EnumSet.noneOf(ActionTag.class);
+        boolean encryptSign = false, storeSign = false, helpSign = false, listSign = false, delSign = false;
         for (int i = 0, j = args.length; i < j; i++) {
             switch (args[i]) {
                 case "-f":
                 case "--file":
-                    fileSign = true;
-                    if (j > i + 1 && !EXCLUDE.matcher(args[i + 1]).matches()) {
-                        fileName = args[i + 1];
+                    set.add(ActionTag.FILE);
+                    if (j > i + 1) {
+                        if (EXCLUDE.matcher(args[i + 1]).matches())
+                            break;
+                        else
+                            fileName = args[i + 1];
+                    }
+                    if (j > i + 2) {
+                        if (EXCLUDE.matcher(args[i + 2]).matches())
+                            break;
+                        else
+                            protectPasswd = args[i + 2];
                     }
                     break;
                 case "-e":
+                    set.add(ActionTag.ENCRYPT);
                     encryptSign = true;
                     if (j > i + 1) {
                         if (EXCLUDE.matcher(args[i + 1]).matches())
@@ -88,14 +92,9 @@ public class PasswordService {
                         else
                             param3 = args[i + 3];
                     }
-                    if (j > i + 4) {
-                        if (EXCLUDE.matcher(args[i + 4]).matches())
-                            break;
-                        else
-                            param4 = args[i + 4];
-                    }
                     break;
                 case "-S":
+                    set.add(ActionTag.STORE);
                     storeSign = true;
                     if (j > i + 1) {
                         if (EXCLUDE.matcher(args[i + 1]).matches())
@@ -116,6 +115,30 @@ public class PasswordService {
                             param3 = args[i + 3];
                     }
                     break;
+                case "-t":
+                case "--type":
+                    break;
+                case "-l":
+                case "--list":
+                    set.add(ActionTag.LIST);
+                    break;
+                case "-d":
+                case "--delete":
+                    delSign = true;
+                    set.add(ActionTag.DELETE);
+                    if (j > i + 1) {
+                        if (EXCLUDE.matcher(args[i + 1]).matches())
+                            break;
+                        else
+                            param1 = args[i + 1];
+                    }
+                    if (j > i + 2) {
+                        if (EXCLUDE.matcher(args[i + 2]).matches())
+                            break;
+                        else
+                            param2 = args[i + 2];
+                    }
+                    break;
                 case "-h":
                 case "--help":
                     helpSign = true;
@@ -133,32 +156,56 @@ public class PasswordService {
                     "-t --type                      encrypt type(aes,sm4)\n" +
                     "-l, --list                     entries in the keystore\n" +
                     "-h, --help                     Show help          \n" +
-                    "-p, --passwd                   Encrypt password\n" +
-                    "-pp,--PasswordProtection       Encrypt password protection\n" +
                     "-f, --file                     Show verbose output\n");
         } else {
+            if (set.contains(ActionTag.STORE)) {
+                store(param1, param2, param3, fileName, protectPasswd);
+            } else if (set.contains(ActionTag.LIST)) {
+                list(fileName, protectPasswd);
+            }
+/*
             if (encryptSign) {
                 if (fileSign) {
-                    encryptWithStorePasswd(param1, param2, param3, fileName, param4);
+                    encryptWithStorePasswd(param1, param2, param3, fileName, protectPasswd);
                 } else {
                     encrypt(param1, param2);
                 }
             }
-            if (storeSign) {
-                store(param1, param2, param3, fileName);
+
+ */
+        }
+    }
+
+    private static void list(String fileName, String protectPasswd) {
+        try (FileInputStream fis = new FileInputStream(fileName)) {
+            KeyStore keyStore = KeyStore.getInstance("JCEKS");
+            keyStore.load(fis, protectPasswd.toCharArray());
+            Enumeration<String> alias = keyStore.aliases();
+            System.out.println("Find entry from: " + fileName);
+            while (alias.hasMoreElements()) {
+                System.out.println(alias.nextElement());
             }
+        } catch (NoSuchAlgorithmException | IOException | KeyStoreException e) {
+            System.out.println("Keystore was not exists, or tampered with, or password was incorrect：" + fileName);
+        } catch (CertificateException e) {
+            throw new RuntimeException(e);
         }
     }
 
     private static void encryptWithStorePasswd(String planText, String entry, String entryPasswd, String fileName, String protectedPasswd) throws NoSuchAlgorithmException, CertificateException, KeyStoreException {
         Objects.requireNonNull(planText, "planText required");
-        //if(entry)
+        if (entry == null)
+            entry = "security.keystore.password";
+        if (entryPasswd == null)
+            entryPasswd = "";
         try (FileInputStream fis = new FileInputStream(fileName)) {
             KeyStore keyStore = KeyStore.getInstance("JCEKS");
             keyStore.load(fis, protectedPasswd.toCharArray());
-            //if (entryPasswd == null) entryPasswd = filePasswd;
-            SecretKey secKey = (SecretKey) keyStore.getKey(entry, entryPasswd.toCharArray());
-            encrypt(planText, secKey, protectedPasswd);
+            if (keyStore.containsAlias(entry)) {
+                //if (entryPasswd == null) entryPasswd = filePasswd;
+                SecretKey secKey = (SecretKey) keyStore.getKey(entry, entryPasswd.toCharArray());
+                encrypt(planText, secKey, protectedPasswd);
+            }
         } catch (FileNotFoundException e) {
             System.out.println("Not find key store file：" + fileName);
         } catch (IOException e) {
@@ -171,7 +218,7 @@ public class PasswordService {
     private static void encrypt(String planText, String password) throws NoSuchAlgorithmException {
         Objects.requireNonNull(planText, "planText required");
         if (password == null)
-            password = PasswordService.generatePassword();
+            password = PasswordService.nextPasswd();
         KeyGenerator gen = KeyGenerator.getInstance("AES");
         gen.init(256, new SecureRandom(password.getBytes(StandardCharsets.UTF_8)));
         SecretKey secretKey = gen.generateKey();
@@ -179,7 +226,7 @@ public class PasswordService {
     }
 
     private static void encrypt(String planText, SecretKey key, String password) throws NoSuchAlgorithmException {
-        byte[] aesData = AesUtil.encryptSpec(planText.getBytes(StandardCharsets.UTF_8), key);
+        byte[] aesData = AESUtil.encryptSpec(planText.getBytes(StandardCharsets.UTF_8), key);
         System.out.println("The plan text encrypted\n" +
                 "------                -----------        \n" +
                 "plan_text                " + planText + "\n" +
@@ -189,30 +236,30 @@ public class PasswordService {
     }
 
 
-    private static void store(String param1, String param2, String param3, String filename) throws KeyStoreException, CertificateException, IOException, NoSuchAlgorithmException {
-        String protectPasswd = "", entry = "security.keystore.password", entryPasswd = PasswordService.generateStrongPassword();
+    private static void store(String param1, String param2, String param3, String filename, String protectPasswd) throws KeyStoreException, CertificateException, IOException, NoSuchAlgorithmException {
+        String entry = "security.keystore.AES.password", entryPasswd = PasswordService.nextStrongPasswd(), entryProtectPasswd = "";
         if (param1 != null && param2 != null && param3 != null) {
-            protectPasswd = param1;
-            entry = param2;
-            entryPasswd = param3;
+            entry = param1;
+            entryPasswd = param2;
+            entryProtectPasswd = param3;
         } else if (param1 != null && param2 != null) {
             entry = param1;
             entryPasswd = param2;
         } else if (param1 != null) {
             entryPasswd = param1;
         }
-        System.out.println(param1 + ":" + param2 + ":" + param3);
-        System.out.println(protectPasswd + ":" + entry + ":" + entryPasswd);
-        KeyStore keyStore = KeyStore.getInstance("JCEKS");
-        keyStore.load(null, null);
+        //System.out.println(param1 + ":" + param2 + ":" + param3);
+        //System.out.println(entry + ":" + entryPasswd + ":" + entryProtectPasswd);
+        KeyGenerator gen = KeyGenerator.getInstance("AES");
+        gen.init(256, new SecureRandom(entryPasswd.getBytes(StandardCharsets.UTF_8)));
+        SecretKey customizedKey = gen.generateKey();
+
+        KeyStore keyStore = KeyStore.getInstance("JCEKS");//JKS,JCEKS(推荐）,PKCS12(RSA存储为p12),BKS(bouncycastle),UBER
+        keyStore.load(null, protectPasswd.toCharArray());
         File file = new File(filename);
         if (file.exists()) {
             keyStore.load(Files.newInputStream(file.toPath()), protectPasswd.toCharArray());
         }
-
-        KeyGenerator gen = KeyGenerator.getInstance("AES");
-        gen.init(256, new SecureRandom(entryPasswd.getBytes(StandardCharsets.UTF_8)));
-        SecretKey customizedKey = gen.generateKey();
         keyStore.setEntry(entry, new KeyStore.SecretKeyEntry(customizedKey), new KeyStore.PasswordProtection(entryPasswd.toCharArray()));
 
         FileOutputStream fos = new FileOutputStream(file);
@@ -220,24 +267,24 @@ public class PasswordService {
         fos.close();
 
         System.out.println("Password has been saved to ‘" + file.getAbsolutePath() + "’\n" +
-                "--------------               ------------------        \n" +
-                "Protect Password             " + protectPasswd + "\n" +
+                "----------------------        -----------------------------\n" +
                 "Entry                        " + entry + "\n" +
                 "Entry Password               " + entryPasswd + "\n" +
-                "Entry Protect Password       " + entryPasswd
+                "Entry Protect Password       " + (entryProtectPasswd.equalsIgnoreCase("") ? "<Empty>" : entryProtectPasswd) + "\n" +
+                "Protect Password             " + (protectPasswd.equalsIgnoreCase("") ? "<Empty>" : protectPasswd)
         );
     }
 
     /**
      * @return
      */
-    public static String generatePassword() {
+    public static String nextPasswd() {
         String password = null;
         StringBuilder sb = new StringBuilder();
         SecureRandom random = new SecureRandom();
         boolean isStrong = false;
         while (!isStrong) {
-            password = generatePassword(sb, random);
+            password = nextPasswd(sb, random);
             if (password.length() >= 8) {
                 isStrong = isStrong(password);
             }
@@ -248,13 +295,13 @@ public class PasswordService {
     /**
      * @return
      */
-    public static String generateStrongPassword() {
+    public static String nextStrongPasswd() {
         String password = null;
         StringBuilder sb = new StringBuilder();
         SecureRandom random = new SecureRandom();
         boolean isStrong = false;
         while (!isStrong) {
-            password = generatePassword(sb, random);
+            password = nextPasswd(sb, random);
             if (password.length() >= 12) {
                 isStrong = isVeryStrong(password);
             }
@@ -267,7 +314,7 @@ public class PasswordService {
      * @param random
      * @return
      */
-    private static String generatePassword(StringBuilder password, SecureRandom random) {
+    private static String nextPasswd(StringBuilder password, SecureRandom random) {
         int index;
         int opt = random.nextInt(4);
         switch (opt) {
@@ -348,191 +395,5 @@ public class PasswordService {
             strength += (letterCount + digitCount);
         }
         return strength;
-    }
-
-    public static PrivateKey generatePrivateKey(int keySize) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        KeyPairGenerator generator = KeyPairGenerator.getInstance("RSA");
-        generator.initialize(keySize, new SecureRandom());
-        KeyPair keyPair = generator.generateKeyPair();
-        KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-        PKCS8EncodedKeySpec pkcs8KeySpec = new PKCS8EncodedKeySpec(keyPair.getPrivate().getEncoded());
-        return keyFactory.generatePrivate(pkcs8KeySpec);
-    }
-
-    public static PublicKey generatePublicKey(int keySize) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        KeyPairGenerator generator = KeyPairGenerator.getInstance("RSA");
-        generator.initialize(keySize, new SecureRandom());
-        KeyPair keyPair = generator.generateKeyPair();
-        KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-        X509EncodedKeySpec x509KeySpec = new X509EncodedKeySpec(keyPair.getPublic().getEncoded());
-        return keyFactory.generatePublic(x509KeySpec);
-    }
-
-    public static void generateRsaKeyPair(int keySize, OutputStream out) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        KeyPairGenerator generator = KeyPairGenerator.getInstance("RSA");
-        generator.initialize(keySize, new SecureRandom());
-        KeyPair keyPair = generator.generateKeyPair();
-        KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-        PKCS8EncodedKeySpec pkcs8KeySpec = new PKCS8EncodedKeySpec(keyPair.getPrivate().getEncoded());
-        X509EncodedKeySpec x509KeySpec = new X509EncodedKeySpec(keyPair.getPublic().getEncoded());
-        keyFactory.generatePrivate(pkcs8KeySpec);
-        keyFactory.generatePublic(x509KeySpec);
-    }
-
-    public static void createCertificate() {
-
-    }
-
-    /**
-     * @param data
-     * @param privateKey
-     * @return
-     */
-    public static byte[] encrypt(byte[] data, PrivateKey privateKey) {
-        try {
-            Cipher cipher = Cipher.getInstance("RSA");
-            cipher.init(Cipher.ENCRYPT_MODE, privateKey);
-            int keySize = ((RSAPrivateKey) privateKey).getModulus().bitLength();
-            return crypt(cipher, Cipher.ENCRYPT_MODE, data, keySize);
-        } catch (NoSuchPaddingException | NoSuchAlgorithmException | InvalidKeyException | ShortBufferException |
-                 IllegalBlockSizeException | BadPaddingException | IOException e) {
-            throw new RuntimeException("Encrypt data[" + Arrays.toString(data) + "] exception", e);
-        }
-    }
-
-    public static byte[] encrypt(byte[] data, PublicKey publicKey) {
-        try {
-            Cipher cipher = Cipher.getInstance("RSA");
-            cipher.init(Cipher.ENCRYPT_MODE, publicKey);
-            int keySize = ((RSAPublicKey) publicKey).getModulus().bitLength();
-            return crypt(cipher, Cipher.ENCRYPT_MODE, data, keySize);
-        } catch (NoSuchPaddingException | NoSuchAlgorithmException | InvalidKeyException | ShortBufferException |
-                 IllegalBlockSizeException | BadPaddingException | IOException e) {
-            throw new RuntimeException("Encrypt data[" + Arrays.toString(data) + "] exception", e);
-        }
-    }
-
-    /**
-     * @param data
-     * @param privateKey
-     * @return
-     */
-    public static byte[] decrypt(byte[] data, PrivateKey privateKey) {
-        try {
-            Cipher cipher = Cipher.getInstance("RSA");
-            cipher.init(Cipher.DECRYPT_MODE, privateKey);
-            int keySize = ((RSAPrivateKey) privateKey).getModulus().bitLength();
-            return crypt(cipher, Cipher.DECRYPT_MODE, data, keySize);
-        } catch (NoSuchPaddingException | NoSuchAlgorithmException | InvalidKeyException | ShortBufferException |
-                 IllegalBlockSizeException | BadPaddingException | IOException e) {
-            throw new RuntimeException("Decrypt data[" + Arrays.toString(data) + "] exception", e);
-        }
-    }
-
-    /**
-     * @param data
-     * @param publicKey
-     * @return
-     */
-    public static byte[] decrypt(byte[] data, PublicKey publicKey) {
-        try {
-            Cipher cipher = Cipher.getInstance("RSA");
-            cipher.init(Cipher.DECRYPT_MODE, publicKey);
-            int keySize = ((RSAPublicKey) publicKey).getModulus().bitLength();
-            return crypt(cipher, Cipher.DECRYPT_MODE, data, keySize);
-        } catch (NoSuchPaddingException | NoSuchAlgorithmException | InvalidKeyException | ShortBufferException |
-                 IllegalBlockSizeException | BadPaddingException | IOException e) {
-            throw new RuntimeException("Decrypt data[" + Arrays.toString(data) + "] exception", e);
-        }
-    }
-
-
-    /**
-     * @param cipher
-     * @param opmode
-     * @param data
-     * @param keySize
-     * @return
-     * @throws ShortBufferException
-     * @throws IllegalBlockSizeException
-     * @throws BadPaddingException
-     * @throws IOException
-     */
-    private static byte[] crypt(Cipher cipher, int opmode, byte[] data, int keySize) throws ShortBufferException, IllegalBlockSizeException, BadPaddingException, IOException {
-        int blockSize = (opmode == Cipher.DECRYPT_MODE) ? keySize / 8 : keySize / 8 - 11;
-        int dataLength = data.length;
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        int offset = 0;
-        byte[] cache;
-        int i = 0;
-        // 对数据分段加密解密
-        while (dataLength - offset > 0) {
-            if (dataLength - offset > blockSize) {
-                cache = cipher.doFinal(data, offset, blockSize);
-            } else {
-                cache = cipher.doFinal(data, offset, dataLength - offset);
-            }
-            out.write(cache, 0, cache.length);
-            i++;
-            offset = i * blockSize;
-        }
-        byte[] encryptedData = out.toByteArray();
-        out.close();
-        return encryptedData;
-    }
-
-    /**
-     * @param data
-     * @return
-     * @throws NoSuchAlgorithmException
-     * @throws InvalidKeySpecException
-     * @throws InvalidKeyException
-     * @throws SignatureException
-     */
-    public static byte[] sign(byte[] data, PrivateKey privateKey) throws NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, SignatureException {
-        PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(privateKey.getEncoded());
-        KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-        PrivateKey key = keyFactory.generatePrivate(keySpec);
-        Signature signature = Signature.getInstance("SHA256withRSA");
-        signature.initSign(key);
-        signature.update(data);
-        return signature.sign();
-    }
-
-    /**
-     * @param src
-     * @param sign
-     * @return
-     * @throws NoSuchAlgorithmException
-     * @throws InvalidKeySpecException
-     * @throws InvalidKeyException
-     * @throws SignatureException
-     */
-    public static boolean verify(byte[] src, byte[] sign, PublicKey publicKey) throws NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, SignatureException {
-        byte[] keyBytes = publicKey.getEncoded();
-        X509EncodedKeySpec keySpec = new X509EncodedKeySpec(keyBytes);
-        KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-        PublicKey key = keyFactory.generatePublic(keySpec);
-        Signature signature = Signature.getInstance("SHA256withRSA");
-        signature.initVerify(key);
-        signature.update(src);
-        return signature.verify(sign);
-    }
-
-    private static Certificate generateV3(String issuer, String subject,
-                                          BigInteger serial, Date notBefore, Date notAfter,
-                                          PublicKey publicKey, PrivateKey privKey, List<Extension> extensions)
-            throws OperatorCreationException, CertificateException, IOException, NoSuchAlgorithmException, InvalidKeySpecException {
-        SubjectPublicKeyInfo subjectPublicKeyInfo = SubjectPublicKeyInfo.getInstance(new ASN1InputStream(PasswordService.generatePublicKey(2048).getEncoded()).readObject());
-        X500Name issueDn = new X500Name("C=CN,ST=SiChuan,L=LeShan,O=Skybility,OU=Cloudbility,CN=Atlas Personal License CA");
-        X500Name subjectDn = new X500Name("C=CN,ST=SiChuan,L=LeShan,O=Skybility,OU=Cloudbility,CN=Atlas Personal License CA");
-        //Instant instant = Instant.now();
-        X509v3CertificateBuilder builder = new X509v3CertificateBuilder(issueDn, serial, notBefore, notAfter, Locale.CHINA, subjectDn, subjectPublicKeyInfo);
-        //证书签名数据
-        ContentSigner signGen = new JcaContentSignerBuilder("SHA256withRSA").build(PasswordService.generatePrivateKey(2048));
-        X509CertificateHolder holder = builder.build(signGen);
-        byte[] certBuf = holder.getEncoded();
-        X509Certificate certificate = (X509Certificate) CertificateFactory.getInstance("x509").generateCertificate(new ByteArrayInputStream(certBuf));
-        return certificate;
     }
 }

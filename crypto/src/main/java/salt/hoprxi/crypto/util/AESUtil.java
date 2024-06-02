@@ -14,13 +14,14 @@
  *  limitations under the License.
  */
 
-package salt.hoprxi.crypto;
-
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
+package salt.hoprxi.crypto.util;
 
 import javax.crypto.*;
 import javax.crypto.spec.IvParameterSpec;
-import java.security.*;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -29,12 +30,8 @@ import java.util.Objects;
  * @since JDK8.0
  * @version 0.0.1 builder 2024-05-29
  */
-public class SM4Util {
-    static {
-        Security.addProvider(new BouncyCastleProvider());
-    }
-
-    private static final String ALGORITHM_NAME_CBC_PADDING = "SM4/CBC/PKCS5Padding";
+public class AESUtil {
+    private static final String ALGORITHM_NAME_CBC_PADDING = "AES/CBC/PKCS5Padding";
 
     /**
      * @param data
@@ -42,9 +39,9 @@ public class SM4Util {
      * @return
      */
 
-    public static byte[] encryptSpec(byte[] data, SecretKey key) {
+    public static byte[] encryptSpec(byte[] data, SecretKey key) throws NoSuchAlgorithmException {
         Objects.requireNonNull(data, "data is required");
-        Objects.requireNonNull(key, "secretKey is required");
+        Objects.requireNonNull(key, "key is required");
         SecureRandom secureRandom = new SecureRandom();//SecureRandom.getInstance("SHA1PRNG");
         byte[] iv = new byte[16];
         secureRandom.nextBytes(iv);
@@ -71,7 +68,7 @@ public class SM4Util {
      */
     public static byte[] decryptSpec(byte[] data, SecretKey key) {
         Objects.requireNonNull(data, "data is required");
-        Objects.requireNonNull(key, "secretKey is required");
+        Objects.requireNonNull(key, "key is required");
         SecureRandom secureRandom = new SecureRandom();//SecureRandom.getInstance("SHA1PRNG");
         byte[] iv = new byte[16];
         secureRandom.nextBytes(iv);

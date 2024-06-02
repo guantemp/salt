@@ -1,67 +1,97 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" ignored="0" total="13" passed="13">
+<testng-results skipped="0" failed="0" ignored="0" total="19" passed="19">
   <reporter-output>
   </reporter-output>
-  <suite name="Command line suite" duration-ms="3375" started-at="2023-09-20T21:59:34 CST" finished-at="2023-09-20T21:59:38 CST">
+  <suite name="Surefire suite" duration-ms="3780" started-at="2024-05-31T10:57:11 CST" finished-at="2024-05-31T10:57:15 CST">
     <groups>
     </groups>
-    <test name="Command line test" duration-ms="3375" started-at="2023-09-20T21:59:34 CST" finished-at="2023-09-20T21:59:38 CST">
+    <test name="Surefire test" duration-ms="3780" started-at="2024-05-31T10:57:11 CST" finished-at="2024-05-31T10:57:15 CST">
       <class name="salt.hoprxi.crypto.HashServiceTest">
-        <test-method status="PASS" signature="bcryptEncryptAndCheck()[pri:0, instance:salt.hoprxi.crypto.HashServiceTest@7cd62f43]" name="bcryptEncryptAndCheck" duration-ms="181" started-at="2023-09-20T21:59:34 CST" finished-at="2023-09-20T21:59:34 CST">
+        <test-method status="PASS" signature="bcryptEncryptAndCheck()[pri:0, instance:salt.hoprxi.crypto.HashServiceTest@544fe44c]" name="bcryptEncryptAndCheck" duration-ms="170" started-at="2024-05-31T10:57:12 CST" finished-at="2024-05-31T10:57:12 CST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- bcryptEncryptAndCheck -->
-        <test-method status="PASS" signature="pbhkdf2EncryptAndCheck()[pri:0, instance:salt.hoprxi.crypto.HashServiceTest@7cd62f43]" name="pbhkdf2EncryptAndCheck" duration-ms="496" started-at="2023-09-20T21:59:34 CST" finished-at="2023-09-20T21:59:35 CST">
+        <test-method status="PASS" signature="pbhkdf2EncryptAndCheck()[pri:0, instance:salt.hoprxi.crypto.HashServiceTest@544fe44c]" name="pbhkdf2EncryptAndCheck" duration-ms="130" started-at="2024-05-31T10:57:12 CST" finished-at="2024-05-31T10:57:13 CST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- pbhkdf2EncryptAndCheck -->
-        <test-method status="PASS" signature="scryptCheck()[pri:0, instance:salt.hoprxi.crypto.HashServiceTest@7cd62f43]" name="scryptCheck" duration-ms="1163" started-at="2023-09-20T21:59:35 CST" finished-at="2023-09-20T21:59:36 CST">
+        <test-method status="PASS" signature="scryptCheck()[pri:0, instance:salt.hoprxi.crypto.HashServiceTest@544fe44c]" name="scryptCheck" duration-ms="833" started-at="2024-05-31T10:57:13 CST" finished-at="2024-05-31T10:57:13 CST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- scryptCheck -->
-        <test-method status="PASS" signature="scryptSha()[pri:0, instance:salt.hoprxi.crypto.HashServiceTest@7cd62f43]" name="scryptSha" duration-ms="1" started-at="2023-09-20T21:59:36 CST" finished-at="2023-09-20T21:59:36 CST">
+        <test-method status="PASS" signature="sha512()[pri:0, instance:salt.hoprxi.crypto.HashServiceTest@544fe44c]" name="sha512" duration-ms="1" started-at="2024-05-31T10:57:13 CST" finished-at="2024-05-31T10:57:13 CST">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- scryptSha -->
-        <test-method status="PASS" signature="SM3EncryptAndCheck()[pri:1, instance:salt.hoprxi.crypto.HashServiceTest@7cd62f43]" name="SM3EncryptAndCheck" duration-ms="6" started-at="2023-09-20T21:59:36 CST" finished-at="2023-09-20T21:59:36 CST">
+        </test-method> <!-- sha512 -->
+        <test-method status="PASS" signature="sha512()[pri:0, instance:salt.hoprxi.crypto.HashServiceTest@544fe44c]" name="sha512" duration-ms="0" started-at="2024-05-31T10:57:13 CST" finished-at="2024-05-31T10:57:13 CST">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- SM3EncryptAndCheck -->
-        <test-method status="PASS" signature="scryptSha()[pri:0, instance:salt.hoprxi.crypto.HashServiceTest@7cd62f43]" name="scryptSha" duration-ms="0" started-at="2023-09-20T21:59:36 CST" finished-at="2023-09-20T21:59:36 CST">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- scryptSha -->
-        <test-method status="PASS" signature="SM3EncryptAndCheck()[pri:1, instance:salt.hoprxi.crypto.HashServiceTest@7cd62f43]" name="SM3EncryptAndCheck" duration-ms="2" started-at="2023-09-20T21:59:36 CST" finished-at="2023-09-20T21:59:36 CST">
+        </test-method> <!-- sha512 -->
+        <test-method status="PASS" signature="SM3EncryptAndCheck()[pri:1, instance:salt.hoprxi.crypto.HashServiceTest@544fe44c]" name="SM3EncryptAndCheck" duration-ms="5" started-at="2024-05-31T10:57:13 CST" finished-at="2024-05-31T10:57:13 CST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- SM3EncryptAndCheck -->
+        <test-method status="PASS" signature="SM3EncryptAndCheck()[pri:1, instance:salt.hoprxi.crypto.HashServiceTest@544fe44c]" name="SM3EncryptAndCheck" duration-ms="0" started-at="2024-05-31T10:57:13 CST" finished-at="2024-05-31T10:57:13 CST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- SM3EncryptAndCheck -->
+        <test-method status="PASS" signature="argon2Check()[pri:1, instance:salt.hoprxi.crypto.HashServiceTest@544fe44c]" name="argon2Check" duration-ms="164" started-at="2024-05-31T10:57:13 CST" finished-at="2024-05-31T10:57:14 CST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- argon2Check -->
       </class> <!-- salt.hoprxi.crypto.HashServiceTest -->
       <class name="salt.hoprxi.crypto.PasswordServiceTest">
-        <test-method status="PASS" signature="testAes()[pri:0, instance:salt.hoprxi.crypto.PasswordServiceTest@6d4b1c02]" name="testAes" duration-ms="99" started-at="2023-09-20T21:59:36 CST" finished-at="2023-09-20T21:59:36 CST">
+        <test-method status="PASS" signature="testAes()[pri:0, instance:salt.hoprxi.crypto.PasswordServiceTest@31610302]" name="testAes" duration-ms="477" started-at="2024-05-31T10:57:14 CST" finished-at="2024-05-31T10:57:14 CST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testAes -->
-        <test-method status="PASS" signature="testGeneratePassword()[pri:0, instance:salt.hoprxi.crypto.PasswordServiceTest@6d4b1c02]" name="testGeneratePassword" duration-ms="3" started-at="2023-09-20T21:59:36 CST" finished-at="2023-09-20T21:59:36 CST">
+        <test-method status="PASS" signature="testGeneratePassword()[pri:0, instance:salt.hoprxi.crypto.PasswordServiceTest@31610302]" name="testGeneratePassword" duration-ms="2" started-at="2024-05-31T10:57:14 CST" finished-at="2024-05-31T10:57:14 CST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testGeneratePassword -->
-        <test-method status="PASS" signature="testIsStrong()[pri:0, instance:salt.hoprxi.crypto.PasswordServiceTest@6d4b1c02]" name="testIsStrong" duration-ms="0" started-at="2023-09-20T21:59:36 CST" finished-at="2023-09-20T21:59:36 CST">
+        <test-method status="PASS" signature="testIsStrong()[pri:0, instance:salt.hoprxi.crypto.PasswordServiceTest@31610302]" name="testIsStrong" duration-ms="1" started-at="2024-05-31T10:57:14 CST" finished-at="2024-05-31T10:57:14 CST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testIsStrong -->
-        <test-method status="PASS" signature="testKeyPair()[pri:0, instance:salt.hoprxi.crypto.PasswordServiceTest@6d4b1c02]" name="testKeyPair" duration-ms="478" started-at="2023-09-20T21:59:36 CST" finished-at="2023-09-20T21:59:37 CST">
+        <test-method status="PASS" signature="testMain()[pri:1, instance:salt.hoprxi.crypto.PasswordServiceTest@31610302]" name="testMain" duration-ms="1" started-at="2024-05-31T10:57:14 CST" finished-at="2024-05-31T10:57:14 CST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testMain -->
+      </class> <!-- salt.hoprxi.crypto.PasswordServiceTest -->
+      <class name="salt.hoprxi.crypto.util.SM4UtilTest">
+        <test-method status="PASS" signature="testEncryptSpec()[pri:0, instance:salt.hoprxi.crypto.util.SM4UtilTest@21213b92]" name="testEncryptSpec" duration-ms="599" started-at="2024-05-31T10:57:14 CST" finished-at="2024-05-31T10:57:15 CST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testEncryptSpec -->
+        <test-method status="PASS" signature="testDecryptSpec()[pri:1, instance:salt.hoprxi.crypto.util.SM4UtilTest@21213b92]" name="testDecryptSpec" duration-ms="12" started-at="2024-05-31T10:57:15 CST" finished-at="2024-05-31T10:57:15 CST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testDecryptSpec -->
+      </class> <!-- salt.hoprxi.crypto.util.SM4UtilTest -->
+      <class name="salt.hoprxi.crypto.EncryptServiceTest">
+        <test-method status="PASS" signature="testKeyPair()[pri:0, instance:salt.hoprxi.crypto.EncryptServiceTest@31dc339b]" name="testKeyPair" duration-ms="549" started-at="2024-05-31T10:57:11 CST" finished-at="2024-05-31T10:57:12 CST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testKeyPair -->
-        <test-method status="PASS" signature="testSign()[pri:0, instance:salt.hoprxi.crypto.PasswordServiceTest@6d4b1c02]" name="testSign" duration-ms="124" started-at="2023-09-20T21:59:37 CST" finished-at="2023-09-20T21:59:37 CST">
+        <test-method status="PASS" signature="testSign()[pri:0, instance:salt.hoprxi.crypto.EncryptServiceTest@31dc339b]" name="testSign" duration-ms="156" started-at="2024-05-31T10:57:12 CST" finished-at="2024-05-31T10:57:12 CST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testSign -->
-        <test-method status="PASS" signature="testStored()[pri:0, instance:salt.hoprxi.crypto.PasswordServiceTest@6d4b1c02]" name="testStored" duration-ms="785" started-at="2023-09-20T21:59:37 CST" finished-at="2023-09-20T21:59:38 CST">
+        <test-method status="PASS" signature="testStored()[pri:0, instance:salt.hoprxi.crypto.EncryptServiceTest@31dc339b]" name="testStored" duration-ms="638" started-at="2024-05-31T10:57:12 CST" finished-at="2024-05-31T10:57:12 CST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testStored -->
-      </class> <!-- salt.hoprxi.crypto.PasswordServiceTest -->
-    </test> <!-- Command line test -->
-  </suite> <!-- Command line suite -->
+      </class> <!-- salt.hoprxi.crypto.EncryptServiceTest -->
+      <class name="salt.hoprxi.crypto.util.AESUtilTest">
+        <test-method status="PASS" signature="testEncryptSpec()[pri:0, instance:salt.hoprxi.crypto.util.AESUtilTest@71318ec4]" name="testEncryptSpec" duration-ms="1" started-at="2024-05-31T10:57:14 CST" finished-at="2024-05-31T10:57:14 CST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testEncryptSpec -->
+        <test-method status="PASS" signature="testDecryptSpec()[pri:1, instance:salt.hoprxi.crypto.util.AESUtilTest@71318ec4]" name="testDecryptSpec" duration-ms="1" started-at="2024-05-31T10:57:14 CST" finished-at="2024-05-31T10:57:14 CST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testDecryptSpec -->
+      </class> <!-- salt.hoprxi.crypto.util.AESUtilTest -->
+    </test> <!-- Surefire test -->
+  </suite> <!-- Surefire suite -->
 </testng-results>

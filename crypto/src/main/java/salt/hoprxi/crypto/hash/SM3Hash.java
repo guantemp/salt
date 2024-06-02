@@ -19,10 +19,10 @@ package salt.hoprxi.crypto.hash;
 
 import org.bouncycastle.crypto.digests.SM3Digest;
 import salt.hoprxi.crypto.HashService;
-import salt.hoprxi.to.ByteToHex;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import java.util.Base64;
 
 /***
  * @author <a href="www.hoprxi.com/authors/guan xiangHuan">guan xiangHuang</a>
@@ -34,13 +34,13 @@ public class SM3Hash implements HashService {
     public String hash(String plainText) {
         byte[] result = hash(plainText.getBytes(StandardCharsets.UTF_8));
         //System.out.println(Base64.toBase64String(result));
-        return ByteToHex.toHexStr(result);
+        return Base64.getEncoder().encodeToString(result);
     }
 
     @Override
     public boolean matches(String plainText, String securedPlainTextHash) {
         byte[] plain = hash(plainText.getBytes(StandardCharsets.UTF_8));
-        byte[] securedPlain = ByteToHex.toBytes(securedPlainTextHash);
+        byte[] securedPlain = Base64.getDecoder().decode(securedPlainTextHash);
         return Arrays.equals(plain, securedPlain) ? true : false;
     }
 

@@ -18,10 +18,7 @@ package salt.hoprxi.crypto;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import salt.hoprxi.crypto.hash.Argon2Hash;
-import salt.hoprxi.crypto.hash.Pbhkdf2Hash;
-import salt.hoprxi.crypto.hash.SM3Hash;
-import salt.hoprxi.crypto.hash.ScryptHash;
+import salt.hoprxi.crypto.hash.*;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -39,17 +36,18 @@ public class HashServiceTest {
         HashService hash = new ScryptHash();
         System.out.println(hash.hash("爱上了对方无穷乐趣而为的故事回答说住宿费"));
         Assert.assertTrue(hash.matches("爱上了对方无穷乐趣而为的故事回答说住宿费", "$s0$100801$FY5rkrgAnW4FJUQtnx+kUA==$fPluqcREnuDr7jvgZB4Ywv5ePzHutUKlF/gsbOI/+Co="));
+        Assert.assertTrue(hash.matches("爱上了对方无穷乐趣而为的故事回答说住宿费", "$s0$100801$H2Htegz7zCKScWGJRO0Yug==$M5ZJ+5njQ0Uf9N5DvjNQs/4qschxJiMHsXmO1PVw/nc="));
     }
 
-    @Test
+    @Test(priority = 1)
     public void argon2Check() {
         HashService hash = new Argon2Hash();
         System.out.println(hash.hash("爱上了对方无穷乐趣而为的故事回答说住宿费"));
-        System.out.println(hash.matches("爱上了对方无穷乐趣而为的故事回答说住宿费", "$argon2id$v=19$m=16384,t=2,p=1$HyOKD+jvKJQEba5eaFY4qw==$f3my5HsDDpdkR3IgUgKudIwNFVmsqLA/hYWwP17mKYQ="));
+        Assert.assertTrue(hash.matches("爱上了对方无穷乐趣而为的故事回答说住宿费", "$argon2id$v=19$m=16384,t=2,p=1$HyOKD+jvKJQEba5eaFY4qw==$f3my5HsDDpdkR3IgUgKudIwNFVmsqLA/hYWwP17mKYQ="));
         Assert.assertTrue(hash.matches("爱上了对方无穷乐趣而为的故事回答说住宿费", "$argon2id$v=19$m=16384,t=2,p=1$27Qs2LC2njKqgWQTYiaaLg==$/DXE/dMLgMv4Icy9Nbf3omHyqtjfoQX/1KQm7OsukE8="));
     }
 
-    @Test(invocationCount = 2, threadPoolSize = 2)
+    @Test(invocationCount = 2)
     public void sha512() throws NoSuchAlgorithmException {
         MessageDigest messageDigest = MessageDigest.getInstance("SHA-512");
         byte[] message = messageDigest.digest("爱上了对方无穷乐趣而为的故事回答说住宿费".getBytes(StandardCharsets.UTF_8));
@@ -83,9 +81,8 @@ public class HashServiceTest {
     @Test(priority = 1, invocationCount = 2)
     public void SM3EncryptAndCheck() {
         HashService hash = new SM3Hash();
-        System.out.println(hash.hash("Qwe123465"));
         System.out.println(hash.hash("爱上了对方无穷乐趣而为的故事回答说住宿费"));
         System.out.println(hash.hash("邯郸市而我认为谁当皇上是沃尔沃神大衮的身上萨撒旦法沃尔沃网起来的时候涉案的话深度高峰时段递归上海是个是电费啥还是打的时候阿斯达斯大实话尔浒撒旦法时候糖果乐园"));
-        Assert.assertTrue(hash.matches("爱上了对方无穷乐趣而为的故事回答说住宿费", "81d4d3b338b10a5d1889e195bebe04ecaed2951a2e59242182ae2ca86769533a"));
+        Assert.assertTrue(hash.matches("爱上了对方无穷乐趣而为的故事回答说住宿费", "gdTTszixCl0YieGVvr4E7K7SlRouWSQhgq4sqGdpUzo="));
     }
 }

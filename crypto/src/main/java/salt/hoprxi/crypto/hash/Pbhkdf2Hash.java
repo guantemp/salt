@@ -31,6 +31,7 @@ import java.security.spec.InvalidKeySpecException;
  * @since JDK8.0
  * @version 0.0.2 2022-08-10
  */
+@Deprecated
 public class Pbhkdf2Hash implements HashService {
     private static final Logger LOGGER = LoggerFactory.getLogger(Pbhkdf2Hash.class);
     private static final int HASH = 256;

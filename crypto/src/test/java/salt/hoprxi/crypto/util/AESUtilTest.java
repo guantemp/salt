@@ -14,9 +14,8 @@
  *  limitations under the License.
  */
 
-package salt.hoprxi.crypto;
+package salt.hoprxi.crypto.util;
 
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.testng.annotations.Test;
 import salt.hoprxi.to.ByteToHex;
 
@@ -26,7 +25,6 @@ import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.SecureRandom;
-import java.security.Security;
 import java.util.Base64;
 
 /***
@@ -34,38 +32,33 @@ import java.util.Base64;
  * @since JDK8.0
  * @version 0.0.1 builder 2024-05-29
  */
-public class SM4UtilTest {
+public class AESUtilTest {
 
-    private static final String PASSWD = "Qwe123465Dw中文";
+    private static final String PASSWD="Qwe123465Dw";
 
     @Test
     public void testEncryptSpec() throws NoSuchAlgorithmException, NoSuchProviderException {
-        Security.addProvider(new BouncyCastleProvider());
-
-        KeyGenerator kg = KeyGenerator.getInstance("SM4", BouncyCastleProvider.PROVIDER_NAME);
-        kg.init(128, new SecureRandom("Qwe13465".getBytes(StandardCharsets.UTF_8)));//固定密码
+        KeyGenerator kg = KeyGenerator.getInstance("AES");
+        kg.init(256, new SecureRandom("Qwe13465".getBytes(StandardCharsets.UTF_8)));//固定密码
         SecretKey key = kg.generateKey();
 
         byte[] sources = PASSWD.getBytes(StandardCharsets.UTF_8);
-        System.out.println("加密原文(text:base64):" + PASSWD + "$" + Base64.getEncoder().encodeToString(sources));
+        System.out.println("加密原文(text:base64):" +PASSWD+"$"+ Base64.getEncoder().encodeToString(sources));
 
-        byte[] encrypt = SM4Util.encryptSpec(sources, key);
+        byte[] encrypt = AESUtil.encryptSpec(sources, key);
         System.out.println("SM4加密结果(hex):" + ByteToHex.toHexStr(encrypt));
         System.out.println("SM4加密结果(base64):" + Base64.getEncoder().encodeToString(encrypt));
     }
 
     @Test(priority = 1)
-    public void testDecryptSpec() throws NoSuchAlgorithmException, NoSuchProviderException {
-        Security.addProvider(new BouncyCastleProvider());
-
-        KeyGenerator kg = KeyGenerator.getInstance("SM4", BouncyCastleProvider.PROVIDER_NAME);
-        kg.init(128, new SecureRandom("Qwe13465".getBytes(StandardCharsets.UTF_8)));//固定密码
+    public void testDecryptSpec() throws NoSuchAlgorithmException {
+        KeyGenerator kg = KeyGenerator.getInstance("AES");
+        kg.init(256, new SecureRandom("Qwe13465".getBytes(StandardCharsets.UTF_8)));//固定密码
         SecretKey key = kg.generateKey();
 
-        byte[] decrypt = SM4Util.decryptSpec(Base64.getDecoder().decode("ovi/qagixOGaqnoC8OCA52QI9D/S9Q7dILkeMchfIs+oiSQtZWlDn1HK+ew6FS8l"), key);
+        byte[] decrypt = AESUtil.decryptSpec(Base64.getDecoder().decode("Piksg/i3j5lIVY0FKba+Q3K+r8DH9Zj9kNMPFRZQ904="), key);
         System.out.println("SM4解密结果(base64):" + new String(decrypt, StandardCharsets.UTF_8));
-        decrypt = SM4Util.decryptSpec(ByteToHex.toBytes("14840b84ce48ecf4791ace0e4aff124c0e6283338c83770d9efafc38aee59a6c"), key);
+        decrypt = AESUtil.decryptSpec(ByteToHex.toBytes("ab265b8d0a6aaf7c57761a5328b15350b380ed218009b698efc7821d492586461c725ea1af391e45597e44334b329174"), key);
         System.out.println("SM4解密结果(base64):" + new String(decrypt, StandardCharsets.UTF_8));
-        //Assert.assertEquals("Qwe123465",new String(decrypt, StandardCharsets.UTF_8));
     }
 }

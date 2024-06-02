@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package salt.hoprxi.crypto;
+package salt.hoprxi.crypto.util;
 
 import javax.crypto.*;
 import javax.crypto.spec.IvParameterSpec;
@@ -30,8 +30,12 @@ import java.util.Objects;
  * @since JDK8.0
  * @version 0.0.1 builder 2024-05-29
  */
-public class AesUtil {
-    private static final String ALGORITHM_NAME_CBC_PADDING = "AES/CBC/PKCS5Padding";
+public class SM4Util {
+    static {
+        //Security.addProvider(new BouncyCastleProvider());
+    }
+
+    private static final String ALGORITHM_NAME_CBC_PADDING = "SM4/CBC/PKCS5Padding";
 
     /**
      * @param data
@@ -39,9 +43,9 @@ public class AesUtil {
      * @return
      */
 
-    public static byte[] encryptSpec(byte[] data, SecretKey key) throws NoSuchAlgorithmException {
+    public static byte[] encryptSpec(byte[] data, SecretKey key) {
         Objects.requireNonNull(data, "data is required");
-        Objects.requireNonNull(key, "key is required");
+        Objects.requireNonNull(key, "secretKey is required");
         SecureRandom secureRandom = new SecureRandom();//SecureRandom.getInstance("SHA1PRNG");
         byte[] iv = new byte[16];
         secureRandom.nextBytes(iv);
@@ -68,7 +72,7 @@ public class AesUtil {
      */
     public static byte[] decryptSpec(byte[] data, SecretKey key) {
         Objects.requireNonNull(data, "data is required");
-        Objects.requireNonNull(key, "key is required");
+        Objects.requireNonNull(key, "secretKey is required");
         SecureRandom secureRandom = new SecureRandom();//SecureRandom.getInstance("SHA1PRNG");
         byte[] iv = new byte[16];
         secureRandom.nextBytes(iv);
