@@ -46,22 +46,22 @@ public class PasswordServiceTest {
         PasswordService.main(new String[]{"-S", "postgresql.security.keystore.aes.password", "Qwe123465Pg"});
         PasswordService.main(new String[]{"-S", "elasticsearch.security.keystore.aes.password", "Qwe123465Pg", "Qwe123465"});
         PasswordService.main(new String[]{"-l"});
-
+/*
         System.out.println("\nStore default specific file with protect password:");
-        PasswordService.main(new String[]{"-S", "Qwe123465Gj", "-f", "f:\\keystore_p.jks", "Qwe123465"});
-        PasswordService.main(new String[]{"-S", "postgresql.security.keystore.aes.password", PasswordService.nextStrongPasswd(), "-f", "f:\\keystore_p.jks", "Qwe123465"});
-        PasswordService.main(new String[]{"-S", "elasticsearch.security.keystore.aes.password", PasswordService.nextStrongPasswd(), "Qwe123465", "-f", "f:\\keystore_p.jks", "Qwe123465"});
-        PasswordService.main(new String[]{"-l", "-f", "f:\\keystore_p.jks", "Qwe123465"});
+        PasswordService.main(new String[]{"-S", "Qwe123465Gj", "-f", "f:\\keystore.jks", "Qwe123465"});
+        PasswordService.main(new String[]{"-S", "postgresql.security.keystore.aes.password", PasswordService.nextStrongPasswd(),"Qwe123465Pg", "-f", "f:\\keystore.jks", "Qwe123465"});
+        PasswordService.main(new String[]{"-S", "elasticsearch.security.keystore.aes.password", PasswordService.nextStrongPasswd(), "Qwe123465El", "-f", "f:\\keystore.jks", "Qwe123465"});
+        PasswordService.main(new String[]{"-l", "-f", "f:\\keystore.jks", "Qwe123465"});
 
         System.out.println("\ndelete:");
         PasswordService.main(new String[]{"-d"});
         PasswordService.main(new String[]{"-l"});
-
+*/
         System.out.println("\nencrypt:");
         PasswordService.main(new String[]{"-e", "阿达沙发上"});
         PasswordService.main(new String[]{"-e", "阿达沙发上", PasswordService.nextStrongPasswd()});
-        PasswordService.main(new String[]{"-e", "在多喝点水啥地方啥的三大发生的话", "postgresql.security.keystore.aes.password", "-f", "f:\\keystore_p.jks", "Qwe123465"});
-        PasswordService.main(new String[]{"-e", "阿尔斯特去了但是过来的", "elasticsearch.security.keystore.aes.password", "Qwe123465", "-f", "f:\\keystore_p.jks", "Qwe123465"});
+        PasswordService.main(new String[]{"-e", "postgres", "postgresql.security.keystore.aes.password","Qwe123465Pg", "-f", "f:\\keystore.jks", "Qwe123465"});
+        PasswordService.main(new String[]{"-e", "elastic", "elasticsearch.security.keystore.aes.password", "Qwe123465El", "-f", "f:\\keystore.jks", "Qwe123465"});
     }
 
     @Test

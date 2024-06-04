@@ -39,7 +39,6 @@ public class PasswordService {
     private static final String DIGITS = "0123456789";
     private static final String LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private static final String SYMBOLS = "\"`!?$?%^&*()_-+={[}]:;@'~#|\\<,>.?/";
-
     private static final String ENTRY_NAMR = "security.keystore.aes.password";
     private static final int STRONG_THRESHOLD = 20;
     private static final int VERY_STRONG_THRESHOLD = 40;
@@ -47,14 +46,13 @@ public class PasswordService {
     private static final Pattern EXCLUDE = Pattern.compile("^-{1,}.*");
 
     private enum ActionTag {
-        DELETE, LIST, STORE, ENCRYPT, FILE
+        DELETE, LIST, STORE, ENCRYPT, FILE, HELP
     }
 
     public static void main(String[] args) throws NoSuchAlgorithmException, CertificateException, KeyStoreException, IOException {
         String param1 = null, param2 = null, param3 = null;
         String fileName = "keystore.jks", protectPasswd = "";
         EnumSet<ActionTag> set = EnumSet.noneOf(ActionTag.class);
-        boolean encryptSign = false, storeSign = false, helpSign = false, listSign = false, delSign = false;
         for (int i = 0, j = args.length; i < j; i++) {
             switch (args[i]) {
                 case "-f":
@@ -134,11 +132,11 @@ public class PasswordService {
                     break;
                 case "-h":
                 case "--help":
-                    helpSign = true;
+                    set.add(ActionTag.HELP);
                     break;
             }
         }
-        if (helpSign || args.length == 0) {
+        if (set.contains(ActionTag.HELP) || args.length == 0) {
             System.out.println("Non-option arguments:\n" +
                     "command              \n" +
                     "\n" +
@@ -147,6 +145,7 @@ public class PasswordService {
                     "-S <KeyValuePair>              configure a setting\n" +
                     "-e <KeyValuePair>              encrypt a passwd\n" +
                     "-t --type                      encrypt type(aes,sm4)\n" +
+                    "-d --del                       delete a entry\n" +
                     "-l, --list                     entries in the keystore\n" +
                     "-h, --help                     Show help          \n" +
                     "-f, --file                     Show verbose output\n");
