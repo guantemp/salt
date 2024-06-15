@@ -34,6 +34,9 @@ public class Selector {
     private int sum = 0;
     //定义一个0--2^32-1环
     private final SortedMap<Integer, Divisor<?>> virtualNodes = new TreeMap<>();
+    public Selector(){
+
+    }
 
     public Selector(List<Divisor<?>> divisors) {
         for (Divisor divisor : divisors) {

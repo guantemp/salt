@@ -27,7 +27,7 @@ import java.util.Objects;
  * @version 0.0.3 2023-01-10
  * @since JDK8.0
  */
-public final class ResourceWherePath {
+public final class ResourceWhere {
     private static final String PARENT_SEPARATOR_PATH = ".." + File.separatorChar;
     private static final char SEPARATOR = '.';
 
@@ -73,7 +73,7 @@ public final class ResourceWherePath {
         }
         // Next, try to locate this resource through this class's
         // classloader, such as this.getClass(0.getClassloader()
-        classLoader = ResourceWherePath.class.getClassLoader();
+        classLoader = ResourceWhere.class.getClassLoader();
         if (null != classLoader) {
             // logger.debug("Not find [" + resource + "] using " + classLoader
             // + " class loader.");
@@ -110,14 +110,14 @@ public final class ResourceWherePath {
         resource = Objects.requireNonNull(resource, "resource is required");
         if (resource.contains(PARENT_SEPARATOR_PATH)) {
             try {
-                String absolutePath = getAbsolutePath(ResourceWherePath.toSimpleURL("").toExternalForm(), resource);
+                String absolutePath = getAbsolutePath(ResourceWhere.toSimpleURL("").toExternalForm(), resource);
                 return new URL(absolutePath);
             } catch (MalformedURLException e) {
                 // logger.debug("Not find [" + resource
                 // + "] by resource absolute path.", e);
             }
         }
-        return ResourceWherePath.toSimpleURL(resource);
+        return ResourceWhere.toSimpleURL(resource);
     }
 
     public static URI toUrI(String resource) throws URISyntaxException {

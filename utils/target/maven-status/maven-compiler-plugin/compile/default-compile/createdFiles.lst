@@ -1,7 +1,6 @@
 salt\hoprxi\utils\RandomGenerator.class
 salt\hoprxi\utils\RandomGenerator$4.class
 salt\hoprxi\utils\ChineseCalendar.class
-salt\hoprxi\utils\ResourceWherePath.class
 salt\hoprxi\utils\Builder.class
 salt\hoprxi\utils\NumberHelper.class
 salt\hoprxi\utils\RandomGenerator$5.class

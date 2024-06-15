@@ -27,7 +27,7 @@ import salt.hoprxi.cache.redis.RedisClient;
 import salt.hoprxi.cache.util.FSTSerialization;
 import salt.hoprxi.cache.util.KryoSerialization;
 import salt.hoprxi.cache.util.Serialization;
-import salt.hoprxi.utils.ResourceWherePath;
+import salt.hoprxi.utils.ResourceWhere;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -49,7 +49,7 @@ public class JedisClusterRedisClient<K, V> implements RedisClient<K, V> {
     private final Serialization serialization;
 
     public JedisClusterRedisClient(Config config) {
-        this(config, ConfigFactory.parseURL(ResourceWherePath.toUrlWithPoint("resources.cache_unit.json")));
+        this(config, ConfigFactory.parseURL(ResourceWhere.toUrlWithPoint("resources.cache_unit.json")));
     }
 
     /**
