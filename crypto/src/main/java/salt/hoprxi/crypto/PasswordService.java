@@ -39,7 +39,6 @@ public class PasswordService {
     private static final String DIGITS = "0123456789";
     private static final String LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private static final String SYMBOLS = "\"`!?$?%^&*()_-+={[}]:;@'~#|\\<,>.?/";
-    private static final String ENTRY_NAMR = "security.keystore.aes.password";
     private static final int STRONG_THRESHOLD = 20;
     private static final int VERY_STRONG_THRESHOLD = 40;
     private static final Pattern CHINESE_PATTERN = Pattern.compile("[\u4e00-\u9fa5]");
@@ -48,6 +47,8 @@ public class PasswordService {
     private enum ActionTag {
         DELETE, LIST, STORE, ENCRYPT, FILE, HELP
     }
+
+    public static final String KEYSTORE_ENTRY = "security.keystore.aes.password";
 
     public static void main(String[] args) throws NoSuchAlgorithmException, CertificateException, KeyStoreException, IOException {
         String param1 = null, param2 = null, param3 = null;
@@ -160,14 +161,14 @@ public class PasswordService {
                 if (set.contains(ActionTag.FILE)) {
                     encryptWithStore(param1, param2, param3, fileName, protectPasswd);
                 } else {
-                    encrypt(param1, param2);
+                    encrypt(KEYSTORE_ENTRY, param1, param2);
                 }
             }
         }
     }
 
     private static void store(String param1, String param2, String param3, String filename, String protectPasswd) throws KeyStoreException, CertificateException, IOException, NoSuchAlgorithmException {
-        String entry = ENTRY_NAMR, entryPasswd = PasswordService.nextStrongPasswd(), entryProtectPasswd = "";
+        String entry = KEYSTORE_ENTRY, entryPasswd = PasswordService.nextStrongPasswd(), entryProtectPasswd = "";
         if (param1 != null && param2 != null && param3 != null) {
             entry = param1;
             entryPasswd = param2;
@@ -223,7 +224,7 @@ public class PasswordService {
 
     private static void delete(String entry, String fileName, String protectPasswd) {
         if (entry == null) {
-            entry = ENTRY_NAMR;
+            entry = KEYSTORE_ENTRY;
         }
         try (FileInputStream fis = new FileInputStream(fileName)) {
             KeyStore keyStore = KeyStore.getInstance("JCEKS");
@@ -247,7 +248,7 @@ public class PasswordService {
     private static void encryptWithStore(String planText, String entry, String entryPasswd, String fileName, String protectedPasswd) throws NoSuchAlgorithmException, CertificateException, KeyStoreException {
         Objects.requireNonNull(planText, "planText required");
         if (entry == null)
-            entry = ENTRY_NAMR;
+            entry = KEYSTORE_ENTRY;
         if (entryPasswd == null)
             entryPasswd = "";
         //System.out.println(planText + ":" + entry + ":" + entryPasswd + ":" + protectedPasswd + ":" + fileName);
@@ -257,7 +258,7 @@ public class PasswordService {
             if (keyStore.containsAlias(entry)) {
                 SecretKey secKey = (SecretKey) keyStore.getKey(entry, entryPasswd.toCharArray());
                 //System.out.println(Base64.toBase64String(secKey.getEncoded()));
-                encrypt(planText, secKey, Base64.toBase64String(secKey.getEncoded()));
+                encrypt(entry, planText, secKey, Base64.toBase64String(secKey.getEncoded()));
             }
         } catch (FileNotFoundException e) {
             System.out.println("Not find key store file：" + fileName);
@@ -268,23 +269,24 @@ public class PasswordService {
         }
     }
 
-    private static void encrypt(String planText, String password) throws NoSuchAlgorithmException {
+    private static void encrypt(String entry, String planText, String password) throws NoSuchAlgorithmException {
         Objects.requireNonNull(planText, "planText required");
         if (password == null)
             password = PasswordService.nextStrongPasswd();
         KeyGenerator gen = KeyGenerator.getInstance("AES");
         gen.init(256, new SecureRandom(password.getBytes(StandardCharsets.UTF_8)));
         SecretKey secretKey = gen.generateKey();
-        encrypt(planText, secretKey, password);
+        encrypt(entry, planText, secretKey, password);
     }
 
-    private static void encrypt(String planText, SecretKey key, String password) throws NoSuchAlgorithmException {
+    private static void encrypt(String entry, String planText, SecretKey key, String password) throws NoSuchAlgorithmException {
         byte[] aesData = AESUtil.encryptSpec(planText.getBytes(StandardCharsets.UTF_8), key);
-        System.out.println("Plan text encrypted\n" +
-                "---------                -----------        \n" +
-                "plan_text                " + planText + "\n" +
-                "password                 " + password + "\n" +
-                "encrypted(base64)        " + Base64.toBase64String(aesData)
+        System.out.println(
+                        "----------------         -----------------------\n" +
+                        "entry                    " + entry + "\n" +
+                        "plan_text                " + planText + "\n" +
+                        "password                 " + password + "\n" +
+                        "encrypted(base64)        " + Base64.toBase64String(aesData)
         );
     }
 
