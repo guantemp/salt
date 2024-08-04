@@ -41,13 +41,12 @@ public class PasswordServiceTest {
     @Test(priority = 1)
     public void testMain() throws CertificateException, NoSuchAlgorithmException, KeyStoreException, IOException {
 
-        System.out.println("Store default file:");
         PasswordService.main(new String[]{"-S", "Qwe123465Gj"});
         PasswordService.main(new String[]{"-S", "postgresql.security.keystore.aes.password", "Qwe123465Pg"});
         PasswordService.main(new String[]{"-S", "elasticsearch.security.keystore.aes.password", "Qwe123465Pg", "Qwe123465"});
         PasswordService.main(new String[]{"-l"});
+        PasswordService.main(new String[]{"-d","-l"});
 
-        System.out.println("\nStore default specific file with protect password:");
         PasswordService.main(new String[]{"-S", "Qwe123465Gj", "-f", "f:\\keystore.jks", "Qwe123465"});
         PasswordService.main(new String[]{"-S", "125.68.186.195:5432", PasswordService.nextStrongPasswd(), "Qwe123465Pg", "-f", "f:\\keystore.jks", "Qwe123465"});
         PasswordService.main(new String[]{"-S", "120.77.47.145:5432", PasswordService.nextStrongPasswd(), "Qwe123465Pg", "-f", "f:\\keystore.jks", "Qwe123465"});
@@ -56,11 +55,6 @@ public class PasswordServiceTest {
         System.out.println("\n");
         PasswordService.main(new String[]{"-l", "-f", "f:\\keystore.jks", "Qwe123465"});
 
-        System.out.println("\ndelete:");
-        PasswordService.main(new String[]{"-d"});
-        PasswordService.main(new String[]{"-l"});
-
-        System.out.println("\nencrypt:");
         PasswordService.main(new String[]{"-e", "阿达沙发上"});
         PasswordService.main(new String[]{"-e", "阿达沙发上", PasswordService.nextStrongPasswd()});
         PasswordService.main(new String[]{"-e", "postgres", "120.77.47.145:5432", "Qwe123465Pg", "-f", "f:\\keystore.jks", "Qwe123465"});
@@ -78,8 +72,8 @@ public class PasswordServiceTest {
         Assert.assertTrue(PasswordService.isStrong(PasswordService.nextPasswd()));
         Assert.assertTrue(PasswordService.isVeryStrong(PasswordService.nextStrongPasswd()));
         Assert.assertFalse(PasswordService.isVeryStrong(PasswordService.nextPasswd()));
-        System.out.println(PasswordService.nextPasswd());
-        System.out.println(PasswordService.nextStrongPasswd());
+        System.out.println("随机密码："+PasswordService.nextPasswd());
+        System.out.println("加强随机密码："+PasswordService.nextStrongPasswd());
     }
 
     @Test
@@ -114,7 +108,6 @@ public class PasswordServiceTest {
         gen = KeyGenerator.getInstance("AES");
         gen.init(256, new SecureRandom("Qwe123465".getBytes(StandardCharsets.UTF_8)));
         SecretKey customizedKey = gen.generateKey();
-        System.out.println(Base64.getEncoder().encodeToString(customizedKey.getEncoded()));
         System.out.println("AES指定密钥:" + Base64.getEncoder().encodeToString(customizedKey.getEncoded()));
         keyStore.setEntry("customized.security.keystore.password", new KeyStore.SecretKeyEntry(customizedKey), new KeyStore.PasswordProtection("Qwe123465".toCharArray()));
         /*
@@ -134,8 +127,9 @@ public class PasswordServiceTest {
 //        System.out.println("AES加密结果(byte)：");
 //        for (byte b : aesData)
 //            System.out.println(b);
-        System.out.println("AES加密结果(base64)：" + Base64.getEncoder().encodeToString(aesData));
-        System.out.println("AES加密结果(hex):" + ByteToHex.toHexStr(aesData));
+        System.out.println("原始文本：Qwe123465德w");
+        System.out.println("AES加密(base64)：" + Base64.getEncoder().encodeToString(aesData));
+        System.out.println("AES加密(hex):" + ByteToHex.toHexStr(aesData));
 
         // 将KeyStore保存的密码取出来
         FileInputStream fis = new FileInputStream("keystore.jks");
@@ -144,9 +138,9 @@ public class PasswordServiceTest {
 
         SecretKey secKey = (SecretKey) keyStore.getKey("customized.security.keystore.password", "Qwe123465".toCharArray());
         keyStore.deleteEntry("");
-        System.out.println(Base64.getEncoder().encodeToString(secKey.getEncoded()));
+        //System.out.println(Base64.getEncoder().encodeToString(secKey.getEncoded()));
         secureRandom.nextBytes(iv);
         byte[] decryptData = AESUtil.decryptSpec(aesData, secKey);
-        System.out.println("AES解密结果：" + new String(decryptData, StandardCharsets.UTF_8));
+        System.out.println("AES解密：" + new String(decryptData, StandardCharsets.UTF_8));
     }
 }

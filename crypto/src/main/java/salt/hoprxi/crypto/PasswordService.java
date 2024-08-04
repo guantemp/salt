@@ -17,6 +17,7 @@ package salt.hoprxi.crypto;
 
 import org.bouncycastle.util.encoders.Base64;
 import salt.hoprxi.crypto.util.AESUtil;
+import salt.hoprxi.to.ByteToHex;
 
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
@@ -153,8 +154,6 @@ public class PasswordService {
         } else {
             if (set.contains(ActionTag.STORE)) {
                 store(param1, param2, param3, fileName, protectPasswd);
-            } else if (set.contains(ActionTag.LIST)) {
-                list(fileName, protectPasswd);
             } else if (set.contains(ActionTag.DELETE)) {
                 delete(param1, fileName, protectPasswd);
             } else if (set.contains(ActionTag.ENCRYPT)) {
@@ -164,6 +163,8 @@ public class PasswordService {
                     encrypt(KEYSTORE_ENTRY, param1, param2);
                 }
             }
+            if (set.contains(ActionTag.LIST))
+                list(fileName, protectPasswd);
         }
     }
 
@@ -198,11 +199,11 @@ public class PasswordService {
         fos.close();
 
         System.out.println("Password has been saved to ‘" + file.getAbsolutePath() + "’\n" +
-                "----------------------        -----------------------------\n" +
-                "Entry                        " + entry + "\n" +
-                "Entry Password               " + entryPasswd + "\n" +
-                "Entry Protect Password       " + (entryProtectPasswd.equalsIgnoreCase("") ? "<Empty>" : entryProtectPasswd) + "\n" +
-                "File Protect Password        " + (protectPasswd.equalsIgnoreCase("") ? "<Empty>" : protectPasswd)
+                "----------------------             -----------------------------\n" +
+                "Entry                              " + entry + "\n" +
+                "Entry Saved Password               " + entryPasswd + "\n" +
+                "Entry Protect Password             " + (entryProtectPasswd.equalsIgnoreCase("") ? "<Empty>" : entryProtectPasswd) + "\n" +
+                "File Protect Password              " + (protectPasswd.equalsIgnoreCase("") ? "<Empty>" : protectPasswd)
         );
     }
 
@@ -211,12 +212,12 @@ public class PasswordService {
             KeyStore keyStore = KeyStore.getInstance("JCEKS");
             keyStore.load(fis, protectPasswd.toCharArray());
             Enumeration<String> alias = keyStore.aliases();
-            System.out.println("Find entry from: " + fileName);
+            System.out.println("List entry from: " + fileName);
             while (alias.hasMoreElements()) {
                 System.out.println(alias.nextElement());
             }
         } catch (NoSuchAlgorithmException | IOException | KeyStoreException e) {
-            System.out.println("Keystore was not exists, or tampered with, or password was incorrect：" + fileName);
+            System.out.println("Keystore was not exists, or tampered with, or  protect password was incorrect：" + fileName);
         } catch (CertificateException e) {
             throw new RuntimeException(e);
         }
@@ -281,12 +282,13 @@ public class PasswordService {
 
     private static void encrypt(String entry, String planText, SecretKey key, String password) throws NoSuchAlgorithmException {
         byte[] aesData = AESUtil.encryptSpec(planText.getBytes(StandardCharsets.UTF_8), key);
-        System.out.println(
-                        "----------------         -----------------------\n" +
+        System.out.println("The planText has encrypted\n" +
+                "----------------         -----------------------\n" +
                         "entry                    " + entry + "\n" +
                         "plan_text                " + planText + "\n" +
                         "password                 " + password + "\n" +
-                        "encrypted(base64)        " + Base64.toBase64String(aesData)
+                        "encrypted(base64)        " + Base64.toBase64String(aesData) + "\n" +
+                        "encrypted(hex)           " + ByteToHex.toHexStr(aesData)
         );
     }
 

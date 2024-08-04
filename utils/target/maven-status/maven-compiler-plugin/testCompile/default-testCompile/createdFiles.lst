@@ -1,4 +1,5 @@
 salt\hoprxi\utils\SelectorTest.class
 salt\hoprxi\utils\DigitPreferenceFilterTest.class
+salt\hoprxi\utils\ResourceWhereTest.class
 salt\hoprxi\AppTest.class
 salt\hoprxi\utils\RandomGeneratorTest.class

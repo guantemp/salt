@@ -1,7 +1,17 @@
+salt\hoprxi\crypto\hash\ScryptHash.class
+salt\hoprxi\crypto\hash\BcryptHash.class
 salt\hoprxi\crypto\algorithms\Bcrypt.class
+salt\hoprxi\crypto\PasswordService$ActionTag.class
 salt\hoprxi\crypto\algorithms\Scrypt.class
 salt\hoprxi\crypto\algorithms\SM4.class
+salt\hoprxi\crypto\util\AESUtil.class
+salt\hoprxi\crypto\hash\Pbhkdf2Hash.class
 salt\hoprxi\crypto\algorithms\SM3.class
+salt\hoprxi\crypto\util\SM4Util.class
 salt\hoprxi\crypto\HashService.class
 salt\hoprxi\crypto\algorithms\SM3Digest.class
+salt\hoprxi\crypto\PasswordService.class
+salt\hoprxi\crypto\hash\Argon2Hash.class
 salt\hoprxi\App.class
+salt\hoprxi\crypto\EncryptService.class
+salt\hoprxi\crypto\hash\SM3Hash.class

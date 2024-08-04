@@ -12,6 +12,7 @@ salt\hoprxi\utils\NLS.class
 salt\hoprxi\utils\NtpMessage.class
 salt\hoprxi\utils\RandomGenerator$2.class
 salt\hoprxi\utils\Selector$Divisor.class
+salt\hoprxi\utils\ResourceWhere.class
 salt\hoprxi\utils\DigitPreferenceFilter.class
 salt\hoprxi\utils\RandomGenerator$3.class
 salt\hoprxi\App.class

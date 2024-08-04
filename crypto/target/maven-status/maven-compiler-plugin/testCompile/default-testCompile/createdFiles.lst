@@ -1,3 +1,6 @@
+salt\hoprxi\crypto\EncryptServiceTest.class
+salt\hoprxi\crypto\util\AESUtilTest.class
 salt\hoprxi\crypto\HashServiceTest.class
 salt\hoprxi\AppTest.class
 salt\hoprxi\crypto\PasswordServiceTest.class
+salt\hoprxi\crypto\util\SM4UtilTest.class
