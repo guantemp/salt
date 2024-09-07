@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="20482602-c4f2-4d7c-8556-c526a976ada0" name="Changes" comment="202408041700">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="20482602-c4f2-4d7c-8556-c526a976ada0" name="Changes" comment="202409071142">
       <change beforePath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/PasswordService.java" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/PasswordService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/util/AESUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/util/AESUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/crypto/src/test/java/salt/hoprxi/crypto/PasswordServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/src/test/java/salt/hoprxi/crypto/PasswordServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crypto/src/test/java/salt/hoprxi/crypto/util/AESUtilTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/src/test/java/salt/hoprxi/crypto/util/AESUtilTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/crypto/target/crypto-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/target/crypto-1.0-SNAPSHOT.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/crypto/target/test-classes/salt/hoprxi/crypto/PasswordServiceTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/target/test-classes/salt/hoprxi/crypto/PasswordServiceTest.class" afterDir="false" />
     </list>
@@ -574,6 +571,7 @@
       <workItem from="1725273161045" duration="735000" />
       <workItem from="1725320427307" duration="598000" />
       <workItem from="1725676071675" duration="1179000" />
+      <workItem from="1725680514002" duration="798000" />
     </task>
     <task id="LOCAL-00001" summary="202309191815">
       <created>1695118536340</created>
@@ -715,7 +713,14 @@
       <option name="project" value="LOCAL" />
       <updated>1722762056248</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="202409071142">
+      <created>1725680534984</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1725680534984</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -756,7 +761,8 @@
     <MESSAGE value="202406151815" />
     <MESSAGE value="202407301804" />
     <MESSAGE value="202408041700" />
-    <option name="LAST_COMMIT_MESSAGE" value="202408041700" />
+    <MESSAGE value="202409071142" />
+    <option name="LAST_COMMIT_MESSAGE" value="202409071142" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">

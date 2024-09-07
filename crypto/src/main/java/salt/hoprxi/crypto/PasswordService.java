@@ -20,7 +20,10 @@ import salt.hoprxi.crypto.util.AESUtil;
 import salt.hoprxi.to.ByteToHex;
 
 import javax.crypto.*;
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.security.*;
@@ -50,7 +53,7 @@ public class PasswordService {
 
     public static final String KEYSTORE_ENTRY = "security.keystore.aes.password";
 
-    public static void main(String[] args) throws NoSuchAlgorithmException, CertificateException, KeyStoreException, IOException, InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
+    public static void main(String[] args) throws NoSuchAlgorithmException, CertificateException, KeyStoreException, IOException, InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, UnrecoverableKeyException {
         String param1 = null, param2 = null, param3 = null;
         String fileName = "keystore.jks", protectPasswd = "";
         EnumSet<ActionTag> set = EnumSet.noneOf(ActionTag.class);
@@ -206,7 +209,7 @@ public class PasswordService {
         );
     }
 
-    private static void list(String fileName, String protectPasswd) {
+    private static void list(String fileName, String protectPasswd) throws KeyStoreException, CertificateException, NoSuchAlgorithmException {
         try (FileInputStream fis = new FileInputStream(fileName)) {
             KeyStore keyStore = KeyStore.getInstance("JCEKS");
             keyStore.load(fis, protectPasswd.toCharArray());
@@ -215,14 +218,12 @@ public class PasswordService {
             while (alias.hasMoreElements()) {
                 System.out.println(alias.nextElement());
             }
-        } catch (NoSuchAlgorithmException | IOException | KeyStoreException e) {
-            System.out.println("Keystore was not exists, or tampered with, or  protect password was incorrect：" + fileName);
-        } catch (CertificateException e) {
-            throw new RuntimeException(e);
+        } catch (IOException e) {
+            System.out.println("Keystore was not exists filename=：" + fileName);
         }
     }
 
-    private static void delete(String entry, String fileName, String protectPasswd) {
+    private static void delete(String entry, String fileName, String protectPasswd) throws KeyStoreException, CertificateException, NoSuchAlgorithmException {
         if (entry == null) {
             entry = KEYSTORE_ENTRY;
         }
@@ -238,14 +239,12 @@ public class PasswordService {
             } else {
                 System.out.println("Not find entry: " + entry);
             }
-        } catch (NoSuchAlgorithmException | IOException | KeyStoreException e) {
-            System.out.println("Keystore was not exists, or tampered with, or password was incorrect：" + fileName);
-        } catch (CertificateException e) {
-            throw new RuntimeException(e);
+        } catch (IOException e) {
+            System.out.println("Keystore was not exists filename=：" + fileName);
         }
     }
 
-    private static void encryptWithStore(String planText, String entry, String entryPasswd, String fileName, String protectedPasswd) throws NoSuchAlgorithmException, CertificateException, KeyStoreException {
+    private static void encryptWithStore(String planText, String entry, String entryPasswd, String fileName, String protectedPasswd) throws NoSuchAlgorithmException, CertificateException, KeyStoreException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, InvalidAlgorithmParameterException, UnrecoverableKeyException {
         Objects.requireNonNull(planText, "planText required");
         if (entry == null)
             entry = KEYSTORE_ENTRY;
@@ -260,22 +259,8 @@ public class PasswordService {
                 //System.out.println(Base64.toBase64String(secKey.getEncoded()));
                 encrypt(entry, planText, secKey, Base64.toBase64String(secKey.getEncoded()));
             }
-        } catch (FileNotFoundException e) {
-            System.out.println("Not find key store file：" + fileName);
         } catch (IOException e) {
-            System.out.println("Keystore password was incorrect: " + protectedPasswd);
-        } catch (UnrecoverableKeyException e) {
-            System.out.println("Is a bad key is used during decryption: " + entryPasswd);
-        } catch (InvalidAlgorithmParameterException e) {
-            throw new RuntimeException(e);
-        } catch (NoSuchPaddingException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalBlockSizeException e) {
-            throw new RuntimeException(e);
-        } catch (BadPaddingException e) {
-            throw new RuntimeException(e);
-        } catch (InvalidKeyException e) {
-            throw new RuntimeException(e);
+            System.out.println("Keystore was not exists filename=：" + fileName);
         }
     }
 
@@ -293,11 +278,11 @@ public class PasswordService {
         byte[] aesData = AESUtil.encryptSpec(planText.getBytes(StandardCharsets.UTF_8), key);
         System.out.println("The planText has encrypted\n" +
                 "----------------         -----------------------\n" +
-                        "entry                    " + entry + "\n" +
-                        "plan_text                " + planText + "\n" +
-                        "password                 " + password + "\n" +
-                        "encrypted(base64)        " + Base64.toBase64String(aesData) + "\n" +
-                        "encrypted(hex)           " + ByteToHex.toHexStr(aesData)
+                "entry                    " + entry + "\n" +
+                "plan_text                " + planText + "\n" +
+                "password                 " + password + "\n" +
+                "encrypted(base64)        " + Base64.toBase64String(aesData) + "\n" +
+                "encrypted(hex)           " + ByteToHex.toHexStr(aesData)
         );
     }
 
