@@ -19,8 +19,7 @@ import org.bouncycastle.util.encoders.Base64;
 import salt.hoprxi.crypto.util.AESUtil;
 import salt.hoprxi.to.ByteToHex;
 
-import javax.crypto.KeyGenerator;
-import javax.crypto.SecretKey;
+import javax.crypto.*;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -51,7 +50,7 @@ public class PasswordService {
 
     public static final String KEYSTORE_ENTRY = "security.keystore.aes.password";
 
-    public static void main(String[] args) throws NoSuchAlgorithmException, CertificateException, KeyStoreException, IOException {
+    public static void main(String[] args) throws NoSuchAlgorithmException, CertificateException, KeyStoreException, IOException, InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
         String param1 = null, param2 = null, param3 = null;
         String fileName = "keystore.jks", protectPasswd = "";
         EnumSet<ActionTag> set = EnumSet.noneOf(ActionTag.class);
@@ -267,10 +266,20 @@ public class PasswordService {
             System.out.println("Keystore password was incorrect: " + protectedPasswd);
         } catch (UnrecoverableKeyException e) {
             System.out.println("Is a bad key is used during decryption: " + entryPasswd);
+        } catch (InvalidAlgorithmParameterException e) {
+            throw new RuntimeException(e);
+        } catch (NoSuchPaddingException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalBlockSizeException e) {
+            throw new RuntimeException(e);
+        } catch (BadPaddingException e) {
+            throw new RuntimeException(e);
+        } catch (InvalidKeyException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    private static void encrypt(String entry, String planText, String password) throws NoSuchAlgorithmException {
+    private static void encrypt(String entry, String planText, String password) throws NoSuchAlgorithmException, InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
         Objects.requireNonNull(planText, "planText required");
         if (password == null)
             password = PasswordService.nextStrongPasswd();
@@ -280,7 +289,7 @@ public class PasswordService {
         encrypt(entry, planText, secretKey, password);
     }
 
-    private static void encrypt(String entry, String planText, SecretKey key, String password) throws NoSuchAlgorithmException {
+    private static void encrypt(String entry, String planText, SecretKey key, String password) throws NoSuchAlgorithmException, InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
         byte[] aesData = AESUtil.encryptSpec(planText.getBytes(StandardCharsets.UTF_8), key);
         System.out.println("The planText has encrypted\n" +
                 "----------------         -----------------------\n" +

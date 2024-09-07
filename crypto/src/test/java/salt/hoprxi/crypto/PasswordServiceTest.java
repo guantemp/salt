@@ -21,8 +21,7 @@ import org.testng.annotations.Test;
 import salt.hoprxi.crypto.util.AESUtil;
 import salt.hoprxi.to.ByteToHex;
 
-import javax.crypto.KeyGenerator;
-import javax.crypto.SecretKey;
+import javax.crypto.*;
 import javax.crypto.spec.IvParameterSpec;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -39,7 +38,7 @@ import java.util.Base64;
  */
 public class PasswordServiceTest {
     @Test(priority = 1)
-    public void testMain() throws CertificateException, NoSuchAlgorithmException, KeyStoreException, IOException {
+    public void testMain() throws CertificateException, NoSuchAlgorithmException, KeyStoreException, IOException, InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
 
         PasswordService.main(new String[]{"-S", "Qwe123465Gj"});
         PasswordService.main(new String[]{"-S", "postgresql.security.keystore.aes.password", "Qwe123465Pg"});
@@ -50,7 +49,7 @@ public class PasswordServiceTest {
         PasswordService.main(new String[]{"-S", "Qwe123465Gj", "-f", "f:\\keystore.jks", "Qwe123465"});
         PasswordService.main(new String[]{"-S", "125.68.186.195:5432", PasswordService.nextStrongPasswd(), "Qwe123465Pg", "-f", "f:\\keystore.jks", "Qwe123465"});
         PasswordService.main(new String[]{"-S", "120.77.47.145:5432", PasswordService.nextStrongPasswd(), "Qwe123465Pg", "-f", "f:\\keystore.jks", "Qwe123465"});
-        PasswordService.main(new String[]{"-S", "https://slave.tooo.top:9200", PasswordService.nextStrongPasswd(), "-f", "f:\\keystore.jks", "Qwe123465"});
+        PasswordService.main(new String[]{"-S", "slave.tooo.top:9200", PasswordService.nextStrongPasswd(), "-f", "f:\\keystore.jks", "Qwe123465"});
         PasswordService.main(new String[]{"-S", "125.68.186.195:9200", PasswordService.nextStrongPasswd(), "Qwe123465El", "-f", "f:\\keystore.jks", "Qwe123465"});
         System.out.println("\n");
         PasswordService.main(new String[]{"-l", "-f", "f:\\keystore.jks", "Qwe123465"});
@@ -61,8 +60,8 @@ public class PasswordServiceTest {
         PasswordService.main(new String[]{"-e", "Qwe123465", "120.77.47.145:5432", "Qwe123465Pg", "-f", "f:\\keystore.jks", "Qwe123465"});
         PasswordService.main(new String[]{"-e", "postgres", "125.68.186.195:5432", "Qwe123465Pg", "-f", "f:\\keystore.jks", "Qwe123465"});
         PasswordService.main(new String[]{"-e", "Qwe123465", "125.68.186.195:5432", "Qwe123465Pg", "-f", "f:\\keystore.jks", "Qwe123465"});
-        PasswordService.main(new String[]{"-e", "elastic", "https://slave.tooo.top:9200", "-f", "f:\\keystore.jks", "Qwe123465"});
-        PasswordService.main(new String[]{"-e", "Qwe123465", "https://slave.tooo.top:9200", "-f", "f:\\keystore.jks", "Qwe123465"});
+        PasswordService.main(new String[]{"-e", "elastic", "slave.tooo.top:9200", "-f", "f:\\keystore.jks", "Qwe123465"});
+        PasswordService.main(new String[]{"-e", "Qwe123465", "slave.tooo.top:9200", "-f", "f:\\keystore.jks", "Qwe123465"});
         PasswordService.main(new String[]{"-e", "elastic", "125.68.186.195:9200", "Qwe123465El", "-f", "f:\\keystore.jks", "Qwe123465"});
         PasswordService.main(new String[]{"-e", "Qwe123465", "125.68.186.195:9200", "Qwe123465El", "-f", "f:\\keystore.jks", "Qwe123465"});
     }
@@ -85,7 +84,7 @@ public class PasswordServiceTest {
     }
 
     @org.testng.annotations.Test
-    public void testAes() throws NoSuchAlgorithmException, IOException, KeyStoreException, CertificateException, UnrecoverableKeyException {
+    public void testAes() throws NoSuchAlgorithmException, IOException, KeyStoreException, CertificateException, UnrecoverableKeyException, InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
         SecureRandom secureRandom = SecureRandom.getInstance("SHA1PRNG");//SecureRandom.getInstance("SHA1PRNG");
         byte[] iv = new byte[16];
         secureRandom.nextBytes(iv);

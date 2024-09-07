@@ -22,7 +22,6 @@ import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.util.Arrays;
 import java.util.Objects;
 
 /***
@@ -39,7 +38,7 @@ public class AESUtil {
      * @return
      */
 
-    public static byte[] encryptSpec(byte[] data, SecretKey key) throws NoSuchAlgorithmException {
+    public static byte[] encryptSpec(byte[] data, SecretKey key) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidAlgorithmParameterException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
         Objects.requireNonNull(data, "data is required");
         Objects.requireNonNull(key, "key is required");
         SecureRandom secureRandom = new SecureRandom();//SecureRandom.getInstance("SHA1PRNG");
@@ -51,14 +50,11 @@ public class AESUtil {
         byte[] mix = new byte[iv.length + data.length];
         System.arraycopy(iv, 0, mix, 0, 16);
         System.arraycopy(data, 0, mix, 16, data.length);
-        try {
+
             Cipher cipher = Cipher.getInstance(ALGORITHM_NAME_CBC_PADDING);
             cipher.init(Cipher.ENCRYPT_MODE, key, ivParameterSpec);
             return cipher.doFinal(mix);
-        } catch (NoSuchPaddingException | NoSuchAlgorithmException | InvalidKeyException | IllegalBlockSizeException |
-                 BadPaddingException | InvalidAlgorithmParameterException e) {
-            throw new RuntimeException("Encrypt data[" + Arrays.toString(data) + "] exception", e);
-        }
+
     }
 
     /**
@@ -66,23 +62,19 @@ public class AESUtil {
      * @param key
      * @return
      */
-    public static byte[] decryptSpec(byte[] data, SecretKey key) {
+    public static byte[] decryptSpec(byte[] data, SecretKey key) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
         Objects.requireNonNull(data, "data is required");
         Objects.requireNonNull(key, "key is required");
         SecureRandom secureRandom = new SecureRandom();//SecureRandom.getInstance("SHA1PRNG");
         byte[] iv = new byte[16];
         secureRandom.nextBytes(iv);
         IvParameterSpec ivParameterSpec = new IvParameterSpec(iv);
-        try {
-            Cipher cipher = Cipher.getInstance(ALGORITHM_NAME_CBC_PADDING);
-            cipher.init(Cipher.DECRYPT_MODE, key, ivParameterSpec);
-            byte[] aesData = cipher.doFinal(data);
-            byte[] result = new byte[aesData.length - 16];
-            System.arraycopy(aesData, 16, result, 0, result.length);
-            return result;
-        } catch (NoSuchPaddingException | NoSuchAlgorithmException | InvalidKeyException | IllegalBlockSizeException |
-                 BadPaddingException | InvalidAlgorithmParameterException e) {
-            throw new RuntimeException("Encrypt data[" + Arrays.toString(data) + "] exception", e);
-        }
+        Cipher cipher = Cipher.getInstance(ALGORITHM_NAME_CBC_PADDING);
+        cipher.init(Cipher.DECRYPT_MODE, key, ivParameterSpec);
+        byte[] aesData = cipher.doFinal(data);
+        byte[] result = new byte[aesData.length - 16];
+        System.arraycopy(aesData, 16, result, 0, result.length);
+        return result;
+
     }
 }

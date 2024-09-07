@@ -19,12 +19,9 @@ package salt.hoprxi.crypto.util;
 import org.testng.annotations.Test;
 import salt.hoprxi.to.ByteToHex;
 
-import javax.crypto.KeyGenerator;
-import javax.crypto.SecretKey;
+import javax.crypto.*;
 import java.nio.charset.StandardCharsets;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
-import java.security.SecureRandom;
+import java.security.*;
 import java.util.Base64;
 
 /***
@@ -37,7 +34,7 @@ public class AESUtilTest {
     private static final String PASSWD="Qwe123465Dw";
 
     @Test
-    public void testEncryptSpec() throws NoSuchAlgorithmException, NoSuchProviderException {
+    public void testEncryptSpec() throws NoSuchAlgorithmException, NoSuchProviderException, InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
         KeyGenerator kg = KeyGenerator.getInstance("AES");
         kg.init(256, new SecureRandom("Qwe13465".getBytes(StandardCharsets.UTF_8)));//固定密码
         SecretKey key = kg.generateKey();
@@ -51,7 +48,7 @@ public class AESUtilTest {
     }
 
     @Test(priority = 1)
-    public void testDecryptSpec() throws NoSuchAlgorithmException {
+    public void testDecryptSpec() throws NoSuchAlgorithmException, InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
         KeyGenerator kg = KeyGenerator.getInstance("AES");
         kg.init(256, new SecureRandom("Qwe13465".getBytes(StandardCharsets.UTF_8)));//固定密码
         SecretKey key = kg.generateKey();
