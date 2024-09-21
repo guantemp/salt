@@ -51,9 +51,9 @@ public class AESUtil {
         System.arraycopy(iv, 0, mix, 0, 16);
         System.arraycopy(data, 0, mix, 16, data.length);
 
-            Cipher cipher = Cipher.getInstance(ALGORITHM_NAME_CBC_PADDING);
-            cipher.init(Cipher.ENCRYPT_MODE, key, ivParameterSpec);
-            return cipher.doFinal(mix);
+        Cipher cipher = Cipher.getInstance(ALGORITHM_NAME_CBC_PADDING);
+        cipher.init(Cipher.ENCRYPT_MODE, key, ivParameterSpec);
+        return cipher.doFinal(mix);
 
     }
 
