@@ -10,9 +10,8 @@
     <groupId>salt.hoprxi</groupId>
     <artifactId>to</artifactId>
     <packaging>jar</packaging>
-
     <name>to</name>
-    <url>http://maven.apache.org</url>
+    <url>http://www.hoprxi.com</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
