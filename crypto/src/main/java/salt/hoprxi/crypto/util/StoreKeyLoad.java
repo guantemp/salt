@@ -38,11 +38,11 @@ import java.util.stream.Stream;
  * @since JDK8.0
  * @version 0.0.1 builder 2024-09-21
  */
-public final class KeyStoreLoad {
+public final class StoreKeyLoad {
     public static final Map<String, SecretKey> SECRET_KEY_PARAMETER = new HashMap<>();
     private static final Pattern ENCRYPTED = Pattern.compile("^ENC:.*");
     private static final Pattern PASS = Pattern.compile("^P\\$.*");
-    private static final Logger LOGGER = LoggerFactory.getLogger(KeyStoreLoad.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(StoreKeyLoad.class);
 
     public static void loadSecretKey(String keystoreFile, String keystoreFileProtectedPasswd, String[] entries) {
         //System.out.println(Arrays.toString(entries));
@@ -95,7 +95,7 @@ public final class KeyStoreLoad {
             byte[] aesData = Base64.getDecoder().decode(securedPlainText);
             //Bootstrap.SECRET_KEY_MAP.get(entry);
             try {
-                byte[] decryptData = AESUtil.decryptSpec(aesData, KeyStoreLoad.SECRET_KEY_PARAMETER.get(entry));
+                byte[] decryptData = AESUtil.decryptSpec(aesData, StoreKeyLoad.SECRET_KEY_PARAMETER.get(entry));
                 return new String(decryptData, StandardCharsets.UTF_8);
             } catch (InvalidAlgorithmParameterException | NoSuchPaddingException | IllegalBlockSizeException |
                      NoSuchAlgorithmException | BadPaddingException | InvalidKeyException e) {

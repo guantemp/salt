@@ -23,17 +23,17 @@ import org.testng.annotations.Test;
  * @since JDK8.0
  * @version 0.0.1 builder 2024-09-24
  */
-public class KeyStoreLoadTest {
+public class StoreKeyLoadTest {
 
     @Test
     public void testLoadSecretKey() {
-        KeyStoreLoad.loadSecretKey("keystore.jks", "Qwe123465",
+        StoreKeyLoad.loadSecretKey("keystore.jks", "Qwe123465",
                 new String[]{"120.77.47.145:6379:P$Qwe123465Re", "125.68.186.195:9200:P$Qwe123465El", "120.77.47.145:5432:P$Qwe123465Pg", "125.68.186.195:5432:P$Qwe123465Pg"});
     }
 
     @Test(priority = 1)
     public void testDecrypt() {
-        System.out.println(KeyStoreLoad.decrypt("120.77.47.145:6379", "ENC:VriaCOCfBElKVDRQMDiIv2aSzE5VWu2yMDFLEKm28H4="));
-        System.out.println(KeyStoreLoad.decrypt("120.77.47.145:6379", "ENC:GF6n+4YQS2Y8NHEbi5hizVBAHyYNAk5pv5VslCDCzgQ="));
+        System.out.println(StoreKeyLoad.decrypt("120.77.47.145:6379", "ENC:VriaCOCfBElKVDRQMDiIv2aSzE5VWu2yMDFLEKm28H4="));
+        System.out.println(StoreKeyLoad.decrypt("120.77.47.145:6379", "ENC:GF6n+4YQS2Y8NHEbi5hizVBAHyYNAk5pv5VslCDCzgQ="));
     }
 }

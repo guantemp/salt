@@ -9,6 +9,7 @@ salt\hoprxi\crypto\hash\Pbhkdf2Hash.class
 salt\hoprxi\crypto\algorithms\SM3.class
 salt\hoprxi\crypto\util\SM4Util.class
 salt\hoprxi\crypto\HashService.class
+salt\hoprxi\crypto\util\StoreKeyLoad.class
 salt\hoprxi\crypto\algorithms\SM3Digest.class
 salt\hoprxi\crypto\PasswordService.class
 salt\hoprxi\crypto\hash\Argon2Hash.class

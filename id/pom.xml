@@ -5,12 +5,14 @@
         <groupId>com.hoprxi</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
+
     <modelVersion>4.0.0</modelVersion>
     <groupId>salt.hoprxi</groupId>
     <artifactId>id</artifactId>
     <packaging>jar</packaging>
     <name>id</name>
-    <url>http://maven.apache.org</url>
+    <url>http://www.hoprxi.com</url>
+
     <dependencies>
         <dependency>
             <groupId>salt.hoprxi</groupId>
