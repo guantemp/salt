@@ -4,10 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="20482602-c4f2-4d7c-8556-c526a976ada0" name="Changes" comment="202409071155">
+    <list default="true" id="20482602-c4f2-4d7c-8556-c526a976ada0" name="Changes" comment="202409212338">
+      <change afterPath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/util/KeyStoreLoad.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/crypto/src/main/resources/keystore.jks" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/crypto/src/test/java/salt/hoprxi/crypto/util/KeyStoreLoadTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/util/AESUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/util/AESUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crypto/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/crypto/src/test/java/salt/hoprxi/crypto/PasswordServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/src/test/java/salt/hoprxi/crypto/PasswordServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crypto/target/crypto-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/target/crypto-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crypto/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crypto/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crypto/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crypto/target/test-classes/salt/hoprxi/crypto/PasswordServiceTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/target/test-classes/salt/hoprxi/crypto/PasswordServiceTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/utils/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,36 +63,36 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;TestNG&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit3&quot;: &quot;junit.framework.TestCase&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.TestNG&quot;: &quot;&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;1.8&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/workspace/salt&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;5ae9b7f211e23aac3df5f2b8f3b8eada&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "TestNG",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit3": "junit.framework.TestCase",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.TestNG": "",
+    "jdk.selected.JAVA_MODULE": "1.8",
+    "last_opened_file_path": "E:/workspace/salt/crypto/src/main/resources",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.sourceCode",
+    "spring.configuration.checksum": "5ae9b7f211e23aac3df5f2b8f3b8eada"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;ChangesTree.GroupingKeys&quot;: [
-      &quot;directory&quot;
+  "keyToStringList": {
+    "ChangesTree.GroupingKeys": [
+      "directory"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\workspace\salt\crypto\src\main\resources" />
       <recent name="E:\workspace\salt\cache" />
       <recent name="E:\workspace\salt\crypto" />
       <recent name="E:\workspace\salt\id" />
       <recent name="E:\workspace\salt\to" />
-      <recent name="E:\workspace\salt\utils\src" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -96,14 +107,16 @@
       <recent name="salt.hoprxi" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="salt.hoprxi.crypto.util" />
       <recent name="salt.hoprxi.crypto" />
       <recent name="salt.hoprxi.utils" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="salt.hoprxi.crypto.util" />
       <recent name="salt.hoprxi.crypto" />
     </key>
   </component>
-  <component name="RunManager" selected="TestNG.LettuceStandAloneRedisClientTest">
+  <component name="RunManager" selected="TestNG.KeyStoreLoadTest">
     <configuration default="true" type="SwaggerCodegen">
       <option name="activeConfigurationType" value="FILE" />
       <option name="configurationPath" value="" />
@@ -252,6 +265,26 @@
       <option name="SUITE_NAME" value="" />
       <option name="PACKAGE_NAME" value="salt.hoprxi.crypto" />
       <option name="MAIN_CLASS_NAME" value="salt.hoprxi.crypto.HashServiceTest" />
+      <option name="GROUP_NAME" value="" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="PARAMETERS" value="" />
+      <option name="OUTPUT_DIRECTORY" value="" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <option name="PROPERTIES_FILE" value="" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="KeyStoreLoadTest" type="TestNG">
+      <module name="crypto" />
+      <shortenClasspath name="NONE" />
+      <option name="SUITE_NAME" value="" />
+      <option name="PACKAGE_NAME" value="salt.hoprxi.crypto.util" />
+      <option name="MAIN_CLASS_NAME" value="salt.hoprxi.crypto.util.KeyStoreLoadTest" />
       <option name="GROUP_NAME" value="" />
       <option name="TEST_OBJECT" value="CLASS" />
       <option name="PARAMETERS" value="" />
@@ -483,6 +516,7 @@
     <list>
       <item itemvalue="TestNG.SM4UtilTest" />
       <item itemvalue="TestNG.AesUtilTest" />
+      <item itemvalue="TestNG.KeyStoreLoadTest" />
       <item itemvalue="TestNG.EncryptServiceTest" />
       <item itemvalue="TestNG.SelectorTest" />
       <item itemvalue="TestNG.RandomGeneratorTest" />
@@ -573,7 +607,8 @@
       <workItem from="1725680514002" duration="858000" />
       <workItem from="1725694262524" duration="1444000" />
       <workItem from="1726893686284" duration="1189000" />
-      <workItem from="1726929231242" duration="2979000" />
+      <workItem from="1726929231242" duration="3653000" />
+      <workItem from="1727151887182" duration="4790000" />
     </task>
     <task id="LOCAL-00001" summary="202309191815">
       <created>1695118536340</created>
@@ -729,7 +764,14 @@
       <option name="project" value="LOCAL" />
       <updated>1725681325672</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="202409212338">
+      <created>1726933098265</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1726933098265</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -772,7 +814,8 @@
     <MESSAGE value="202408041700" />
     <MESSAGE value="202409071142" />
     <MESSAGE value="202409071155" />
-    <option name="LAST_COMMIT_MESSAGE" value="202409071155" />
+    <MESSAGE value="202409212338" />
+    <option name="LAST_COMMIT_MESSAGE" value="202409212338" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">

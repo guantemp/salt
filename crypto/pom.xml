@@ -48,6 +48,7 @@
                     <include>**/*.conf</include>
                     <include>**/*.json</include>
                     <include>**/*.xml</include>
+                    <include>**/*.jks</include>
                     <include>**/*.xls</include>
                 </includes>
             </resource>
