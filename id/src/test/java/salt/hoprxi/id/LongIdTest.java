@@ -44,10 +44,9 @@ public class LongIdTest {
         for (int i = 1; i < 9; i++)
             System.out.println(a[i * 360]);
         System.out.println();
-        for (int i = 1; i < 9; i++)
+        for (int i = 1; i < 99; i++)
             System.out.println(LongId.generate());
         Thread.sleep(10);
-        System.out.println();
         System.out.println();
         for (int i = 1; i < 9; i++)
             System.out.println(LongId.generate());
@@ -57,7 +56,7 @@ public class LongIdTest {
     public void timestamp() throws ParseException {
         System.out.println("Machine：" + MacHash.hash());
         System.out.println("Process id：" + Process.process());
-        System.out.println("Recover time from Identity:" + LongId.timestamp(LongId.generate()));
+        System.out.println("Recover time from Identity:" + LongId.timestamp(52496163982907400l));
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         simpleDateFormat.setTimeZone(TimeZone.getDefault());

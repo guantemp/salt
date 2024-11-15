@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023. www.hoprxi.com All Rights Reserved.
+ * Copyright (c) 2024. www.hoprxi.com All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,15 +28,15 @@ import java.util.concurrent.atomic.AtomicInteger;
  * +------+------------------------+------------------+--------------+------------+
  * | sign |   delta milliseconds   |  mac hash code   |   process id |  sequence  |
  * +------+------------------------+------------------+--------------+------------+
- *   1bit          42bits                5bits               5bit         11bits
+ *   1bit          42bits                5bits               5bits        11bits
  * }</pre>
  * <li>use the 42-bit identification milliseconds time(support 139 year)
- * <li>5-bit(32) slice logo
- * <li>5-bit(32) process
- * <li>11-bit(2048) sequence
+ * <li>5-bit(2^5=32) slice logo
+ * <li>5-bit(2^5=32) process
+ * <li>11-bit(2^11=2048) sequence
  * </p>
  *
- * @author <a href="www.hoprxi.com/authors/guan xiangHuan">guan xiangHuan</a>
+ * @author <a href="https://www.hoprxi.com/authors/guan xiangHuan">guan xiangHuan</a>
  * @version 0.0.5 2024-02-14
  * @since JDK8.0
  */
@@ -70,10 +70,9 @@ public class LongId {
         }
         //AtomicInteger sequence = new AtomicInteger(ThreadLocalRandom.current().nextInt());
         int increment = sequence.getAndIncrement();
-        if (increment == Integer.MAX_VALUE)
-            synchronized (LongId.class) {
-                sequence = new AtomicInteger(ThreadLocalRandom.current().nextInt());
-            }
+        if (increment == Integer.MAX_VALUE) {
+            sequence = new AtomicInteger(ThreadLocalRandom.current().nextInt());
+        }
         if ((increment & SEQUENCE_MASK) == 0 && lastTimestamp == time) {
             time = tilNextMillis(lastTimestamp);
         }

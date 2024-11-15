@@ -63,7 +63,7 @@ public final class StoreKeyLoad {
                     rowPass = ss[ss.length - 1].substring(2);
                     ss = Arrays.copyOf(ss, ss.length - 1);
                 }
-                System.out.println(Arrays.toString(ss));
+                //System.out.println(Arrays.toString(ss));
                 if (ss.length == 3)//https://slave.tooo.top:9200
                     SECRET_KEY_PARAMETER.put(ss[0] + ":" + ss[1] + ":" + ss[2], (SecretKey) keyStore.getKey(ss[0] + ":" + ss[1] + ":" + ss[2], rowPass.toCharArray()));
                 if (ss.length == 2) //125.68.186.195:5432,slave.tooo.top:9200
