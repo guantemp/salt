@@ -28,39 +28,39 @@ import java.util.concurrent.atomic.AtomicInteger;
  * +------+------------------------+------------------+--------------+------------+
  * | sign |   delta milliseconds   |  mac hash code   |   process id |  sequence  |
  * +------+------------------------+------------------+--------------+------------+
- *   1bit          42bits                5bits               5bits        11bits
+ *   1bit          42bits                6bits               3bits        12bits
  * }</pre>
- * <li>use the 42-bit identification milliseconds time(support 139 year)
- * <li>5-bit(2^5=32) slice logo
- * <li>5-bit(2^5=32) process
- * <li>11-bit(2^11=2048) sequence
+ * <li>use the 42-bits identification milliseconds time(support 139 year)
+ * <li>6-bit(2^6=64) slice logo
+ * <li>3-bit(2^3=8) process id
+ * <li>12-bit(2^12=4096) sequence
  * </p>
  *
  * @author <a href="https://www.hoprxi.com/authors/guan xiangHuan">guan xiangHuan</a>
- * @version 0.0.5 2024-02-14
+ * @version 0.0.6 2024-12-23
  * @since JDK8.0
  */
 public class LongId {
-    private static final int MACHINE_MASK = 0x1F;
-    private static final int MACHINE_LEFT_SHIFT = 5;
+    private static final int MACHINE_MASK = 0x3F;
+    private static final int MACHINE_LEFT_SHIFT = 6;//机器码
     //Process id
     private static final int PROCESS = Process.process();
-    private static final int SEQUENCE_MASK = 0x7FF;
-    private static final int SEQUENCE_LEFT_SHIFT = 11;
-    private static final int PROCESS_MASK = 0x1F;
-    private static final int PROCESS_LEFT_SHIFT = 5;
-    // This is begin from 2023-01-01 00:00:00(2015-03-26 00:00:00(UTC/GMT+08:00) -1427328000000)
+    private static final int SEQUENCE_MASK = 0xFFF;
+    private static final int SEQUENCE_LEFT_SHIFT = 12;
+    private static final int PROCESS_MASK = 0x7;
+    private static final int PROCESS_LEFT_SHIFT = 3;//进程码
+    // This is begin from 2024-01-01 00:00:00(2015-03-26 00:00:00(UTC/GMT+08:00) -1427328000000)
     private static final long START = 1704067200000L;
     private static final int TIMESTIAMP_LEFT_SHIFT = MACHINE_LEFT_SHIFT + PROCESS_LEFT_SHIFT + SEQUENCE_LEFT_SHIFT;
     //may be use ThreadLocalRandom.current().nextInt() as initialValue
-    private static AtomicInteger sequence = new AtomicInteger(0);
+    private static AtomicInteger sequence = new AtomicInteger(ThreadLocalRandom.current().nextInt());
     private static long lastTimestamp = START;
 
     /**
      * Next id long.
      *
      * @return the long
-     * @throws ClockCallbackException if Clock moved backwards from 2015-03-26 00:00:00
+     * @throws ClockCallbackException if Clock moved backwards from 2024-01-01 00:00:00
      */
     public static long generate() {
         long time = Instant.now().toEpochMilli() - START;
@@ -72,6 +72,7 @@ public class LongId {
         int increment = sequence.getAndIncrement();
         if (increment == Integer.MAX_VALUE) {
             sequence = new AtomicInteger(ThreadLocalRandom.current().nextInt());
+            time = tilNextMillis(lastTimestamp);
         }
         if ((increment & SEQUENCE_MASK) == 0 && lastTimestamp == time) {
             time = tilNextMillis(lastTimestamp);
@@ -83,8 +84,8 @@ public class LongId {
     /**
      * Get localDateTime for Identity generate value
      *
-     * @param id
-     * @return
+     * @param id id value
+     * @return time of ID generation
      */
     public static LocalDateTime timestamp(long id) {
         return LocalDateTime.ofInstant(Instant.ofEpochMilli((id >> TIMESTIAMP_LEFT_SHIFT) + START), ZoneId.systemDefault());
@@ -93,13 +94,13 @@ public class LongId {
     /**
      * Waiting for the next millisecond
      *
-     * @param lastTimestamp
-     * @return
+     * @param lastTimestamp time of ID generation
+     * @return a new timestamp
      */
     private static long tilNextMillis(long lastTimestamp) {
         long timestamp = Instant.now().toEpochMilli() - START;
         while (timestamp <= lastTimestamp) {
-            timestamp = Instant.now().toEpochMilli();
+            timestamp = Instant.now().toEpochMilli() - START;
         }
         return timestamp;
     }

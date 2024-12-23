@@ -24,13 +24,13 @@ import java.lang.management.ManagementFactory;
  * @version 0.0.1 builder 2019-07-16
  */
 public final class Process {
-    private static int process;
+    private static final int process;
 
     static {
-        int processId = ManagementFactory.getRuntimeMXBean().hashCode();
-        ClassLoader classLoader = MacHash.class.getClassLoader();
-        int loaderId = classLoader != null ? System.identityHashCode(classLoader) : 0;
-        process = processId | loaderId;
+        int runtimeHash = ManagementFactory.getRuntimeMXBean().hashCode();
+        ClassLoader classLoader = Process.class.getClassLoader();
+        int loaderId = classLoader != null ? System.identityHashCode(classLoader) : Thread.currentThread().hashCode();
+        process = runtimeHash | loaderId;
     }
 
     public static int process() {
