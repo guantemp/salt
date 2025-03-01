@@ -71,7 +71,7 @@ public final class StoreKeyLoad {
                     SECRET_KEY_PARAMETER.put(ss[0], (SecretKey) keyStore.getKey(ss[0], rowPass.toCharArray()));
             }
         } catch (FileNotFoundException | KeyStoreException | NoSuchAlgorithmException | CertificateException e) {
-            LOGGER.error("Not find key store file {}", keystoreFile, e);
+            LOGGER.error("Not find key store file in {}", keystoreFile, e);
         } catch (IOException e) {
             LOGGER.error("Keystore protected password was incorrect {}", keystoreFileProtectedPasswd, e);
         } catch (UnrecoverableKeyException e) {
