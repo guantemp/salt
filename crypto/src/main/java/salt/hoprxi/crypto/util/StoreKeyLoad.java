@@ -40,7 +40,6 @@ import java.util.stream.Stream;
  */
 public final class StoreKeyLoad {
     public static final Map<String, SecretKey> SECRET_KEY_PARAMETER = new HashMap<>();
-    private static final Pattern ENCRYPTED = Pattern.compile("^ENC:.*");
     private static final Pattern PASS = Pattern.compile("^P\\$.*");
     private static final Logger LOGGER = LoggerFactory.getLogger(StoreKeyLoad.class);
 
@@ -68,7 +67,7 @@ public final class StoreKeyLoad {
                     SECRET_KEY_PARAMETER.put(ss[0] + ":" + ss[1] + ":" + ss[2], (SecretKey) keyStore.getKey(ss[0] + ":" + ss[1] + ":" + ss[2], rowPass.toCharArray()));
                 if (ss.length == 2) //125.68.186.195:5432,slave.tooo.top:9200
                     SECRET_KEY_PARAMETER.put(ss[0] + ":" + ss[1], (SecretKey) keyStore.getKey(ss[0] + ":" + ss[1], rowPass.toCharArray()));
-                    if (ss.length == 1)
+                if (ss.length == 1)
                     SECRET_KEY_PARAMETER.put(ss[0], (SecretKey) keyStore.getKey(ss[0], rowPass.toCharArray()));
             }
         } catch (FileNotFoundException | KeyStoreException | NoSuchAlgorithmException | CertificateException e) {
@@ -90,19 +89,15 @@ public final class StoreKeyLoad {
     }
 
     public static String decrypt(String entry, String securedPlainText) {
-        if (ENCRYPTED.matcher(securedPlainText).matches()) {
-            securedPlainText = securedPlainText.split(":")[1];
-            byte[] aesData = Base64.getDecoder().decode(securedPlainText);
-            //Bootstrap.SECRET_KEY_MAP.get(entry);
-            try {
-                byte[] decryptData = AESUtil.decryptSpec(aesData, StoreKeyLoad.SECRET_KEY_PARAMETER.get(entry));
-                return new String(decryptData, StandardCharsets.UTF_8);
-            } catch (InvalidAlgorithmParameterException | NoSuchPaddingException | IllegalBlockSizeException |
-                     NoSuchAlgorithmException | BadPaddingException | InvalidKeyException e) {
-                LOGGER.error("decrypt entry={},securedPlainText={} exception", entry, securedPlainText, e);
-                throw new RuntimeException("Decrypt data exception", e);
-            }
+        byte[] aesData = Base64.getDecoder().decode(securedPlainText);
+        //Bootstrap.SECRET_KEY_MAP.get(entry);
+        try {
+            byte[] decryptData = AESUtil.decryptSpec(aesData, StoreKeyLoad.SECRET_KEY_PARAMETER.get(entry));
+            return new String(decryptData, StandardCharsets.UTF_8);
+        } catch (InvalidAlgorithmParameterException | NoSuchPaddingException | IllegalBlockSizeException |
+                 NoSuchAlgorithmException | BadPaddingException | InvalidKeyException e) {
+            LOGGER.error("Decrypt entry={},securedPlainText={} exception", entry, securedPlainText, e);
+            throw new RuntimeException(String.format("decrypt entry=%s,securedPlainText=%s exception", entry, securedPlainText), e);
         }
-        return securedPlainText;
     }
 }

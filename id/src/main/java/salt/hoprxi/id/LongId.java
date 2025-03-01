@@ -43,13 +43,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class LongId {
     private static final int MACHINE_MASK = 0x3F;
     private static final int MACHINE_LEFT_SHIFT = 6;//机器码
-    //Process id
-    private static final int PROCESS = Process.process();
+    private static final int PROCESS = Process.process();     //Process id
     private static final int SEQUENCE_MASK = 0xFFF;
     private static final int SEQUENCE_LEFT_SHIFT = 12;
     private static final int PROCESS_MASK = 0x7;
     private static final int PROCESS_LEFT_SHIFT = 3;//进程码
-    // This is begin from 2024-01-01 00:00:00(2015-03-26 00:00:00(UTC/GMT+08:00) -1427328000000)
+    // This is begun from 2024-01-01 00:00:00(2015-03-26 00:00:00(UTC/GMT+08:00) = 1427328000000l)
     private static final long START = 1704067200000L;
     private static final int TIMESTIAMP_LEFT_SHIFT = MACHINE_LEFT_SHIFT + PROCESS_LEFT_SHIFT + SEQUENCE_LEFT_SHIFT;
     //may be use ThreadLocalRandom.current().nextInt() as initialValue

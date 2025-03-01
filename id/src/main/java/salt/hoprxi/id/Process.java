@@ -21,7 +21,7 @@ import java.lang.management.ManagementFactory;
 /***
  * @author <a href="www.hoprxi.com/authors/guan xianghuang">guan xiangHuan</a>
  * @since JDK8.0
- * @version 0.0.1 builder 2019-07-16
+ * @version 0.0.2 builder 2024-12-23
  */
 public final class Process {
     private static final int process;
