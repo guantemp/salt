@@ -33,7 +33,7 @@ public class StoreKeyLoadTest {
 
     @Test(priority = 1)
     public void testDecrypt() {
-        System.out.println(StoreKeyLoad.decrypt("120.77.47.145:6379", "VriaCOCfBElKVDRQMDiIv2aSzE5VWu2yMDFLEKm28H4="));
-        System.out.println(StoreKeyLoad.decrypt("120.77.47.145:6379", "GF6n+4YQS2Y8NHEbi5hizVBAHyYNAk5pv5VslCDCzgQ="));
+        System.out.println(StoreKeyLoad.decrypt("120.77.47.145:6379", "yqjbhVxP8riIK34bbYdSIskltdUNBo8pmfVgbvt0uLo="));
+        System.out.println(StoreKeyLoad.decrypt("120.77.47.145:6379", "k2vrFVzW5x3JGZ7Qh4cnju0DGtm37Eabp47aBnWMVHo="));
     }
 }

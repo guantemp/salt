@@ -4,14 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="20482602-c4f2-4d7c-8556-c526a976ada0" name="Changes" comment="202412231638">
+    <list default="true" id="20482602-c4f2-4d7c-8556-c526a976ada0" name="Changes" comment="202503011208">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/PasswordService.java" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/PasswordService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/util/StoreKeyLoad.java" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/util/StoreKeyLoad.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crypto/src/test/java/salt/hoprxi/crypto/PasswordServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/src/test/java/salt/hoprxi/crypto/PasswordServiceTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/crypto/src/test/java/salt/hoprxi/crypto/util/StoreKeyLoadTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/src/test/java/salt/hoprxi/crypto/util/StoreKeyLoadTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crypto/target/crypto-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/target/crypto-1.0-SNAPSHOT.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/id/src/main/java/salt/hoprxi/id/LongId.java" beforeDir="false" afterPath="$PROJECT_DIR$/id/src/main/java/salt/hoprxi/id/LongId.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/id/src/main/java/salt/hoprxi/id/Process.java" beforeDir="false" afterPath="$PROJECT_DIR$/id/src/main/java/salt/hoprxi/id/Process.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/id/target/classes/salt/hoprxi/id/Process.class" beforeDir="false" afterPath="$PROJECT_DIR$/id/target/classes/salt/hoprxi/id/Process.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/src/main/java/salt/hoprxi/utils/NumberHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/utils/src/main/java/salt/hoprxi/utils/NumberHelper.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,36 +80,36 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;TestNG&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit3&quot;: &quot;junit.framework.TestCase&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.TestNG&quot;: &quot;&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;1.8&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/gradle_user&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;5ae9b7f211e23aac3df5f2b8f3b8eada&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "TestNG",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit3": "junit.framework.TestCase",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.TestNG": "",
+    "jdk.selected.JAVA_MODULE": "1.8",
+    "last_opened_file_path": "E:/workspace/salt/crypto/target/classes",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "spring.configuration.checksum": "5ae9b7f211e23aac3df5f2b8f3b8eada"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;ChangesTree.GroupingKeys&quot;: [
-      &quot;directory&quot;
+  "keyToStringList": {
+    "ChangesTree.GroupingKeys": [
+      "directory"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\workspace\salt\crypto\target\classes" />
+      <recent name="E:\workspace\salt\crypto\target" />
       <recent name="E:\workspace\salt\crypto\src\main\resources" />
       <recent name="E:\workspace\salt\cache" />
       <recent name="E:\workspace\salt\crypto" />
-      <recent name="E:\workspace\salt\id" />
-      <recent name="E:\workspace\salt\to" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -134,7 +133,7 @@
       <recent name="salt.hoprxi.crypto" />
     </key>
   </component>
-  <component name="RunManager" selected="TestNG.StoreKeyLoadTest">
+  <component name="RunManager" selected="TestNG.PasswordServiceTest">
     <configuration default="true" type="SwaggerCodegen">
       <option name="activeConfigurationType" value="FILE" />
       <option name="configurationPath" value="" />
@@ -636,7 +635,11 @@
       <workItem from="1740293257275" duration="41000" />
       <workItem from="1740293333811" duration="37000" />
       <workItem from="1740305231555" duration="154000" />
-      <workItem from="1740799339583" duration="2301000" />
+      <workItem from="1740799339583" duration="3632000" />
+      <workItem from="1740972247414" duration="825000" />
+      <workItem from="1740983450737" duration="265000" />
+      <workItem from="1740984970053" duration="178000" />
+      <workItem from="1741962211934" duration="5846000" />
     </task>
     <task id="LOCAL-00001" summary="202309191815">
       <created>1695118536340</created>
@@ -834,7 +837,21 @@
       <option name="project" value="LOCAL" />
       <updated>1734943127751</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="202503011204">
+      <created>1740801879453</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1740801879453</updated>
+    </task>
+    <task id="LOCAL-00030" summary="202503011208">
+      <created>1740802097602</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1740802097602</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -855,8 +872,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="202402142055" />
-    <MESSAGE value="202402142109" />
     <MESSAGE value="202402142116" />
     <MESSAGE value="202403151319" />
     <MESSAGE value="202404061037" />
@@ -880,7 +895,9 @@
     <MESSAGE value="202411151537" />
     <MESSAGE value="202412231635" />
     <MESSAGE value="202412231638" />
-    <option name="LAST_COMMIT_MESSAGE" value="202412231638" />
+    <MESSAGE value="202503011204" />
+    <MESSAGE value="202503011208" />
+    <option name="LAST_COMMIT_MESSAGE" value="202503011208" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -888,7 +905,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/crypto/src/test/java/salt/hoprxi/crypto/PasswordServiceTest.java</url>
-          <line>145</line>
+          <line>147</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>

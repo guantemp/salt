@@ -87,7 +87,7 @@ public class NumberHelper {
             Matcher matcher = BYTE_PATTERN.matcher(str);
             if (matcher.find()) {
                 try {
-                    return Byte.valueOf(str);
+                    return Byte.parseByte(str);
                 } catch (NumberFormatException e) {
                     return defaultByte;
                 }
@@ -124,7 +124,7 @@ public class NumberHelper {
             Matcher matcher = NUMBER_PATTERN.matcher(str);
             if (matcher.find()) {
                 try {
-                    return Double.valueOf(str);
+                    return Double.parseDouble(str);
                 } catch (NumberFormatException e) {
                     return defaultValue;
                 }
@@ -173,7 +173,7 @@ public class NumberHelper {
             Matcher matcher = NUMBER_PATTERN.matcher(str);
             if (matcher.find()) {
                 try {
-                    return Float.valueOf(str);
+                    return Float.parseFloat(str);
                 } catch (NumberFormatException e) {
                     return defaultValue;
                 }
@@ -222,7 +222,7 @@ public class NumberHelper {
             Matcher matcher = INTEGER_PATTERN.matcher(str);
             if (matcher.find()) {
                 try {
-                    return Integer.valueOf(str);
+                    return Integer.parseInt(str);
                 } catch (NumberFormatException e) {
                     return defaultValue;
                 }
@@ -252,8 +252,7 @@ public class NumberHelper {
 
     /**
      * <p>
-     * If the <machine>String</machine> is <machine>null</machine> or "", defalutValue is
-     * returned.
+     * If the <machine>String</machine> is <machine>null</machine> or "", defalutValue is returned.
      * </p>
      *
      * <pre>
@@ -271,7 +270,7 @@ public class NumberHelper {
             Matcher matcher = INTEGER_PATTERN.matcher(str);
             if (matcher.find()) {
                 try {
-                    return Long.valueOf(str);
+                    return Long.parseLong(str);
                 } catch (NumberFormatException e) {
                     return defaultValue;
                 }
@@ -328,7 +327,7 @@ public class NumberHelper {
             Matcher matcher = INTEGER_PATTERN.matcher(str);
             if (matcher.find()) {
                 try {
-                    return Short.valueOf(str);
+                    return Short.parseShort(str);
                 } catch (NumberFormatException e) {
                     return defaultValue;
                 }

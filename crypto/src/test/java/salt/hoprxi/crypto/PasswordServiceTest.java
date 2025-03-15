@@ -39,12 +39,14 @@ import java.util.Base64;
 public class PasswordServiceTest {
     @Test(priority = 1)
     public void testMain() throws CertificateException, NoSuchAlgorithmException, KeyStoreException, IOException, InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, UnrecoverableKeyException {
-
+        PasswordService.main(new String[]{"--help"});
+        System.out.println("\n");
         PasswordService.main(new String[]{"-S", "Qwe123465Gj"});
         PasswordService.main(new String[]{"-S", "postgresql.security.keystore.aes.password", "Qwe123465Pg"});
         PasswordService.main(new String[]{"-S", "elasticsearch.security.keystore.aes.password", "Qwe123465Pg", "Qwe123465"});
         PasswordService.main(new String[]{"-l"});
         PasswordService.main(new String[]{"-d","-l"});
+        System.out.println("\n");
 
         PasswordService.main(new String[]{"-S", "Qwe123465Gj", "-f", "f:\\keystore.jks", "Qwe123465"});
         PasswordService.main(new String[]{"-S", "120.77.47.145:5432", PasswordService.nextStrongPasswd(), "Qwe123465Pg", "-f", "f:\\keystore.jks", "Qwe123465"});
@@ -54,7 +56,7 @@ public class PasswordServiceTest {
         PasswordService.main(new String[]{"-S", "125.68.186.195:9200", PasswordService.nextStrongPasswd(), "Qwe123465El", "-f", "f:\\keystore.jks", "Qwe123465"});
         System.out.println("\n");
         PasswordService.main(new String[]{"-l", "-f", "f:\\keystore.jks", "Qwe123465"});
-
+        System.out.println("\n");
         PasswordService.main(new String[]{"-e", "阿达沙发上"});
         PasswordService.main(new String[]{"-e", "阿达沙发上", PasswordService.nextStrongPasswd()});
         PasswordService.main(new String[]{"-e", "postgres", "120.77.47.145:5432", "Qwe123465Pg", "-f", "f:\\keystore.jks", "Qwe123465"});

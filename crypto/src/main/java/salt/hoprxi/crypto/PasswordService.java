@@ -142,17 +142,19 @@ public class PasswordService {
         }
         if (set.contains(ActionTag.HELP) || args.length == 0) {
             System.out.println("Non-option arguments:\n" +
-                    "command              \n" +
                     "\n" +
                     "Option                         Description        \n" +
                     "------                         -----------        \n" +
-                    "-S <KeyValuePair>              configure a setting\n" +
+                    "-S <KeyValuePair>              store a setting\n" +
                     "-e <KeyValuePair>              encrypt a passwd\n" +
                     "-t --type                      encrypt type(aes,sm4)\n" +
                     "-d --del                       delete a entry\n" +
                     "-l, --list                     entries in the keystore\n" +
                     "-h, --help                     Show help          \n" +
-                    "-f, --file                     Show verbose output\n");
+                    "-f, --file                     Show verbose output\n" +
+                    "\n" +
+                    "KeyValuePair AS entry,password,entry_protected_password(option)\n"
+            );
         } else {
             if (set.contains(ActionTag.STORE)) {
                 store(param1, param2, param3, fileName, protectPasswd);
