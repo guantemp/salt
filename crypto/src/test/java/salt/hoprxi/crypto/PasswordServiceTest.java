@@ -48,26 +48,24 @@ public class PasswordServiceTest {
         System.out.println("\n");
 
         PasswordService.main(new String[]{"-S", "Qwe123465Gj", "-f", "f:\\keystore.jks", "Qwe123465"});
-        PasswordService.main(new String[]{"-S", "120.77.47.145:5432", PasswordService.nextStrongPasswd(), "Qwe123465Pg", "-f", "f:\\keystore.jks", "Qwe123465"});
-        PasswordService.main(new String[]{"-S", "120.77.47.145:6379", PasswordService.nextStrongPasswd(), "Qwe123465Re", "-f", "f:\\keystore.jks", "Qwe123465"});
+        //PasswordService.main(new String[]{"-S", "129.28.29.105:5432", PasswordService.nextStrongPasswd(), "Qwe123465Pg", "-f", "f:\\keystore.jks", "Qwe123465"});
+        PasswordService.main(new String[]{"-S", "129.28.29.105:6379", PasswordService.nextStrongPasswd(), "Qwe123465Re", "-f", "f:\\keystore.jks", "Qwe123465"});
         PasswordService.main(new String[]{"-S", "slave.tooo.top:9200", PasswordService.nextStrongPasswd(), "-f", "f:\\keystore.jks", "Qwe123465"});
-        PasswordService.main(new String[]{"-S", "120.77.47.145:6543", PasswordService.nextStrongPasswd(), "Qwe123465Pg", "-f", "f:\\keystore.jks", "Qwe123465"});
+        PasswordService.main(new String[]{"-S", "129.28.29.105:6543", PasswordService.nextStrongPasswd(), "Qwe123465Pg", "-f", "f:\\keystore.jks", "Qwe123465"});
         //PasswordService.main(new String[]{"-S", "125.68.186.195:9200", PasswordService.nextStrongPasswd(), "Qwe123465El", "-f", "f:\\keystore.jks", "Qwe123465"});
         System.out.println("\n");
         PasswordService.main(new String[]{"-l", "-f", "f:\\keystore.jks", "Qwe123465"});
-        System.out.println("\n");
-        PasswordService.main(new String[]{"-e", "阿达沙发上"});
-        PasswordService.main(new String[]{"-e", "阿达沙发上", PasswordService.nextStrongPasswd()});
-        PasswordService.main(new String[]{"-e", "postgres", "120.77.47.145:5432", "Qwe123465Pg", "-f", "f:\\keystore.jks", "Qwe123465"});
-        PasswordService.main(new String[]{"-e", "Qwe123465", "120.77.47.145:5432", "Qwe123465Pg", "-f", "f:\\keystore.jks", "Qwe123465"});
+        System.out.println("保存jks后加密\n");
+        //PasswordService.main(new String[]{"-e", "阿达沙发上"});
+        //PasswordService.main(new String[]{"-e", "阿达沙发上", PasswordService.nextStrongPasswd()});
+        //PasswordService.main(new String[]{"-e", "postgres", "129.28.29.105:5432", "Qwe123465Pg", "-f", "f:\\keystore.jks", "Qwe123465"});
+        //PasswordService.main(new String[]{"-e", "Qwe123465", "129.28.29.105:5432", "Qwe123465Pg", "-f", "f:\\keystore.jks", "Qwe123465"});
         //PasswordService.main(new String[]{"-e", "admin", "120.77.47.145:6379", "Qwe123465Re", "-f", "f:\\keystore.jks", "Qwe123465"});
         //PasswordService.main(new String[]{"-e", "Qwe123465", "120.77.47.145:6379", "Qwe123465Re", "-f", "f:\\keystore.jks", "Qwe123465"});
-        PasswordService.main(new String[]{"-e", "postgres", "120.77.47.145:6543", "Qwe123465Pg", "-f", "f:\\keystore.jks", "Qwe123465"});
-        PasswordService.main(new String[]{"-e", "Qwe123465", "120.77.47.145:6543", "Qwe123465Pg", "-f", "f:\\keystore.jks", "Qwe123465"});
+        PasswordService.main(new String[]{"-e", "postgres", "129.28.29.105:6543", "Qwe123465Pg", "-f", "f:\\keystore.jks", "Qwe123465"});
+        PasswordService.main(new String[]{"-e", "Qwe123465", "129.28.29.105:6543", "Qwe123465Pg", "-f", "f:\\keystore.jks", "Qwe123465"});
         PasswordService.main(new String[]{"-e", "elastic", "slave.tooo.top:9200", "-f", "f:\\keystore.jks", "Qwe123465"});
         PasswordService.main(new String[]{"-e", "Qwe123465", "slave.tooo.top:9200", "-f", "f:\\keystore.jks", "Qwe123465"});
-        //PasswordService.main(new String[]{"-e", "elastic", "125.68.186.195:9200", "Qwe123465El", "-f", "f:\\keystore.jks", "Qwe123465"});
-        //PasswordService.main(new String[]{"-e", "Qwe123465", "125.68.186.195:9200", "Qwe123465El", "-f", "f:\\keystore.jks", "Qwe123465"});
     }
 
     @Test
