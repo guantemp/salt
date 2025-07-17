@@ -11,7 +11,7 @@
     <artifactId>crypto</artifactId>
     <packaging>jar</packaging>
     <name>crypto</name>
-    <url>http://www.hoprxi.com</url>
+    <url>https://www.hoprxi.com</url>
 
     <dependencies>
         <dependency>

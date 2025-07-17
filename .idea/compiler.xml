@@ -13,10 +13,5 @@
         <module name="crypto" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="tool" target="1.8" />
-      <module name="tool.main" target="1.8" />
-      <module name="tool.test" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
 </project>

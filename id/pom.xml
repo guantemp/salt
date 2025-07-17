@@ -11,7 +11,7 @@
     <artifactId>id</artifactId>
     <packaging>jar</packaging>
     <name>id</name>
-    <url>http://www.hoprxi.com</url>
+    <url>https://www.hoprxi.com</url>
 
     <dependencies>
         <dependency>
