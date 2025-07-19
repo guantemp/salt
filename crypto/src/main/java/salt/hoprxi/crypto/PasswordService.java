@@ -123,7 +123,21 @@ public class PasswordService {
             }
         }
         if (set.contains(ActionTag.HELP) || args.length == 0) {
-            System.out.println("Non-option arguments:\n" + "\n" + "Option                         Description        \n" + "------                         -----------        \n" + "-S <KeyValuePair>              store a setting\n" + "-e <KeyValuePair>              encrypt a passwd\n" + "-t --type                      encrypt type(aes,sm4)\n" + "-d --del                       delete a entry\n" + "-l, --list                     entries in the keystore\n" + "-h, --help                     Show help          \n" + "-f, --file                     Show verbose output\n" + "\n" + "KeyValuePair AS entry,password,entry_protected_password(option)\n");
+            System.out.println("""
+                    Non-option arguments:
+                    
+                    Option                         Description       \s
+                    ------                         -----------       \s
+                    -S <KeyValuePair>              store a setting
+                    -e <KeyValuePair>              encrypt a passwd
+                    -t --type                      encrypt type(aes,sm4)
+                    -d --del                       delete a entry
+                    -l, --list                     entries in the keystore
+                    -h, --help                     Show help         \s
+                    -f, --file                     Show verbose output
+                    
+                    KeyValuePair AS entry,password,entry_protected_password(option)
+                    """);
         } else {
             if (set.contains(ActionTag.STORE)) {
                 store(param1, param2, param3, fileName, protectPasswd);
@@ -133,7 +147,7 @@ public class PasswordService {
                 if (set.contains(ActionTag.FILE)) {
                     encryptWithStore(param1, param2, param3, fileName, protectPasswd);
                 } else {
-                    encrypt(KEYSTORE_ENTRY, param1, param2);
+                    encrypt(param1, param2);
                 }
             }
             if (set.contains(ActionTag.LIST)) list(fileName, protectPasswd);
@@ -226,13 +240,13 @@ public class PasswordService {
         }
     }
 
-    private static void encrypt(String entry, String planText, String password) throws NoSuchAlgorithmException, InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
+    private static void encrypt(String planText, String password) throws NoSuchAlgorithmException, InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
         Objects.requireNonNull(planText, "planText required");
         if (password == null) password = PasswordService.nextStrongPasswd();
         KeyGenerator gen = KeyGenerator.getInstance("AES");
         gen.init(256, new SecureRandom(password.getBytes(StandardCharsets.UTF_8)));
         SecretKey secretKey = gen.generateKey();
-        encrypt(entry, planText, secretKey, password);
+        encrypt(PasswordService.KEYSTORE_ENTRY, planText, secretKey, password);
     }
 
     private static void encrypt(String entry, String planText, SecretKey key, String password) throws NoSuchAlgorithmException, InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
@@ -274,11 +288,6 @@ public class PasswordService {
         return password;
     }
 
-    /**
-     * @param password
-     * @param random
-     * @return
-     */
     private static String nextPasswd(StringBuilder password, SecureRandom random) {
         int index;
         int opt = random.nextInt(4);

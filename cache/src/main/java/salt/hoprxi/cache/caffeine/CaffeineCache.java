@@ -112,8 +112,9 @@ public class CaffeineCache<K, V> implements Cache<K, V> {
         cache.invalidate(key);
     }
 
+    @SafeVarargs
     @Override
-    public void evict(K... keys) {
+    public final void evict(K... keys) {
         cache.invalidateAll(Arrays.asList(keys));
     }
 

@@ -38,7 +38,7 @@ import java.util.Base64;
 public class AESUtilTest {
 
     private static final String plainText = "Qwe123465Dw中文";
-    private static SecretKey key;
+    private static final SecretKey key;
 
     static {
         KeyGenerator kg1;

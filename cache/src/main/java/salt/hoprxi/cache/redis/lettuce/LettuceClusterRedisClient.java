@@ -32,7 +32,6 @@ import org.slf4j.LoggerFactory;
 import salt.hoprxi.cache.util.FSTSerialization;
 import salt.hoprxi.cache.util.KryoSerialization;
 
-import java.io.IOException;
 import java.time.Duration;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
@@ -113,7 +112,7 @@ public class LettuceClusterRedisClient<K, V> extends LettuceRedisClient<K, V> {
             byte[] valueBytes = serialization.serialize(value);
             command.hset(regionBytes, keyBytes, valueBytes);
         } catch (Exception e) {
-            LOGGER.warn("Can't put {key={},value={}} in cache", value, e);
+            LOGGER.warn("Can't put {key={}} in cache", value, e);
         }
     }
 
@@ -144,7 +143,7 @@ public class LettuceClusterRedisClient<K, V> extends LettuceRedisClient<K, V> {
         } catch (ExecutionException | InterruptedException e) {
             LOGGER.warn("Can't rebuild value from key={}", key, e);
         } catch (Exception e) {
-            System.out.println(e);
+            //System.out.println(e);
             LOGGER.warn("Can't value value from key={}", key, e);
         }
         return null;
@@ -174,8 +173,10 @@ public class LettuceClusterRedisClient<K, V> extends LettuceRedisClient<K, V> {
         return null;
     }
 
+
+    @SafeVarargs
     @Override
-    public Map<K, V> get(K... keys) {
+    public final Map<K, V> get(K... keys) {
         return get(Arrays.asList(keys));
     }
 
@@ -184,6 +185,7 @@ public class LettuceClusterRedisClient<K, V> extends LettuceRedisClient<K, V> {
         int capacity = (int) (((Collection<?>) keys).size() / 0.75 + 1);
         Map<K, V> result = new HashMap<>(capacity);
         try (StatefulRedisClusterConnection<byte[], byte[]> connection = (StatefulRedisClusterConnection<byte[], byte[]>) pool.borrowObject()) {
+
             RedisAdvancedClusterAsyncCommands<byte[], byte[]> command = connection.async();
             command.setAutoFlushCommands(false);
             List<RedisFuture<byte[]>> redisFutureList = new ArrayList<>();
@@ -241,8 +243,9 @@ public class LettuceClusterRedisClient<K, V> extends LettuceRedisClient<K, V> {
         }
     }
 
+    @SafeVarargs
     @Override
-    public void del(K... keys) {
+    public final void del(K... keys) {
         del(Arrays.asList(keys));
     }
 
@@ -289,7 +292,7 @@ public class LettuceClusterRedisClient<K, V> extends LettuceRedisClient<K, V> {
     }
 
     @Override
-    public void close() throws IOException {
+    public void close() {
         client.shutdown();
     }
 }

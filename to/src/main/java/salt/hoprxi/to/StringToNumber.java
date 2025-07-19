@@ -44,7 +44,7 @@ public final class StringToNumber {
      * zero,otherwise is false
      */
     public static boolean booleanOf(String str) {
-        if (null == str || "".equals(str)) {
+        if (null == str || str.isEmpty()) {
             return false;
         }
         Matcher matcher = BOOLEAN_TRUE_PATTERN.matcher(str);

@@ -65,13 +65,13 @@ public class CaffeineCacheTest {
     @Test(dependsOnMethods = {"testPut"})
     public void testGet() {
         Assert.assertEquals("好老六", cache.get(6));
-        List list = Arrays.stream(new int[]{4, 5, 6}).boxed().collect(Collectors.toList());//boxed 转换int到Integer,不能自动打包
-        Assert.assertEquals(2, cache.get(list).values().size());
-        Assert.assertEquals("好老六", cache.get(list).get(6));
-        Assert.assertEquals(3, cache.get(4, 5, 6, 12).values().size());
-        Assert.assertEquals("我日我还是发香料", cache.get(13));
+        List<Integer> list = Arrays.stream(new int[]{4, 5, 6}).boxed().collect(Collectors.toList());//boxed 转换int到Integer,不能自动打包
+        Assert.assertEquals(cache.get(list).size(), 2);
+        Assert.assertEquals(cache.get(list).get(6), "好老六");
+        Assert.assertEquals(cache.get(4, 5, 6, 12).size(), 3);
+        Assert.assertEquals(cache.get(13), "我日我还是发香料");
         cache.get(14, k -> "豪放派");
-        Assert.assertEquals("豪放派", cache.get(14));
+        Assert.assertEquals(cache.get(14), "豪放派");
     }
 
     @Test(dependsOnMethods = {"testGet"})

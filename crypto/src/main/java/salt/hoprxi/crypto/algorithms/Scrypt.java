@@ -149,7 +149,7 @@ public class Scrypt {
 
         int[] base32 = new int[16];
         for (int i = 0; i < 16; i++) {
-            base32[i] = (b1[i * 4 + 0] & 0xff) << 0;
+            base32[i] = (b1[i * 4] & 0xff);
             base32[i] |= (b1[i * 4 + 1] & 0xff) << 8;
             base32[i] |= (b1[i * 4 + 2] & 0xff) << 16;
             base32[i] |= (b1[i * 4 + 3] & 0xff) << 24;
@@ -198,7 +198,7 @@ public class Scrypt {
         }
 
         for (int i = 0; i < 16; i++) {
-            b1[i * 4 + 0] = (byte) (base32[i] >> 0 & 0xff);
+            b1[i * 4] = (byte) (base32[i] & 0xff);
             b1[i * 4 + 1] = (byte) (base32[i] >> 8 & 0xff);
             b1[i * 4 + 2] = (byte) (base32[i] >> 16 & 0xff);
             b1[i * 4 + 3] = (byte) (base32[i] >> 24 & 0xff);
@@ -213,7 +213,7 @@ public class Scrypt {
 
     private static int integerify(byte[] b1, int bi, int round) {
         bi += (2 * round - 1) * 64;
-        int n = (b1[bi + 0] & 0xff) << 0;
+        int n = (b1[bi] & 0xff);
         n |= (b1[bi + 1] & 0xff) << 8;
         n |= (b1[bi + 2] & 0xff) << 16;
         n |= (b1[bi + 3] & 0xff) << 24;
@@ -244,10 +244,10 @@ public class Scrypt {
         System.arraycopy(salt, 0, block, 0, salt.length);
 
         for (int i = 1; i <= limit; i++) {
-            block[salt.length + 0] = (byte) (i >> 24 & 0xff);
+            block[salt.length] = (byte) (i >> 24 & 0xff);
             block[salt.length + 1] = (byte) (i >> 16 & 0xff);
             block[salt.length + 2] = (byte) (i >> 8 & 0xff);
-            block[salt.length + 3] = (byte) (i >> 0 & 0xff);
+            block[salt.length + 3] = (byte) (i & 0xff);
 
             mac.update(block);
             mac.doFinal(u1, 0);
@@ -357,7 +357,7 @@ public class Scrypt {
         try {
             byte[] salt = randomSalt(new SecureRandom(), saltLength);
             byte[] derived = scrypt(plainText.getBytes(StandardCharsets.UTF_8), salt, cost, blockSize, parallel, 32);
-            String params = Long.toString(log2(cost) << 16L | blockSize << 8 | parallel, 16);
+            String params = Long.toString((long) log2(cost) << 16L | (long) blockSize << 8 | parallel, 16);
 
             return "$s0$" + params + '$' +
                     Base64.getEncoder().encodeToString(salt) +
@@ -370,8 +370,6 @@ public class Scrypt {
 
     /**
      * @param secureRandom SecureRandom.getInstance("SHA1PRNG") or new SecureRandom use NativePRNG,will spend more time
-     * @param size
-     * @return
      */
     private static byte[] randomSalt(SecureRandom secureRandom, int size) {
         byte[] salt = new byte[size];
