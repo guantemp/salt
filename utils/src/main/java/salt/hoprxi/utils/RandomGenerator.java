@@ -45,7 +45,7 @@ public enum RandomGenerator {
     PHONE {
         @Override
         public String generate() {
-            return String.valueOf((int) ((Math.random() * 10 + 1) * 1000000000000l));
+            return String.valueOf((int) ((Math.random() * 10 + 1) * 1000000000000L));
         }
 
         @Override

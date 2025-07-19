@@ -116,15 +116,16 @@ public class JedisStandAloneRedisClient<K, V> implements RedisClient<K, V> {
 
     @Override
     public V hget(K key) {
+         /*
         try (Jedis jedis = pool.getResource()) {
-           /* KeyWrap<K> tempKey = new KeyWrap<>(key, key);
+           KeyWrap<K> tempKey = new KeyWrap<>(key, key);
             byte[] bytes = jedis.value(serialization.serialize(tempKey));
             if (bytes != null)
                 return serialization.deserialize(bytes);
             return null;
-
-            */
         }
+
+          */
         return null;
     }
 

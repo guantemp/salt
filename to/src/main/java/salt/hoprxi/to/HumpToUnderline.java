@@ -29,7 +29,7 @@ public class HumpToUnderline {
 
     public static String format(String hump) {
         Matcher matcher = PATTERN.matcher(hump);
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         while (matcher.find()) {
             String g = matcher.group();
             matcher.appendReplacement(sb, "_" + g.toLowerCase());

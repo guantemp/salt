@@ -74,17 +74,18 @@ public class ConcurrentMapCache<K, V> implements Cache<K, V> {
         expiryPolicy = builder.expiryPolicy();
         stats = new CacheStats(builder.maxAmount(), builder.maximumSize(), builder.expired());
         if (builder.expired() != -1) {
-            ScheduledThreadPoolExecutor scheduler = new ScheduledThreadPoolExecutor(1, r -> {
+            try (ScheduledThreadPoolExecutor scheduler = new ScheduledThreadPoolExecutor(1, r -> {
                 Thread t = new Thread(r);
                 t.setDaemon(true);
                 return t;
-            });
-            scheduler.setContinueExistingPeriodicTasksAfterShutdownPolicy(false);
-            scheduler.setExecuteExistingDelayedTasksAfterShutdownPolicy(false);
-            scheduler.scheduleWithFixedDelay(() -> {
-                evictExpiredEntries();
-                cullCache();
-            }, builder.expired(), builder.expired(), TimeUnit.MICROSECONDS);
+            })) {
+                scheduler.setContinueExistingPeriodicTasksAfterShutdownPolicy(false);
+                scheduler.setExecuteExistingDelayedTasksAfterShutdownPolicy(false);
+                scheduler.scheduleWithFixedDelay(() -> {
+                    evictExpiredEntries();
+                    cullCache();
+                }, builder.expired(), builder.expired(), TimeUnit.MICROSECONDS);
+            }
         }
     }
 
@@ -239,7 +240,7 @@ public class ConcurrentMapCache<K, V> implements Cache<K, V> {
         boolean offerFirst(K key) {
             writeLock().lock();
             try {
-                ExpiredBean<K> bean = new ExpiredBean(key);
+                ExpiredBean<K> bean = new ExpiredBean<>(key);
                 list.remove(bean);
                 return list.offerFirst(bean);
             } finally {
@@ -254,7 +255,7 @@ public class ConcurrentMapCache<K, V> implements Cache<K, V> {
         boolean remove(K key) {
             writeLock().lock();
             try {
-                return list.remove(new ExpiredBean(key));
+                return list.remove(new ExpiredBean<>(key));
             } finally {
                 writeLock().unlock();
             }

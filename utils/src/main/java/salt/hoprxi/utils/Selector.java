@@ -42,7 +42,7 @@ public class Selector {
         for (Divisor divisor : divisors) {
             sum += divisor.weight;
         }
-        if (divisors.size() > 0)
+        if (!divisors.isEmpty())
             refreshHashCircle();
     }
 

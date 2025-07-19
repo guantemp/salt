@@ -104,8 +104,6 @@ public class CaffeineCache<K, V> implements Cache<K, V> {
     @Override
     @SuppressWarnings("unchecked")
     public Map<K, V> get(@NonNull Iterable<? extends K> keys, Function<? super Set<? extends K>, ? extends Map<? extends K, ? extends V>> mappingFunction) {
-        if (keys == null)
-            return null;
         return cache.getAll(keys, (Function<Iterable<? extends K>, Map<K, V>>) mappingFunction);
     }
 

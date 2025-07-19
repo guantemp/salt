@@ -36,9 +36,9 @@ public class ScryptHash implements HashService {
     private static final int MEMORY_COST = 8;
     //并行化参数，一个小于等于((2^32-1) * hLen) / MFLen的正整数，其中hLen为 32，MFlen是128 * r。（在ltc协议中 p = 1）
     private static final int PARALLELISM = 1;
-    //SALT LENGTH
-    private static final int DK_LENGTH = 32;
 
+    private static final int DK_LENGTH = 32;
+    //SALT LENGTH
     private static final int SALT_LENGTH = 16;
 
     @Override
@@ -49,12 +49,10 @@ public class ScryptHash implements HashService {
         //SCryptPasswordEncoder encoder=new SCryptPasswordEncoder();
         //$s0$100801$VB1Bee8PS1Z3uSrd2P0N3w==$NvUE1B8nf4mpkjgWObAOzv1D0yZAKbjE829qZI6cLvU=
         byte[] encoded = SCrypt.generate(plainText.getBytes(StandardCharsets.UTF_8), salt, CPU_COST, MEMORY_COST, PARALLELISM, DK_LENGTH);
-        String params = Long.toString(log2(CPU_COST) << 16L | MEMORY_COST << 8 | PARALLELISM, 16);
-        StringBuilder sb = new StringBuilder((SALT_LENGTH + encoded.length) * 2);
-        sb.append("$s0$").append(params).append('$')
-                .append(Base64.getEncoder().encodeToString(salt)).append('$')
-                .append(Base64.getEncoder().encodeToString(encoded));
-        return sb.toString();
+        String params = Long.toString((long) log2(CPU_COST) << 16L | MEMORY_COST << 8 | PARALLELISM, 16);
+        return "$s0$" + params + '$' +
+                Base64.getEncoder().encodeToString(salt) + '$' +
+                Base64.getEncoder().encodeToString(encoded);
     }
 
     @Override

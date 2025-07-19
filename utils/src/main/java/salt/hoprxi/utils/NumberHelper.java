@@ -247,7 +247,7 @@ public class NumberHelper {
      * <machine>null<machine> or ""
      */
     public static long longOf(String str) {
-        return NumberHelper.longOf(str, 0l);
+        return NumberHelper.longOf(str, 0L);
     }
 
     /**

@@ -63,58 +63,42 @@ public class PasswordService {
                 case "--file":
                     set.add(ActionTag.FILE);
                     if (j > i + 1) {
-                        if (EXCLUDE.matcher(args[i + 1]).matches())
-                            break;
-                        else
-                            fileName = args[i + 1];
+                        if (EXCLUDE.matcher(args[i + 1]).matches()) break;
+                        else fileName = args[i + 1];
                     }
                     if (j > i + 2) {
-                        if (EXCLUDE.matcher(args[i + 2]).matches())
-                            break;
-                        else
-                            protectPasswd = args[i + 2];
+                        if (EXCLUDE.matcher(args[i + 2]).matches()) break;
+                        else protectPasswd = args[i + 2];
                     }
                     break;
                 case "-e":
                     set.add(ActionTag.ENCRYPT);
                     if (j > i + 1) {
-                        if (EXCLUDE.matcher(args[i + 1]).matches())
-                            break;
-                        else
-                            param1 = args[i + 1];
+                        if (EXCLUDE.matcher(args[i + 1]).matches()) break;
+                        else param1 = args[i + 1];
                     }
                     if (j > i + 2) {
-                        if (EXCLUDE.matcher(args[i + 2]).matches())
-                            break;
-                        else
-                            param2 = args[i + 2];
+                        if (EXCLUDE.matcher(args[i + 2]).matches()) break;
+                        else param2 = args[i + 2];
                     }
                     if (j > i + 3) {
-                        if (EXCLUDE.matcher(args[i + 3]).matches())
-                            break;
-                        else
-                            param3 = args[i + 3];
+                        if (EXCLUDE.matcher(args[i + 3]).matches()) break;
+                        else param3 = args[i + 3];
                     }
                     break;
                 case "-S":
                     set.add(ActionTag.STORE);
                     if (j > i + 1) {
-                        if (EXCLUDE.matcher(args[i + 1]).matches())
-                            break;
-                        else
-                            param1 = args[i + 1];
+                        if (EXCLUDE.matcher(args[i + 1]).matches()) break;
+                        else param1 = args[i + 1];
                     }
                     if (j > i + 2) {
-                        if (EXCLUDE.matcher(args[i + 2]).matches())
-                            break;
-                        else
-                            param2 = args[i + 2];
+                        if (EXCLUDE.matcher(args[i + 2]).matches()) break;
+                        else param2 = args[i + 2];
                     }
                     if (j > i + 3) {
-                        if (EXCLUDE.matcher(args[i + 3]).matches())
-                            break;
-                        else
-                            param3 = args[i + 3];
+                        if (EXCLUDE.matcher(args[i + 3]).matches()) break;
+                        else param3 = args[i + 3];
                     }
                     break;
                 case "-t":
@@ -128,10 +112,8 @@ public class PasswordService {
                 case "--delete":
                     set.add(ActionTag.DELETE);
                     if (j > i + 1) {
-                        if (EXCLUDE.matcher(args[i + 1]).matches())
-                            break;
-                        else
-                            param1 = args[i + 1];
+                        if (EXCLUDE.matcher(args[i + 1]).matches()) break;
+                        else param1 = args[i + 1];
                     }
                     break;
                 case "-h":
@@ -141,20 +123,7 @@ public class PasswordService {
             }
         }
         if (set.contains(ActionTag.HELP) || args.length == 0) {
-            System.out.println("Non-option arguments:\n" +
-                    "\n" +
-                    "Option                         Description        \n" +
-                    "------                         -----------        \n" +
-                    "-S <KeyValuePair>              store a setting\n" +
-                    "-e <KeyValuePair>              encrypt a passwd\n" +
-                    "-t --type                      encrypt type(aes,sm4)\n" +
-                    "-d --del                       delete a entry\n" +
-                    "-l, --list                     entries in the keystore\n" +
-                    "-h, --help                     Show help          \n" +
-                    "-f, --file                     Show verbose output\n" +
-                    "\n" +
-                    "KeyValuePair AS entry,password,entry_protected_password(option)\n"
-            );
+            System.out.println("Non-option arguments:\n" + "\n" + "Option                         Description        \n" + "------                         -----------        \n" + "-S <KeyValuePair>              store a setting\n" + "-e <KeyValuePair>              encrypt a passwd\n" + "-t --type                      encrypt type(aes,sm4)\n" + "-d --del                       delete a entry\n" + "-l, --list                     entries in the keystore\n" + "-h, --help                     Show help          \n" + "-f, --file                     Show verbose output\n" + "\n" + "KeyValuePair AS entry,password,entry_protected_password(option)\n");
         } else {
             if (set.contains(ActionTag.STORE)) {
                 store(param1, param2, param3, fileName, protectPasswd);
@@ -167,8 +136,7 @@ public class PasswordService {
                     encrypt(KEYSTORE_ENTRY, param1, param2);
                 }
             }
-            if (set.contains(ActionTag.LIST))
-                list(fileName, protectPasswd);
+            if (set.contains(ActionTag.LIST)) list(fileName, protectPasswd);
         }
     }
 
@@ -189,8 +157,8 @@ public class PasswordService {
         KeyGenerator gen = KeyGenerator.getInstance("AES");
         gen.init(256, new SecureRandom(entryPasswd.getBytes(StandardCharsets.UTF_8)));
         SecretKey customizedKey = gen.generateKey();
-
-        KeyStore keyStore = KeyStore.getInstance("JCEKS");//JKS,JCEKS(推荐）,PKCS12(RSA存储为p12),BKS(bouncycastle),UBER
+        //JKS,JCEKS(推荐）,PKCS12(RSA存储为p12),BKS(bouncycastle),UBER
+        KeyStore keyStore = KeyStore.getInstance("JCEKS");
         keyStore.load(null, protectPasswd.toCharArray());
         File file = new File(filename);
         if (file.exists()) {
@@ -202,13 +170,7 @@ public class PasswordService {
         keyStore.store(Files.newOutputStream(file.toPath()), protectPasswd.toCharArray());
         fos.close();
 
-        System.out.println("Password has been saved to ‘" + file.getAbsolutePath() + "’\n" +
-                "----------------------             -----------------------------\n" +
-                "Entry                              " + entry + "\n" +
-                "Entry Saved Password               " + entryPasswd + "\n" +
-                "Entry Protect Password             " + (entryProtectPasswd.equalsIgnoreCase("") ? "<Empty>" : entryProtectPasswd) + "\n" +
-                "File Protect Password              " + (protectPasswd.equalsIgnoreCase("") ? "<Empty>" : protectPasswd)
-        );
+        System.out.println("Password has been saved to ‘" + file.getAbsolutePath() + "’\n" + "----------------------             -----------------------------\n" + "Entry                              " + entry + "\n" + "Entry Saved Password               " + entryPasswd + "\n" + "Entry Protect Password             " + (entryProtectPasswd.equalsIgnoreCase("") ? "<Empty>" : entryProtectPasswd) + "\n" + "File Protect Password              " + (protectPasswd.equalsIgnoreCase("") ? "<Empty>" : protectPasswd));
     }
 
     private static void list(String fileName, String protectPasswd) throws KeyStoreException, CertificateException, NoSuchAlgorithmException {
@@ -248,10 +210,8 @@ public class PasswordService {
 
     private static void encryptWithStore(String planText, String entry, String entryPasswd, String fileName, String protectedPasswd) throws NoSuchAlgorithmException, CertificateException, KeyStoreException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, InvalidAlgorithmParameterException, UnrecoverableKeyException {
         Objects.requireNonNull(planText, "planText required");
-        if (entry == null)
-            entry = KEYSTORE_ENTRY;
-        if (entryPasswd == null)
-            entryPasswd = "";
+        if (entry == null) entry = KEYSTORE_ENTRY;
+        if (entryPasswd == null) entryPasswd = "";
         //System.out.println(planText + ":" + entry + ":" + entryPasswd + ":" + protectedPasswd + ":" + fileName);
         try (FileInputStream fis = new FileInputStream(fileName)) {
             KeyStore keyStore = KeyStore.getInstance("JCEKS");
@@ -268,8 +228,7 @@ public class PasswordService {
 
     private static void encrypt(String entry, String planText, String password) throws NoSuchAlgorithmException, InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
         Objects.requireNonNull(planText, "planText required");
-        if (password == null)
-            password = PasswordService.nextStrongPasswd();
+        if (password == null) password = PasswordService.nextStrongPasswd();
         KeyGenerator gen = KeyGenerator.getInstance("AES");
         gen.init(256, new SecureRandom(password.getBytes(StandardCharsets.UTF_8)));
         SecretKey secretKey = gen.generateKey();
@@ -277,15 +236,8 @@ public class PasswordService {
     }
 
     private static void encrypt(String entry, String planText, SecretKey key, String password) throws NoSuchAlgorithmException, InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
-        byte[] aesData = AESUtil.encryptSpec(planText.getBytes(StandardCharsets.UTF_8), key);
-        System.out.println("The planText has encrypted\n" +
-                "----------------         -----------------------\n" +
-                "entry                    " + entry + "\n" +
-                "plan_text                " + planText + "\n" +
-                "password                 " + password + "\n" +
-                "encrypted(base64)        " + Base64.toBase64String(aesData) + "\n" +
-                "encrypted(hex)           " + ByteToHex.toHexStr(aesData)
-        );
+        byte[] aesData = AESUtil.encrypt(planText.getBytes(StandardCharsets.UTF_8), key);
+        System.out.println("The planText has encrypted\n" + "----------------         -----------------------\n" + "entry                    " + entry + "\n" + "plan_text                " + planText + "\n" + "password                 " + password + "\n" + "encrypted(base64)        " + Base64.toBase64String(aesData) + "\n" + "encrypted(hex)           " + ByteToHex.toHexStr(aesData));
     }
 
     /**

@@ -64,7 +64,7 @@ public class SM3 {
 
     private static byte[] convert(int[] arr) {
         byte[] out = new byte[arr.length * 4];
-        byte[] tmp = null;
+        byte[] tmp;
         for (int i = 0; i < arr.length; i++) {
             tmp = bigEndianIntToByte(arr[i]);
             System.arraycopy(tmp, 0, out, i * 4, 4);
@@ -134,9 +134,7 @@ public class SM3 {
     private static int[][] expand(int[] B) {
         int W[] = new int[68];
         int W1[] = new int[64];
-        for (int i = 0; i < B.length; i++) {
-            W[i] = B[i];
-        }
+        System.arraycopy(B, 0, W, 0, B.length);
 
         for (int i = 16; i < 68; i++) {
             W[i] = P1(W[i - 16] ^ W[i - 9] ^ bitCycleLeft(W[i - 3], 15))

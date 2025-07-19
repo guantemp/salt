@@ -32,7 +32,9 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.security.*;
 import java.security.cert.Certificate;
-import java.security.cert.*;
+import java.security.cert.CertificateException;
+import java.security.cert.CertificateFactory;
+import java.security.cert.Extension;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.InvalidKeySpecException;
@@ -214,7 +216,6 @@ public class EncryptService {
         ContentSigner signGen = new JcaContentSignerBuilder("SHA256withRSA").build((PrivateKey) keys[1]);
         X509CertificateHolder holder = builder.build(signGen);
         byte[] certBuf = holder.getEncoded();
-        X509Certificate certificate = (X509Certificate) CertificateFactory.getInstance("x509").generateCertificate(new ByteArrayInputStream(certBuf));
-        return certificate;
+        return CertificateFactory.getInstance("x509").generateCertificate(new ByteArrayInputStream(certBuf));
     }
 }

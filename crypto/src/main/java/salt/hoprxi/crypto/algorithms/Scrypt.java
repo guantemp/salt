@@ -358,13 +358,11 @@ public class Scrypt {
             byte[] salt = randomSalt(new SecureRandom(), saltLength);
             byte[] derived = scrypt(plainText.getBytes(StandardCharsets.UTF_8), salt, cost, blockSize, parallel, 32);
             String params = Long.toString(log2(cost) << 16L | blockSize << 8 | parallel, 16);
-            StringBuilder sb = new StringBuilder((salt.length + derived.length) * 2);
-            sb.append("$s0$").append(params).append('$');
-            sb.append(Base64.getEncoder().encodeToString(salt))
-                    .append('$');
-            sb.append(Base64.getEncoder().encodeToString(derived));
 
-            return sb.toString();
+            return "$s0$" + params + '$' +
+                    Base64.getEncoder().encodeToString(salt) +
+                    '$' +
+                    Base64.getEncoder().encodeToString(derived);
         } catch (GeneralSecurityException e) {
             throw new IllegalStateException("JVM doesn't support SHA1PRNG or HMAC_SHA256?");
         }

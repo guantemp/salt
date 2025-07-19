@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024. www.hoprxi.com All Rights Reserved.
+ * Copyright (c) 2025. www.hoprxi.com All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,13 +20,9 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.testng.annotations.Test;
 import salt.hoprxi.to.ByteToHex;
 
-import javax.crypto.KeyGenerator;
-import javax.crypto.SecretKey;
+import javax.crypto.*;
 import java.nio.charset.StandardCharsets;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
-import java.security.SecureRandom;
-import java.security.Security;
+import java.security.*;
 import java.util.Base64;
 
 /***
@@ -36,36 +32,38 @@ import java.util.Base64;
  */
 public class SM4UtilTest {
 
-    private static final String PASSWD = "Qwe123465Dw中文";
+    private static final String PASSWD = "Qwe123465Dw中文SM4";
+    private static SecretKey key;
+
+    static {
+        Security.addProvider(new BouncyCastleProvider());
+        KeyGenerator kg1;
+        try {
+            kg1 = KeyGenerator.getInstance("SM4", BouncyCastleProvider.PROVIDER_NAME);
+        } catch (NoSuchAlgorithmException | NoSuchProviderException e) {
+            throw new RuntimeException(e);
+        }
+        //java 9+以上固定的random不会生成固定的kry
+        kg1.init(128, new SecureRandom("Qwe13465".getBytes(StandardCharsets.UTF_8)));
+        key = kg1.generateKey();
+        System.out.println(Base64.getEncoder().encodeToString(key.getEncoded()));
+    }
 
     @Test
-    public void testEncryptSpec() throws NoSuchAlgorithmException, NoSuchProviderException {
-        Security.addProvider(new BouncyCastleProvider());
-
-        KeyGenerator kg = KeyGenerator.getInstance("SM4", BouncyCastleProvider.PROVIDER_NAME);
-        kg.init(128, new SecureRandom("Qwe13465".getBytes(StandardCharsets.UTF_8)));//固定密码
-        SecretKey key = kg.generateKey();
-
+    public void testEncrypt() throws NoSuchAlgorithmException, InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
         byte[] sources = PASSWD.getBytes(StandardCharsets.UTF_8);
         System.out.println("加密原文(text:base64):" + PASSWD + "$" + Base64.getEncoder().encodeToString(sources));
 
-        byte[] encrypt = SM4Util.encryptSpec(sources, key);
+        byte[] encrypt = SM4Util.encrypt(sources, key);
         System.out.println("SM4加密结果(hex):" + ByteToHex.toHexStr(encrypt));
         System.out.println("SM4加密结果(base64):" + Base64.getEncoder().encodeToString(encrypt));
     }
 
     @Test(priority = 1)
-    public void testDecryptSpec() throws NoSuchAlgorithmException, NoSuchProviderException {
-        Security.addProvider(new BouncyCastleProvider());
-
-        KeyGenerator kg = KeyGenerator.getInstance("SM4", BouncyCastleProvider.PROVIDER_NAME);
-        kg.init(128, new SecureRandom("Qwe13465".getBytes(StandardCharsets.UTF_8)));//固定密码
-        SecretKey key = kg.generateKey();
-
-        byte[] decrypt = SM4Util.decryptSpec(Base64.getDecoder().decode("ovi/qagixOGaqnoC8OCA52QI9D/S9Q7dILkeMchfIs+oiSQtZWlDn1HK+ew6FS8l"), key);
+    public void testDecrypt() throws NoSuchAlgorithmException, InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
+        byte[] decrypt = SM4Util.decrypt(Base64.getDecoder().decode("e/5uY7DynZrHn07hySLaAbANfk6Oi6fx1cuteCX3jqOgITTqwSxG2E1z2RgwHIBq"), key);
         System.out.println("SM4解密结果(base64):" + new String(decrypt, StandardCharsets.UTF_8));
-        decrypt = SM4Util.decryptSpec(ByteToHex.toBytes("14840b84ce48ecf4791ace0e4aff124c0e6283338c83770d9efafc38aee59a6c"), key);
+        decrypt = SM4Util.decrypt(ByteToHex.toBytes("7bfe6e63b0f29d9ac79f4ee1c922da01b00d7e4e8e8ba7f1d5cbad7825f78ea3a02134eac12c46d84d73d918301c806a"), key);
         System.out.println("SM4解密结果(base64):" + new String(decrypt, StandardCharsets.UTF_8));
-        //Assert.assertEquals("Qwe123465",new String(decrypt, StandardCharsets.UTF_8));
     }
 }

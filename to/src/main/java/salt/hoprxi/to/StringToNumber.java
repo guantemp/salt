@@ -98,7 +98,7 @@ public final class StringToNumber {
             Matcher matcher = BYTE_PATTERN.matcher(str);
             if (matcher.find()) {
                 try {
-                    return Byte.valueOf(str);
+                    return Byte.parseByte(str);
                 } catch (NumberFormatException e) {
                     return defaultByte;
                 }
@@ -147,7 +147,7 @@ public final class StringToNumber {
             Matcher matcher = NUMBER_PATTERN.matcher(str);
             if (matcher.find()) {
                 try {
-                    return Double.valueOf(str);
+                    return Double.parseDouble(str);
                 } catch (NumberFormatException e) {
                     return defaultValue;
                 }
@@ -196,7 +196,7 @@ public final class StringToNumber {
             Matcher matcher = NUMBER_PATTERN.matcher(str);
             if (matcher.find()) {
                 try {
-                    return Float.valueOf(str);
+                    return Float.parseFloat(str);
                 } catch (NumberFormatException e) {
                     return defaultValue;
                 }
@@ -270,7 +270,7 @@ public final class StringToNumber {
      * <machine>null<machine> or ""
      */
     public static long longOf(String str) {
-        return longOf(str, 0l);
+        return longOf(str, 0L);
     }
 
     /**
@@ -351,7 +351,7 @@ public final class StringToNumber {
             Matcher matcher = INTEGER_PATTERN.matcher(str);
             if (matcher.find()) {
                 try {
-                    return Short.valueOf(str);
+                    return Short.parseShort(str);
                 } catch (NumberFormatException e) {
                     return defaultValue;
                 }

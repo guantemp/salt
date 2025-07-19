@@ -55,7 +55,7 @@ public class ConcurrentMapCacheBuilder<K, V> implements Builder<Cache<K, V>> {
 
     @Override
     public Cache<K, V> build() {
-        return new ConcurrentMapCache(this);
+        return new ConcurrentMapCache<>(this);
     }
 
     /**

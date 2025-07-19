@@ -15,6 +15,7 @@
  */
 package salt.hoprxi.utils;
 
+import java.io.Serial;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -172,6 +173,7 @@ public final class ChineseCalendar extends GregorianCalendar {
             {16, 44, 76, 108, 144, 172, 200, 201, 250}, {28, 60, 92, 124, 160, 192, 200, 201, 250},
             {17, 53, 85, 124, 156, 188, 200, 201, 250}};
 
+    @Serial
     private static final long serialVersionUID = 8L;
 
     private static final String[] stemNames = {"", "甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"};
@@ -242,8 +244,7 @@ public final class ChineseCalendar extends GregorianCalendar {
     public static int daysInChineseMonth(int y, int m) {
         // 注意：闰月 m < 0
         int index = y - baseChineseYear + baseIndex;
-        int v = 0;
-        int l = 0;
+        int v,l;
         int d = 30;
         if (1 <= m && m <= 8) {
             v = chineseMonths[2 * index];
@@ -264,8 +265,8 @@ public final class ChineseCalendar extends GregorianCalendar {
                 d = 0;
             } else {
                 d = 29;
-                for (int i = 0; i < bigLeapMonthYears.length; i++) {
-                    if (bigLeapMonthYears[i] == index) {
+                for (int bigLeapMonthYear : bigLeapMonthYears) {
+                    if (bigLeapMonthYear == index) {
                         d = 30;
                         break;
                     }

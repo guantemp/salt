@@ -45,7 +45,7 @@ public class KryoSerialization implements Serialization {
      * threadSafe: 这个参数是制定是否需要再POOL内部同步，如果设置为true，则可以被多个线程并发访问。
      * softReferences： 这个参数是是否使用softReferences进行存储对象，如果设置为true，则Kryo 池将会使用 java.lang.ref.SoftReference 来存储对象。这允许池中的对象在 JVM 的内存压力大时被垃圾回收。
      */
-    private Pool<Kryo> kryoPool = new Pool<Kryo>(true, false, 8) {
+    private final Pool<Kryo> kryoPool = new Pool<Kryo>(true, false, 8) {
         protected Kryo create() {
             Kryo kryo = new Kryo();
             //kryo.setInstantiatorStrategy(new StdInstantiatorStrategy());

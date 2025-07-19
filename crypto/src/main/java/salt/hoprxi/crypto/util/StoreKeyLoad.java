@@ -43,8 +43,14 @@ public final class StoreKeyLoad {
     private static final Pattern PASS = Pattern.compile("^P\\$.*");
     private static final Logger LOGGER = LoggerFactory.getLogger(StoreKeyLoad.class);
 
+    public static void loadSecretKey(String keystoreFile, String keystoreFileProtectedPasswd, String entry) {
+        StoreKeyLoad.loadSecretKey(keystoreFile, keystoreFileProtectedPasswd, new String[]{entry});
+    }
+
     public static void loadSecretKey(String keystoreFile, String keystoreFileProtectedPasswd, String[] entries) {
         //System.out.println(Arrays.toString(entries));
+        if (keystoreFileProtectedPasswd == null)
+            keystoreFileProtectedPasswd = "";
         try (InputStream fis = Thread.currentThread().getContextClassLoader().getResourceAsStream(keystoreFile)) {
             KeyStore keyStore = KeyStore.getInstance("JCEKS");
             keyStore.load(fis, keystoreFileProtectedPasswd.toCharArray());
@@ -57,7 +63,7 @@ public final class StoreKeyLoad {
             for (String entry : entries) {
                 String[] ss = entry.split(":");
                 String rowPass = "";
-                if (PASS.matcher(ss[ss.length - 1]).matches()) {
+                if (PASS.matcher(ss[ss.length - 1]).matches()) {//最少一个:分割如果有P$格式代表密码
                     rowPass = ss[ss.length - 1].substring(2);
                     ss = Arrays.copyOf(ss, ss.length - 1);
                 }
@@ -91,7 +97,7 @@ public final class StoreKeyLoad {
         byte[] aesData = Base64.getDecoder().decode(securedPlainText);
         //Bootstrap.SECRET_KEY_MAP.get(entry);
         try {
-            byte[] decryptData = AESUtil.decryptSpec(aesData, StoreKeyLoad.SECRET_KEY_PARAMETER.get(entry));
+            byte[] decryptData = AESUtil.decrypt(aesData, StoreKeyLoad.SECRET_KEY_PARAMETER.get(entry));
             return new String(decryptData, StandardCharsets.UTF_8);
         } catch (InvalidAlgorithmParameterException | NoSuchPaddingException | IllegalBlockSizeException |
                  NoSuchAlgorithmException | BadPaddingException | InvalidKeyException e) {

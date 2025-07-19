@@ -26,7 +26,7 @@ import salt.hoprxi.cache.redis.lettuce.LettuceStandAloneRedisClient;
  * Hello world!
  */
 public class App {
-    private static final RedisClient<Integer, Object> client = new LettuceStandAloneRedisClient("test", ConfigFactory.load("cache").getConfig("cache.redisCache"));
+    private static final RedisClient<Integer, Object> client = new LettuceStandAloneRedisClient<>("test", ConfigFactory.load("cache").getConfig("cache.redisCache"));
     private static final Cache<Integer, Object> redisCache = new RedisCacheBuilder<Integer, Object>("test").client(client).build();
 
     public static void main(String[] args) {

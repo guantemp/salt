@@ -56,7 +56,7 @@ public class NtpMessage {
      * the request and the server sets it to 4 (server) in the reply. In
      * multicast mode, the server sets this field to 5 (broadcast).
      */
-    public byte mode = 0;
+    public byte mode;
 
     /** */
     /**
@@ -160,7 +160,7 @@ public class NtpMessage {
      * This is the time at which the reply departed the server for the client,
      * in seconds since 00:00 1-Jan-1900.
      */
-    public double transmitTimestamp = 0;
+    public double transmitTimestamp;
 
     /** */
     /**

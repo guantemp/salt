@@ -60,7 +60,7 @@ public class LettuceClusterRedisClient<K, V> extends LettuceRedisClient<K, V> {
             String[] temp = host.split(":");
             RedisURI.Builder builder = RedisURI.builder();
             builder.withHost(temp[0])
-                    .withPort(Integer.valueOf(temp[1]))
+                    .withPort(Integer.parseInt(temp[1]))
                     .withTimeout(config.hasPath("timeout") ? config.getDuration("timeout") : Duration.ZERO)
                     .withDatabase(config.hasPath("database") ? config.getInt("database") : 0);
             if (config.hasPath("password"))
@@ -270,7 +270,7 @@ public class LettuceClusterRedisClient<K, V> extends LettuceRedisClient<K, V> {
             ScanCursor scanCursor = ScanCursor.INITIAL;
             ScanArgs scanArgs = new ScanArgs();
             scanArgs.match(new String(regionBytes) + new String(SEPARATOR) + "*").limit(SCAN_COUNT);
-            KeyScanCursor<byte[]> keyScanCursor = null;
+            KeyScanCursor<byte[]> keyScanCursor;
             while (!scanCursor.isFinished()) {
                 keyScanCursor = command.scan(scanCursor, scanArgs);
                 keys.addAll(keyScanCursor.getKeys());

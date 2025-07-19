@@ -29,7 +29,7 @@ public class SelectorTest {
         divisor = selector.select("13254064915397651");
         System.out.println(divisor);
         for (int i = 0; i < 2; i++) {
-            selector.add(new Selector.Divisor(1, "192.168.10." + i));
+            selector.add(new Selector.Divisor(1, "192.168.1." + i));
         }
         divisor = selector.select("13254064917494814");
         System.out.println(divisor);
@@ -53,7 +53,7 @@ public class SelectorTest {
 
         Map<String, Integer> resMap = new HashMap<>();
         for (int i = 0; i < 1000000; i++) {
-            Integer widgetId = ThreadLocalRandom.current().nextInt();
+            int widgetId = ThreadLocalRandom.current().nextInt();
             String test = selector.select("&&" + widgetId);
             if (resMap.containsKey(test)) {
                 resMap.put(test, resMap.get(test) + 1);
@@ -62,9 +62,7 @@ public class SelectorTest {
             }
         }
         resMap.forEach(
-                (k, v) -> {
-                    System.out.println("group " + k + ": " + v + "(" + v / 10000.0D + "%)");
-                }
+                (k, v) -> System.out.println("group " + k + ": " + v + "(" + v / 10000.0D + "%)")
         );
         resMap.clear();
         System.out.println();
@@ -77,13 +75,11 @@ public class SelectorTest {
             }
         }
         resMap.forEach(
-                (k, v) -> {
-                    System.out.println("select " + k + ": " + v + "(" + v / 10000.0D + "%)");
-                }
+                (k, v) -> System.out.println("select " + k + ": " + v + "(" + v / 10000.0D + "%)")
         );
         Selector.Divisor<String> add = new Selector.Divisor(1, "192.168.1.5");
         selector.add(add);
-        add = new Selector.Divisor(1, "192.168.1.6");
+        add = new Selector.Divisor<>(1, "192.168.1.6");
         selector.add(add);
         add = new Selector.Divisor("192.168.1.7");
         selector.add(add);
@@ -100,9 +96,7 @@ public class SelectorTest {
             }
         }
         resMap.forEach(
-                (k, v) -> {
-                    System.out.println("select " + k + ": " + v + "(" + v / 10000.0D + "%)");
-                }
+                (k, v) -> System.out.println("select " + k + ": " + v + "(" + v / 10000.0D + "%)")
         );
 
         re = new Selector.Divisor("192.168.1.0");
@@ -120,9 +114,7 @@ public class SelectorTest {
             }
         }
         resMap.forEach(
-                (k, v) -> {
-                    System.out.println("select " + k + ": " + v + "(" + v / 10000.0D + "%)");
-                }
+                (k, v) -> System.out.println("select " + k + ": " + v + "(" + v / 10000.0D + "%)")
         );
         divisor = selector.select("3法阿8979+8526斯蒂芬");
         Assert.assertEquals(divisor, "192.168.1.1");

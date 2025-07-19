@@ -21,7 +21,7 @@ import java.util.StringJoiner;
 
 /***
  * @author <a href="www.hoprxi.com/authors/guan xiangHuan">guan xiangHuang</a>
- * @since JDT8.0
+ * @since JDK8.0
  * @version 0.1.2 builder 2022-04-05
  */
 public class Node<T> {
@@ -56,7 +56,7 @@ public class Node<T> {
     }
 
     public Node<T> update(T key) {
-        return new Node(key, parent, leftChild, rightSibling, root);
+        return new Node<>(key, parent, leftChild, rightSibling, root);
     }
 
     public void append(Node child) {

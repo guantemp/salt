@@ -163,8 +163,6 @@ public final class CacheStats {
         if (eviction != that.eviction) return false;
         if (hits != that.hits) return false;
         if (misses != that.misses) return false;
-        if (loadSuccess != that.loadSuccess) return false;
-        if (loadFailure != that.loadFailure) return false;
         return memory == that.memory;
     }
 

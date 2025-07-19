@@ -63,7 +63,7 @@ public class CacheFactory {
                 Config userConfig = config.getConfig(finalRegion);
                 return create(userConfig, finalRegion);
             } else {
-                return create(config.getConfig("public_example"), finalRegion);
+                return create(config.getConfig("example"), finalRegion);
             }
         });
     }

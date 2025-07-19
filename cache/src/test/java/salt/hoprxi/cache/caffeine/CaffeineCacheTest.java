@@ -34,13 +34,14 @@ import java.util.stream.Collectors;
  * @version 0.0.1 builder 2022-07-01
  */
 public class CaffeineCacheTest {
-    private static Config config = ConfigFactory.load("cache").getConfig("public_example");
-    private static final CaffeineCache<Integer, String> cache = new CaffeineCache(config);
-
+    private static final CaffeineCache<Integer, String> cache;
     static {
-        String provider = config.getString("provider");
-        config = config.getConfig(provider);
+        Config config = ConfigFactory.load("cache_unit");
+        System.out.println(config.getString("category.caffeine"));
+                //.getConfig("example.caffeine");
+        cache = new CaffeineCache<>(config);
     }
+
 
     @BeforeClass
     public void beforeClass() {

@@ -41,7 +41,7 @@ public class SM3Hash implements HashService {
     public boolean matches(String plainText, String securedPlainTextHash) {
         byte[] plain = hash(plainText.getBytes(StandardCharsets.UTF_8));
         byte[] securedPlain = Base64.getDecoder().decode(securedPlainTextHash);
-        return Arrays.equals(plain, securedPlain) ? true : false;
+        return Arrays.equals(plain, securedPlain);
     }
 
     private byte[] hash(byte[] bytes) {

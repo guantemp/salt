@@ -49,14 +49,15 @@ public abstract class FileWatchDog {
     protected FileWatchDog(File file, int interval) {
         this.file = Objects.requireNonNull(file, "file is required");
         this.interval = interval;
-        ScheduledThreadPoolExecutor scheduler = new ScheduledThreadPoolExecutor(1, r -> {
+        try (ScheduledThreadPoolExecutor scheduler = new ScheduledThreadPoolExecutor(1, r -> {
             Thread t = new Thread(r);
             t.setDaemon(true);
             return t;
-        });
-        scheduler.setContinueExistingPeriodicTasksAfterShutdownPolicy(false);
-        scheduler.setExecuteExistingDelayedTasksAfterShutdownPolicy(false);
-        scheduler.scheduleWithFixedDelay(this::execute, interval, interval, TimeUnit.MILLISECONDS);
+        })) {
+            scheduler.setContinueExistingPeriodicTasksAfterShutdownPolicy(false);
+            scheduler.setExecuteExistingDelayedTasksAfterShutdownPolicy(false);
+            scheduler.scheduleWithFixedDelay(this::execute, interval, interval, TimeUnit.MILLISECONDS);
+        }
     }
 
     /**

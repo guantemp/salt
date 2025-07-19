@@ -92,7 +92,7 @@ public final class DigitalToChinese {
         for (int i = 0; i < numParts; i++) {
             String partChinese = toChinese(parts[i], isUseTraditional);
             if (i % 2 == 0) {
-                beforeWanIsZero = partChinese == null || partChinese.isEmpty();
+                beforeWanIsZero = partChinese.isEmpty();
             }
 
             if (i != 0) {

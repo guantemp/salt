@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024. www.hoprxi.com All Rights Reserved.
+ * Copyright (c) 2025. www.hoprxi.com All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,8 +20,14 @@ import org.testng.annotations.Test;
 import salt.hoprxi.to.ByteToHex;
 
 import javax.crypto.*;
+import javax.crypto.spec.PBEKeySpec;
+import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
-import java.security.*;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.spec.InvalidKeySpecException;
 import java.util.Base64;
 
 /***
@@ -31,31 +37,74 @@ import java.util.Base64;
  */
 public class AESUtilTest {
 
-    private static final String PASSWD="Qwe123465Dw";
+    private static final String plainText = "Qwe123465Dw中文";
+    private static SecretKey key;
 
-    @Test
-    public void testEncryptSpec() throws NoSuchAlgorithmException, NoSuchProviderException, InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
-        KeyGenerator kg = KeyGenerator.getInstance("AES");
-        kg.init(256, new SecureRandom("Qwe13465".getBytes(StandardCharsets.UTF_8)));//固定密码
-        SecretKey key = kg.generateKey();
-
-        byte[] sources = PASSWD.getBytes(StandardCharsets.UTF_8);
-        System.out.println("加密原文(text:base64):" +PASSWD+"$"+ Base64.getEncoder().encodeToString(sources));
-
-        byte[] encrypt = AESUtil.encryptSpec(sources, key);
-        System.out.println("SM4加密结果(hex):" + ByteToHex.toHexStr(encrypt));
-        System.out.println("SM4加密结果(base64):" + Base64.getEncoder().encodeToString(encrypt));
+    static {
+        KeyGenerator kg1;
+        try {
+            kg1 = KeyGenerator.getInstance("AES");
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+        kg1.init(256, new SecureRandom("Qwe13465".getBytes(StandardCharsets.UTF_8)));//固定密码
+        key = kg1.generateKey();
+        System.out.println(Base64.getEncoder().encodeToString(key.getEncoded()));
     }
 
-    @Test(priority = 1)
-    public void testDecryptSpec() throws NoSuchAlgorithmException, InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
-        KeyGenerator kg = KeyGenerator.getInstance("AES");
-        kg.init(256, new SecureRandom("Qwe13465".getBytes(StandardCharsets.UTF_8)));//固定密码
-        SecretKey key = kg.generateKey();
+    @Test
+    public void test() throws NoSuchAlgorithmException, InvalidKeySpecException {
+        String seed = "Qwe13465";
 
-        byte[] decrypt = AESUtil.decryptSpec(Base64.getDecoder().decode("Piksg/i3j5lIVY0FKba+Q3K+r8DH9Zj9kNMPFRZQ904="), key);
-        System.out.println("SM4解密结果(base64):" + new String(decrypt, StandardCharsets.UTF_8));
-        decrypt = AESUtil.decryptSpec(ByteToHex.toBytes("ab265b8d0a6aaf7c57761a5328b15350b380ed218009b698efc7821d492586461c725ea1af391e45597e44334b329174"), key);
-        System.out.println("SM4解密结果(base64):" + new String(decrypt, StandardCharsets.UTF_8));
+        // 第一次生成
+        KeyGenerator keyGenerator1 = KeyGenerator.getInstance("AES");
+        SecureRandom secureRandom1 = new SecureRandom(seed.getBytes(StandardCharsets.UTF_8));
+        keyGenerator1.init(256, secureRandom1);
+        SecretKey secretKey1 = keyGenerator1.generateKey();
+        String base64Key1 = Base64.getEncoder().encodeToString(secretKey1.getEncoded());
+        System.out.println("Key 1: " + base64Key1);
+
+        // 第二次生成
+        KeyGenerator keyGenerator2 = KeyGenerator.getInstance("AES");
+        SecureRandom secureRandom2 = new SecureRandom(seed.getBytes(StandardCharsets.UTF_8));
+        keyGenerator2.init(256, secureRandom2);
+        SecretKey secretKey2 = keyGenerator2.generateKey();
+        String base64Key2 = Base64.getEncoder().encodeToString(secretKey2.getEncoded());
+        System.out.println("Key 2: " + base64Key2);
+
+        SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA512");
+
+        PBEKeySpec spec = new PBEKeySpec(
+                seed.toCharArray(),
+                "Qwe123465".getBytes(StandardCharsets.UTF_8),
+                256000,
+                256
+        );
+
+        SecretKeySpec sks=new SecretKeySpec(
+                factory.generateSecret(spec).getEncoded(),
+                "AES"
+        );
+        System.out.println(Base64.getEncoder().encodeToString(sks.getEncoded()));
+    }
+
+
+    @Test
+    public void testEncrypt() throws NoSuchAlgorithmException, InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
+        byte[] sources = plainText.getBytes(StandardCharsets.UTF_8);
+        System.out.println("加密原文(text:base64):" + plainText + ":" + Base64.getEncoder().encodeToString(sources));
+
+        byte[] encrypt = AESUtil.encrypt(sources, key);
+        System.out.println("AES加密结果(hex):" + ByteToHex.toHexStr(encrypt));
+        System.out.println("AES加密结果(base64):" + Base64.getEncoder().encodeToString(encrypt));
+    }
+
+    @Test
+    public void testDecrypt() throws NoSuchAlgorithmException, InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
+        byte[] decrypt = AESUtil.decrypt(Base64.getDecoder().decode("/sITdvnejY/puuOIVPdVaILmbztcp46j6M73HcQQPyK9T2qxUEZ6XjIIHkBwUTP3"), key);
+        System.out.println("AES解密结果(base64):" + new String(decrypt, StandardCharsets.UTF_8));
+
+        decrypt = AESUtil.decrypt(ByteToHex.toBytes("e6632ab206c6f13f874058f6291f84154c5ca5fe0a28eb23097dc5fc000a9c596f9a4d3c25e5ce6567c7a05281e4239f"), key);
+        System.out.println("AES解密结果(base64):" + new String(decrypt, StandardCharsets.UTF_8));
     }
 }

@@ -34,7 +34,7 @@ public final class ObjectId {
     private static final int MAC = MacHash.hash();
     private static final int PROCESS = Process.process();
     // This is begin from 2015-03-26 00:00:00(UTC/GMT+08:00)
-    private static final long START = 1514764800000l;
+    private static final long START = 1514764800000L;
     private static long lastTimestamp = START;
     private byte[] bytes = new byte[12];
 

@@ -31,10 +31,10 @@ import java.util.Base64;
  */
 public class Argon2Hash implements HashService {
     private static final int SALT_LENGTH = 16;
-    private static final int HASH_LENGTH = 32;
-    private static final int PARALLELISM = 1;
-    private static final int MEMORY_COST = 16384;
-    private static final int ITERATIONS = 2;
+    private static final int HASH_LENGTH = 32;// 输出密钥长度 (256位)
+    private static final int PARALLELISM = 2;// 并行线程数
+    private static final int MEMORY_COST = 64 * 1024;// 内存使用 (64 MB - 生产环境建议 > 64MB)
+    private static final int ITERATIONS = 10;// 迭代次数 (推荐 > 10)
 
     /**
      * @param plainText
@@ -46,6 +46,7 @@ public class Argon2Hash implements HashService {
         SecureRandom secureRandom = new SecureRandom();
         secureRandom.nextBytes(salt);
         byte[] hash = new byte[HASH_LENGTH];
+
         Argon2Parameters params = (new Argon2Parameters.Builder(2)).withSalt(salt).withParallelism(PARALLELISM).withMemoryAsKB(MEMORY_COST).withIterations(ITERATIONS).build();
         Argon2BytesGenerator generator = new Argon2BytesGenerator();
         generator.init(params);
