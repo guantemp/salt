@@ -36,9 +36,8 @@ import java.util.stream.Collectors;
 public class CaffeineCacheTest {
     private static final CaffeineCache<Integer, String> cache;
     static {
-        Config config = ConfigFactory.load("cache_unit");
-        System.out.println(config.getString("category.caffeine"));
-                //.getConfig("example.caffeine");
+        Config config = ConfigFactory.load("cache");
+        System.out.println(config.getConfig("caffeine").getString("max-size"));
         cache = new CaffeineCache<>(config);
     }
 

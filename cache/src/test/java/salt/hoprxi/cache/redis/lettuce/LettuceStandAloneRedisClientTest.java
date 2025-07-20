@@ -34,11 +34,10 @@ import java.util.Map;
  * @version 0.0.1 builder 2022-08-03
  */
 public class LettuceStandAloneRedisClientTest {
-    private static Config config = ConfigFactory.load("cache").getConfig("public_example.l2");
+    private static Config config = ConfigFactory.load("cache").getConfig("caffeine");
 
     static {
-        String provider = config.getString("provider");
-        config = config.getConfig(provider + ".standAlone");
+        System.out.println(config.getString("expire"));
     }
 
     private static final RedisClient<Integer, Object> client = new LettuceStandAloneRedisClient("test", config);
