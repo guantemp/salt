@@ -74,7 +74,7 @@ public class RedisCacheBuilder<K, V> implements Builder<Cache<K, V>> {
 
     @Override
     public Cache<K, V> build() {
-        return new RedisCache<K, V>(this);
+        return new RedisCache<>(this);
     }
 
     /**

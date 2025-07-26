@@ -41,24 +41,65 @@ public class CaffeineCache<K, V> implements Cache<K, V> {
     private final com.github.benmanes.caffeine.cache.Cache<K, V> cache;
     private CacheStats stats = CacheStats.EMPTY_STATS;
 
+    public static class Builder<K, V> implements salt.hoprxi.utils.Builder<CaffeineCache<K, V>> {
+        int Capacity = 64;
+        private long expireAfterAccess = 0L;//永不过期
+        private long expireAfterWrite = 0L;//永不过期
+        private long maximumSize = (long) (Runtime.getRuntime().maxMemory() * 0.15 / 1024);
+
+        public Builder<K, V> maximumSize(long maximumSize) {
+            this.maximumSize = maximumSize;
+            return this;
+        }
+
+        public Builder<K, V> expireAfterAccess(long expireAfterAccess) {
+            this.expireAfterAccess = expireAfterAccess;
+            return this;
+        }
+
+        public Builder<K, V> recordStats() {
+
+            return this;
+        }
+
+
+        public Builder<K, V> expireAfterWrite(long expireAfterWrite) {
+            this.expireAfterWrite = expireAfterWrite;
+            return this;
+        }
+
+        @Override
+        public CaffeineCache<K, V> build() {
+            return new CaffeineCache<>(expireAfterWrite, expireAfterAccess, maximumSize);
+        }
+    }
+
+    private CaffeineCache(long expireAfterWrite, long expireAfterAccess, long maximumSize) {
+        Caffeine<Object, Object> builder = Caffeine.newBuilder();
+        builder.expireAfterWrite(expireAfterWrite, TimeUnit.SECONDS);
+        builder.expireAfterAccess(expireAfterAccess, TimeUnit.SECONDS);
+        builder.maximumSize(maximumSize);
+        cache = builder.build();
+    }
+
     /**
      * @param config
      */
     public CaffeineCache(Config config) {
-        Caffeine<Object, Object> caffeine = Caffeine.newBuilder();
+        Caffeine<Object, Object> builder = Caffeine.newBuilder();
         if (config.hasPath("expire")) {
-            caffeine.expireAfterWrite(config.getDuration("expire"));
+            builder.expireAfterWrite(config.getDuration("expire"));
             LOGGER.info("expire:" + config.getDuration("expire", TimeUnit.SECONDS));
             //System.out.println("expire:" + config.getDuration("expire", TimeUnit.SECONDS));
         }
         //缓存的最大条数,不是内存空间
         if (config.hasPath("maximumSize"))
-            caffeine.maximumSize(config.getLong("maximumSize"));
+            builder.maximumSize(config.getLong("maximumSize"));
         if (config.hasPath("requireStats")) {
             stats = new CacheStats();
-            caffeine.recordStats();
+            builder.recordStats();
         }
-        cache = caffeine.build();
+        cache = builder.build();
     }
 
     @Override
