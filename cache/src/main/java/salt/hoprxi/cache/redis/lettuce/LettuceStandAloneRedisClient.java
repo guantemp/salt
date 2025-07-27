@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022. www.hoprxi.com All Rights Reserved.
+ * Copyright (c) 2025. www.hoprxi.com All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,6 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import salt.hoprxi.cache.util.FSTSerialization;
 import salt.hoprxi.cache.util.KryoSerialization;
+import salt.hoprxi.crypto.application.DatabaseSpecDecrypt;
 
 import java.time.Duration;
 import java.util.*;
@@ -39,8 +40,8 @@ import java.util.stream.StreamSupport;
 
 /**
  * @author <a href="www.hoprxi.com/author/guan xianghuang">guan xiangHuan</a>
- * @version 0.0.1 2021-09-11
- * @since JDK8.0
+ * @version 0.1.1 2025-07-27
+ * @since JDK21
  */
 public class LettuceStandAloneRedisClient<K, V> extends LettuceRedisClient<K, V> {
     private static final Logger LOGGER = LoggerFactory.getLogger(LettuceStandAloneRedisClient.class);
@@ -48,10 +49,13 @@ public class LettuceStandAloneRedisClient<K, V> extends LettuceRedisClient<K, V>
 
     public LettuceStandAloneRedisClient(String region, Config config) {
         super(region);
+        String host = config.getString("host");
+        int port = config.getInt("port");
+        System.out.println(host + ":" + port);
         RedisURI uri = RedisURI.builder()
-                .withHost(config.getString("host"))
-                .withPassword(config.getString("password").toCharArray())
-                .withPort(config.getInt("port"))
+                .withHost(host)
+                .withPort(port)
+                .withPassword(DatabaseSpecDecrypt.decrypt(host + ":" + port, config.getString("password")).toCharArray())
                 .withTimeout(config.hasPath("timeout") ? config.getDuration("timeout") : Duration.ZERO)
                 .withDatabase(config.hasPath("database") ? config.getInt("database") : 0)
                 .build();

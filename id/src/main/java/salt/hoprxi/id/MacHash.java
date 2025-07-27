@@ -45,7 +45,7 @@ public final class MacHash {
             hash = Objects.hash(sb);
         } catch (SocketException e) {
             hash = (new SecureRandom().nextInt());
-            LOGGER.info("Not find network card");
+            LOGGER.warn("Not find network card");
         }
     }
 

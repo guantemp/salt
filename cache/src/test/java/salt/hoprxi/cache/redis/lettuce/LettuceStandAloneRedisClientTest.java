@@ -23,6 +23,7 @@ import org.testng.annotations.Test;
 import salt.hoprxi.cache.Cache;
 import salt.hoprxi.cache.redis.RedisCacheBuilder;
 import salt.hoprxi.cache.redis.RedisClient;
+import salt.hoprxi.crypto.util.StoreKeyLoad;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -34,12 +35,11 @@ import java.util.Map;
  * @version 0.0.1 builder 2022-08-03
  */
 public class LettuceStandAloneRedisClientTest {
-    private static Config config = ConfigFactory.load("cache").getConfig("caffeine");
-
     static {
-        System.out.println(config.getString("expire"));
+        StoreKeyLoad.loadSecretKey("keystore.jks", "Qwe123465", "slave.tooo.top:6379:P$Qwe123465Re");
     }
 
+    private static Config config = ConfigFactory.load("cache").getConfig("redis_standAlone");
     private static final RedisClient<Integer, Object> client = new LettuceStandAloneRedisClient("test", config);
     private static final Cache<Integer, Object> cache = new RedisCacheBuilder<Integer, Object>("test").client(client).build();
 

@@ -15,7 +15,6 @@
  */
 package salt.hoprxi.cache.concurrentMap;
 
-import com.carrotsearch.sizeof.RamUsageEstimator;
 import salt.hoprxi.cache.Cache;
 
 import java.util.LinkedList;
@@ -142,7 +141,7 @@ public class ConcurrentMapCache<K, V> implements Cache<K, V> {
         expiryPolicy.remove(key);
         recovery.remove(key);
         //chang stats state
-        stats.reduceCurrentSize(RamUsageEstimator.sizeOf(value)).increaseEviction().reduceCurrentAmount();
+        //stats.reduceCurrentSize(RamUsageEstimator.sizeOf(value)).increaseEviction().reduceCurrentAmount();
     }
 
     @Override
@@ -198,14 +197,14 @@ public class ConcurrentMapCache<K, V> implements Cache<K, V> {
             return;
         }
         // If the object is bigger than the entire cache,  do nothing
-        long size = RamUsageEstimator.sizeOf(value);
+        long size = 0;//RamUsageEstimator.sizeOf(value);
         long maxCacheSize = stats.maxCacheSize();
         if (maxCacheSize > 0 && size > maxCacheSize * LOAD_FACTOR) {
             return;
         }
         V old = memory.put(key, value);
         if (old != null)
-            stats.reduceCurrentAmount().reduceCurrentSize(RamUsageEstimator.sizeOf(old));
+            stats.reduceCurrentAmount().reduceCurrentSize(0);//RamUsageEstimator.sizeOf(old)
         // Add the id to the cull and expired list
         expiryPolicy.offerFirst(key);
         recovery.offerFirst(key);

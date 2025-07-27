@@ -15,7 +15,6 @@
  */
 package salt.hoprxi.cache.redis;
 
-import com.carrotsearch.sizeof.RamUsageEstimator;
 import salt.hoprxi.cache.Cache;
 import salt.hoprxi.cache.event.CacheStats;
 
@@ -27,7 +26,7 @@ import java.util.function.Function;
 /**
  * @author <a href="www.hoprxi.com/author/guan xianghuang">guan xiangHuan</a>
  * @version 0.0.2 2019-03-18
- * @since JDK8.0
+ * @since JDK21
  */
 public class RedisCache<K, V> implements Cache<K, V> {
     private final RedisClient<K, V> client;
@@ -96,7 +95,7 @@ public class RedisCache<K, V> implements Cache<K, V> {
             return;
         }*/
         // If the object is bigger than the entire cache,  do nothing
-        long size = RamUsageEstimator.sizeOf(value);
+        //long size = RamUsageEstimator.sizeOf(value);
         /*
         long maxCacheSize = stats.maxCacheSize();
         if (maxCacheSize > 0 && size > maxCacheSize * LOAD_FACTOR) {
