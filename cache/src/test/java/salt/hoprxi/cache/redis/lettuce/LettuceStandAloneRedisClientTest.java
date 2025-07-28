@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023. www.hoprxi.com All Rights Reserved.
+ * Copyright (c) 2025. www.hoprxi.com All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,15 +32,15 @@ import java.util.Map;
 /***
  * @author <a href="www.hoprxi.com/authors/guan xiangHuan">guan xiangHuang</a>
  * @since JDK8.0
- * @version 0.0.1 builder 2022-08-03
+ * @version 0.0.2 builder 2025-07-28
  */
 public class LettuceStandAloneRedisClientTest {
     static {
         StoreKeyLoad.loadSecretKey("keystore.jks", "Qwe123465", "slave.tooo.top:6379:P$Qwe123465Re");
     }
 
-    private static Config config = ConfigFactory.load("cache").getConfig("redis_standAlone");
-    private static final RedisClient<Integer, Object> client = new LettuceStandAloneRedisClient("test", config);
+    private static final Config config = ConfigFactory.load("cache").getConfig("redis_standAlone");
+    private static final RedisClient<Integer, Object> client = new LettuceStandAloneRedisClient<>("test", config);
     private static final Cache<Integer, Object> cache = new RedisCacheBuilder<Integer, Object>("test").client(client).build();
 
     @Test(invocationCount = 4)

@@ -14,6 +14,12 @@
     <url>https://www.hoprxi.com</url>
 
     <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.openjdk.jol/jol-core -->
+        <dependency>
+            <groupId>org.openjdk.jol</groupId>
+            <artifactId>jol-core</artifactId>
+            <version>0.17</version>
+        </dependency>
         <dependency>
             <groupId>com.github.ben-manes.caffeine</groupId>
             <artifactId>caffeine</artifactId>
@@ -43,12 +49,13 @@
         <dependency>
             <groupId>io.lettuce</groupId>
             <artifactId>lettuce-core</artifactId>
-            <version>6.2.6.RELEASE</version>
+            <version>6.7.1.RELEASE</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.redisson/redisson -->
         <dependency>
             <groupId>org.redisson</groupId>
             <artifactId>redisson</artifactId>
-            <version>3.23.3</version>
+            <version>3.50.0</version>
         </dependency>
         <dependency>
             <groupId>salt.hoprxi</groupId>

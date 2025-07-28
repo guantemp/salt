@@ -4,22 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="20482602-c4f2-4d7c-8556-c526a976ada0" name="Changes" comment="202507262153">
-      <change afterPath="$PROJECT_DIR$/cache/src/main/resources/keystore.jks" afterDir="false" />
+    <list default="true" id="20482602-c4f2-4d7c-8556-c526a976ada0" name="Changes" comment="202507272206">
+      <change afterPath="$PROJECT_DIR$/cache/src/main/java/salt/hoprxi/cache/util/LayoutCache.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cache/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/cache/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cache/src/main/java/salt/hoprxi/cache/caffeine/CaffeineCache.java" beforeDir="false" afterPath="$PROJECT_DIR$/cache/src/main/java/salt/hoprxi/cache/caffeine/CaffeineCache.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cache/src/main/java/salt/hoprxi/cache/concurrentMap/ConcurrentMapCache.java" beforeDir="false" afterPath="$PROJECT_DIR$/cache/src/main/java/salt/hoprxi/cache/concurrentMap/ConcurrentMapCache.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cache/src/main/java/salt/hoprxi/cache/redis/RedisCache.java" beforeDir="false" afterPath="$PROJECT_DIR$/cache/src/main/java/salt/hoprxi/cache/redis/RedisCache.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cache/src/main/java/salt/hoprxi/cache/redis/RedisCacheBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/cache/src/main/java/salt/hoprxi/cache/redis/RedisCacheBuilder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cache/src/main/java/salt/hoprxi/cache/redis/lettuce/LettuceStandAloneRedisClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/cache/src/main/java/salt/hoprxi/cache/redis/lettuce/LettuceStandAloneRedisClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cache/src/main/resources/cache.conf" beforeDir="false" afterPath="$PROJECT_DIR$/cache/src/main/resources/cache.conf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cache/src/test/java/salt/hoprxi/cache/redis/lettuce/LettuceStandAloneRedisClientTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/cache/src/test/java/salt/hoprxi/cache/redis/lettuce/LettuceStandAloneRedisClientTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cache/target/classes/salt/hoprxi/cache/caffeine/CaffeineCache.class" beforeDir="false" afterPath="$PROJECT_DIR$/cache/target/classes/salt/hoprxi/cache/caffeine/CaffeineCache.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cache/target/classes/salt/hoprxi/cache/concurrentMap/ConcurrentMapCache$ExpireRecovery$ExpiredBean.class" beforeDir="false" afterPath="$PROJECT_DIR$/cache/target/classes/salt/hoprxi/cache/concurrentMap/ConcurrentMapCache$ExpireRecovery$ExpiredBean.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cache/target/classes/salt/hoprxi/cache/concurrentMap/ConcurrentMapCache$ExpireRecovery.class" beforeDir="false" afterPath="$PROJECT_DIR$/cache/target/classes/salt/hoprxi/cache/concurrentMap/ConcurrentMapCache$ExpireRecovery.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cache/target/classes/salt/hoprxi/cache/concurrentMap/ConcurrentMapCache.class" beforeDir="false" afterPath="$PROJECT_DIR$/cache/target/classes/salt/hoprxi/cache/concurrentMap/ConcurrentMapCache.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cache/target/classes/salt/hoprxi/cache/redis/RedisCache.class" beforeDir="false" afterPath="$PROJECT_DIR$/cache/target/classes/salt/hoprxi/cache/redis/RedisCache.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cache/target/classes/salt/hoprxi/cache/redis/RedisCacheBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/cache/target/classes/salt/hoprxi/cache/redis/RedisCacheBuilder.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cache/target/classes/salt/hoprxi/cache/redis/lettuce/LettuceStandAloneRedisClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/cache/target/classes/salt/hoprxi/cache/redis/lettuce/LettuceStandAloneRedisClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/id/src/main/java/salt/hoprxi/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/id/src/main/java/salt/hoprxi/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/id/src/main/java/salt/hoprxi/id/MacHash.java" beforeDir="false" afterPath="$PROJECT_DIR$/id/src/main/java/salt/hoprxi/id/MacHash.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/id/target/classes/salt/hoprxi/App.class" beforeDir="false" afterPath="$PROJECT_DIR$/id/target/classes/salt/hoprxi/App.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/id/target/classes/salt/hoprxi/id/MacHash.class" beforeDir="false" afterPath="$PROJECT_DIR$/id/target/classes/salt/hoprxi/id/MacHash.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,70 +110,70 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Maven.cache [clean].executor": "Run",
-    "Maven.cache [install].executor": "Run",
-    "Maven.crypto [clean].executor": "Run",
-    "Maven.crypto [compile].executor": "Run",
-    "Maven.crypto [install].executor": "Run",
-    "Maven.id [install].executor": "Run",
-    "Maven.salt [clean].executor": "Run",
-    "Maven.salt [install].executor": "Run",
-    "Maven.to [clean].executor": "Run",
-    "Maven.to [install].executor": "Run",
-    "Maven.utils [compile].executor": "Run",
-    "Maven.utils [install].executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "TestNG.AESUtilTest.testDecrypt.executor": "Run",
-    "TestNG.AESUtilTest.testDecryptSpec.executor": "Debug",
-    "TestNG.AesUtilTest.executor": "Run",
-    "TestNG.CacheFactoryTest.executor": "Run",
-    "TestNG.CaffeineCacheTest.executor": "Run",
-    "TestNG.DigitPreferenceFilterTest.executor": "Run",
-    "TestNG.EncryptServiceTest.executor": "Run",
-    "TestNG.EncryptionServiceTest.executor": "Run",
-    "TestNG.HashServiceTest.executor": "Run",
-    "TestNG.LettuceStandAloneRedisClientTest.executor": "Run",
-    "TestNG.LongIdTest.executor": "Run",
-    "TestNG.PasswordServiceTest.executor": "Run",
-    "TestNG.PinYinTest.executor": "Run",
-    "TestNG.RandomGeneratorTest.executor": "Run",
-    "TestNG.ResourceWherePathTest.executor": "Run",
-    "TestNG.SM4UtilTest.executor": "Run",
-    "TestNG.SelectorTest.executor": "Run",
-    "WebServerToolWindowFactoryState": "false",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "TestNG",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit3": "junit.framework.TestCase",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.TestNG": "",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "jdk.selected.JAVA_MODULE": "1.8",
-    "last_opened_file_path": "E:/workspace/salt/cache/target/test-classes",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "模块",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "MavenSettings",
-    "settings.editor.splitter.proportion": "0.20660378",
-    "spring.configuration.checksum": "5ae9b7f211e23aac3df5f2b8f3b8eada",
-    "vue.rearranger.settings.migration": "true",
-    "应用程序.App.executor": "Run"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Maven.cache [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.cache [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.crypto [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.crypto [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.crypto [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.id [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.salt [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.salt [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.to [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.to [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.utils [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.utils [install].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;TestNG.AESUtilTest.testDecrypt.executor&quot;: &quot;Run&quot;,
+    &quot;TestNG.AESUtilTest.testDecryptSpec.executor&quot;: &quot;Debug&quot;,
+    &quot;TestNG.AesUtilTest.executor&quot;: &quot;Run&quot;,
+    &quot;TestNG.CacheFactoryTest.executor&quot;: &quot;Run&quot;,
+    &quot;TestNG.CaffeineCacheTest.executor&quot;: &quot;Run&quot;,
+    &quot;TestNG.DigitPreferenceFilterTest.executor&quot;: &quot;Run&quot;,
+    &quot;TestNG.EncryptServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;TestNG.EncryptionServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;TestNG.HashServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;TestNG.LettuceStandAloneRedisClientTest.executor&quot;: &quot;Run&quot;,
+    &quot;TestNG.LongIdTest.executor&quot;: &quot;Run&quot;,
+    &quot;TestNG.PasswordServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;TestNG.PinYinTest.executor&quot;: &quot;Run&quot;,
+    &quot;TestNG.RandomGeneratorTest.executor&quot;: &quot;Run&quot;,
+    &quot;TestNG.ResourceWherePathTest.executor&quot;: &quot;Run&quot;,
+    &quot;TestNG.SM4UtilTest.executor&quot;: &quot;Run&quot;,
+    &quot;TestNG.SelectorTest.executor&quot;: &quot;Run&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;TestNG&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit3&quot;: &quot;junit.framework.TestCase&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.TestNG&quot;: &quot;&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;1.8&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/workspace/salt/cache/target/test-classes&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;模块&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;fileTemplates&quot;,
+    &quot;settings.editor.splitter.proportion&quot;: &quot;0.20660378&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;5ae9b7f211e23aac3df5f2b8f3b8eada&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;,
+    &quot;应用程序.App.executor&quot;: &quot;Run&quot;
   },
-  "keyToStringList": {
-    "ChangesTree.GroupingKeys": [
-      "directory"
+  &quot;keyToStringList&quot;: {
+    &quot;ChangesTree.GroupingKeys&quot;: [
+      &quot;directory&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\workspace\salt\cache\target\test-classes" />
@@ -768,7 +767,8 @@
       <workItem from="1753262515451" duration="1882000" />
       <workItem from="1753414710182" duration="2290000" />
       <workItem from="1753417017893" duration="18838000" />
-      <workItem from="1753622962801" duration="1868000" />
+      <workItem from="1753622962801" duration="10704000" />
+      <workItem from="1753681334698" duration="595000" />
     </task>
     <task id="LOCAL-00001" summary="202309191815">
       <created>1695118536340</created>
@@ -1040,7 +1040,15 @@
       <option name="project" value="LOCAL" />
       <updated>1753537999790</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="202507272206">
+      <option name="closed" value="true" />
+      <created>1753625203121</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1753625203121</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1064,7 +1072,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="202406021937" />
     <MESSAGE value="202406022305" />
     <MESSAGE value="202406041825" />
     <MESSAGE value="202406151815" />
@@ -1089,7 +1096,8 @@
     <MESSAGE value="202507191803" />
     <MESSAGE value="202507192325" />
     <MESSAGE value="202507262153" />
-    <option name="LAST_COMMIT_MESSAGE" value="202507262153" />
+    <MESSAGE value="202507272206" />
+    <option name="LAST_COMMIT_MESSAGE" value="202507272206" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">

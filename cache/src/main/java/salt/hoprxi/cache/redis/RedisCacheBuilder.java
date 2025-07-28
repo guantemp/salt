@@ -32,18 +32,18 @@ public class RedisCacheBuilder<K, V> implements Builder<Cache<K, V>> {
     private final String region;
     private long maximumSize = -1L;
     private int expired = -1;
-    private RedisClient client;
+    private RedisClient<K, V> client;
 
     public RedisCacheBuilder(String region) {
         this.region = Objects.requireNonNull(region, "region required").trim();
     }
 
-    public RedisCacheBuilder(String region, RedisClient client) {
+    public RedisCacheBuilder(String region, RedisClient<K, V> client) {
         this.region = Objects.requireNonNull(region, "region required").trim();
         this.client = Objects.requireNonNull(client, "client required");
     }
 
-    public RedisCacheBuilder<K, V> client(RedisClient client) {
+    public RedisCacheBuilder<K, V> client(RedisClient<K, V> client) {
         this.client = Objects.requireNonNull(client, "client required");
         return this;
     }
@@ -127,7 +127,7 @@ public class RedisCacheBuilder<K, V> implements Builder<Cache<K, V>> {
         return expired;
     }
 
-    public RedisClient client() {
+    public RedisClient<K, V> client() {
         return client;
     }
 }

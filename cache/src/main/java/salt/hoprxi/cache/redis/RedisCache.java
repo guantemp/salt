@@ -39,7 +39,7 @@ public class RedisCache<K, V> implements Cache<K, V> {
         stats = new CacheStats(builder.maxAmount(), builder.maximumSize());
     }
 
-    public RedisCache(String region, RedisClient client) {
+    public RedisCache(String region, RedisClient<K,V> client) {
         this.region = region;
         this.client = client;
         stats = CacheStats.EMPTY_STATS;
@@ -96,6 +96,7 @@ public class RedisCache<K, V> implements Cache<K, V> {
         }*/
         // If the object is bigger than the entire cache,  do nothing
         //long size = RamUsageEstimator.sizeOf(value);
+
         /*
         long maxCacheSize = stats.maxCacheSize();
         if (maxCacheSize > 0 && size > maxCacheSize * LOAD_FACTOR) {
