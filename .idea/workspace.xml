@@ -4,20 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="20482602-c4f2-4d7c-8556-c526a976ada0" name="Changes" comment="202507272206">
-      <change afterPath="$PROJECT_DIR$/cache/src/main/java/salt/hoprxi/cache/util/LayoutCache.java" afterDir="false" />
+    <list default="true" id="20482602-c4f2-4d7c-8556-c526a976ada0" name="Changes" comment="202507281352">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cache/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/cache/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cache/src/main/java/salt/hoprxi/cache/redis/RedisCache.java" beforeDir="false" afterPath="$PROJECT_DIR$/cache/src/main/java/salt/hoprxi/cache/redis/RedisCache.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cache/src/main/java/salt/hoprxi/cache/redis/RedisCacheBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/cache/src/main/java/salt/hoprxi/cache/redis/RedisCacheBuilder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cache/src/main/java/salt/hoprxi/cache/redis/lettuce/LettuceStandAloneRedisClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/cache/src/main/java/salt/hoprxi/cache/redis/lettuce/LettuceStandAloneRedisClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cache/src/test/java/salt/hoprxi/cache/redis/lettuce/LettuceStandAloneRedisClientTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/cache/src/test/java/salt/hoprxi/cache/redis/lettuce/LettuceStandAloneRedisClientTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cache/target/classes/salt/hoprxi/cache/caffeine/CaffeineCache.class" beforeDir="false" afterPath="$PROJECT_DIR$/cache/target/classes/salt/hoprxi/cache/caffeine/CaffeineCache.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cache/target/classes/salt/hoprxi/cache/concurrentMap/ConcurrentMapCache$ExpireRecovery$ExpiredBean.class" beforeDir="false" afterPath="$PROJECT_DIR$/cache/target/classes/salt/hoprxi/cache/concurrentMap/ConcurrentMapCache$ExpireRecovery$ExpiredBean.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cache/target/classes/salt/hoprxi/cache/concurrentMap/ConcurrentMapCache$ExpireRecovery.class" beforeDir="false" afterPath="$PROJECT_DIR$/cache/target/classes/salt/hoprxi/cache/concurrentMap/ConcurrentMapCache$ExpireRecovery.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cache/target/classes/salt/hoprxi/cache/concurrentMap/ConcurrentMapCache.class" beforeDir="false" afterPath="$PROJECT_DIR$/cache/target/classes/salt/hoprxi/cache/concurrentMap/ConcurrentMapCache.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cache/target/classes/salt/hoprxi/cache/redis/RedisCache.class" beforeDir="false" afterPath="$PROJECT_DIR$/cache/target/classes/salt/hoprxi/cache/redis/RedisCache.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cache/target/classes/salt/hoprxi/cache/redis/RedisCacheBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/cache/target/classes/salt/hoprxi/cache/redis/RedisCacheBuilder.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cache/target/classes/salt/hoprxi/cache/redis/lettuce/LettuceStandAloneRedisClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/cache/target/classes/salt/hoprxi/cache/redis/lettuce/LettuceStandAloneRedisClient.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -768,7 +758,7 @@
       <workItem from="1753414710182" duration="2290000" />
       <workItem from="1753417017893" duration="18838000" />
       <workItem from="1753622962801" duration="10704000" />
-      <workItem from="1753681334698" duration="595000" />
+      <workItem from="1753681334698" duration="8882000" />
     </task>
     <task id="LOCAL-00001" summary="202309191815">
       <created>1695118536340</created>
@@ -1048,7 +1038,15 @@
       <option name="project" value="LOCAL" />
       <updated>1753625203121</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="202507281352">
+      <option name="closed" value="true" />
+      <created>1753681956034</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1753681956034</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1072,7 +1070,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="202406022305" />
     <MESSAGE value="202406041825" />
     <MESSAGE value="202406151815" />
     <MESSAGE value="202407301804" />
@@ -1097,7 +1094,8 @@
     <MESSAGE value="202507192325" />
     <MESSAGE value="202507262153" />
     <MESSAGE value="202507272206" />
-    <option name="LAST_COMMIT_MESSAGE" value="202507272206" />
+    <MESSAGE value="202507281352" />
+    <option name="LAST_COMMIT_MESSAGE" value="202507281352" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">

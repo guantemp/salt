@@ -82,6 +82,7 @@ public class LettuceStandAloneRedisClient<K, V> extends LettuceRedisClient<K, V>
             byte[] valueBytes = serialization.serialize(value);
             command.set(_key, valueBytes);
             command.pexpire(_key, expire);
+            pool.returnObject(connection);
         } catch (Exception e) {
             LOGGER.warn("Can't put {key={},value={}} in cache", key, value, e);
         }
@@ -94,6 +95,7 @@ public class LettuceStandAloneRedisClient<K, V> extends LettuceRedisClient<K, V>
             byte[] keyBytes = serialization.serialize(key);
             byte[] valueBytes = serialization.serialize(value);
             command.hset(regionBytes, keyBytes, valueBytes);
+            pool.returnObject(connection);
         } catch (Exception e) {
             LOGGER.warn("Can't put {key={},value={}} in cache", value, e);
         }
@@ -109,6 +111,7 @@ public class LettuceStandAloneRedisClient<K, V> extends LettuceRedisClient<K, V>
                 command.set(_key, valueBytes);
                 command.pexpire(_key, expire);
             });
+            pool.returnObject(connection);
         } catch (Exception e) {
             LOGGER.warn("Can't put {} in cache", map, e);
         }

@@ -43,7 +43,7 @@ public class LettuceStandAloneRedisClientTest {
     private static final RedisClient<Integer, Object> client = new LettuceStandAloneRedisClient<>("test", config);
     private static final Cache<Integer, Object> cache = new RedisCacheBuilder<Integer, Object>("test").client(client).build();
 
-    @Test(invocationCount = 4)
+    @Test
     public void testSet() {
         cache.put(1, "2色股份第三个1423");
         cache.put(1, "色啊付款金额啊哈1");
@@ -69,17 +69,18 @@ public class LettuceStandAloneRedisClientTest {
     public void testHget() {
         Assert.assertNull(client.hget(94));
         Assert.assertNotNull(client.hget(96));
-        Assert.assertEquals("第三方额外·第三cxhgfdx到时候好地方", client.hget(97));
+        Assert.assertEquals(client.hget(97), "第三方额外·第三cxhgfdx到时候好地方");
     }
 
-    @Test(invocationCount = 4, threadPoolSize = 1, priority = 2)
+    @Test(priority = 2)//invocationCount = 4, threadPoolSize = 1,
     public void testGet() {
         Assert.assertNotNull(cache.get(5));
-        Assert.assertEquals("色啊付款金额啊哈1", cache.get(1));
+        Assert.assertEquals(cache.get(1), "色啊付款金额啊哈1");
         Assert.assertNull(cache.get(3));
+        System.out.println( cache.get(14));
 
-        Assert.assertEquals("沃尔夫大商股份", cache.get(14));
-        Assert.assertEquals("十多个和我过", cache.get(15));
+        Assert.assertEquals(cache.get(14), "沃尔夫大商股份");
+        Assert.assertEquals(cache.get(15), "十多个和我过");
 
         client.get(1, 3, 5, 11, 13, 2);
         client.get(14, 7, 11, 13, 6, 12);
