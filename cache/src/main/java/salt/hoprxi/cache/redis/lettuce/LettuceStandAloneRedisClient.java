@@ -49,6 +49,7 @@ public class LettuceStandAloneRedisClient<K, V> extends LettuceRedisClient<K, V>
 
     public LettuceStandAloneRedisClient(String region, Config config) {
         super(region);
+        //System.out.println(LOGGER.getName());
         String host = config.getString("host");
         int port = config.getInt("port");
         //System.out.println(host + ":" + port);
@@ -95,7 +96,7 @@ public class LettuceStandAloneRedisClient<K, V> extends LettuceRedisClient<K, V>
             byte[] keyBytes = serialization.serialize(key);
             byte[] valueBytes = serialization.serialize(value);
             command.hset(regionBytes, keyBytes, valueBytes);
-            pool.returnObject(connection);
+            //pool.returnObject(connection);
         } catch (Exception e) {
             LOGGER.warn("Can't put {key={},value={}} in cache", value, e);
         }
@@ -111,7 +112,7 @@ public class LettuceStandAloneRedisClient<K, V> extends LettuceRedisClient<K, V>
                 command.set(_key, valueBytes);
                 command.pexpire(_key, expire);
             });
-            pool.returnObject(connection);
+            //pool.returnObject(connection);
         } catch (Exception e) {
             LOGGER.warn("Can't put {} in cache", map, e);
         }
