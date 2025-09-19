@@ -49,7 +49,6 @@ public class LettuceStandAloneRedisClient<K, V> extends LettuceRedisClient<K, V>
 
     public LettuceStandAloneRedisClient(String region, Config config) {
         super(region);
-        //System.out.println(LOGGER.getName());
         String host = config.getString("host");
         int port = config.getInt("port");
         //System.out.println(host + ":" + port);

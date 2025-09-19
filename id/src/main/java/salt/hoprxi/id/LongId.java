@@ -49,7 +49,8 @@ public class LongId {
     private static final int PROCESS_MASK = 0x7;
     private static final int PROCESS_LEFT_SHIFT = 3;//进程码
     // This is begun from 2024-01-01 00:00:00(2015-03-26 00:00:00(UTC/GMT+08:00) = 1427328000000l)
-    private static final long START = 1_427_328_000_000L;
+    // This is begun from 2024-01-01 00:00:00(2025-01-01 00:00:00(UTC/GMT+08:00) = 1735689600000l)
+    private static final long START = 1735689600000L;
     private static final int TIMESTIAMP_LEFT_SHIFT = MACHINE_LEFT_SHIFT + PROCESS_LEFT_SHIFT + SEQUENCE_LEFT_SHIFT;
     //may be use ThreadLocalRandom.current().nextInt() as initialValue
     private static AtomicInteger sequence = new AtomicInteger(ThreadLocalRandom.current().nextInt());
