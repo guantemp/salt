@@ -99,15 +99,15 @@ public class PasswordServiceTest {
 
         SecretKey secretKey = gen.generateKey();
         keyStore.setEntry("elasticsearch.security.keystore.password", new KeyStore.SecretKeyEntry(secretKey), new KeyStore.PasswordProtection("123".toCharArray()));
-        System.out.println("AES随机密钥(elasticsearch):" + Base64.getEncoder().encodeToString(secretKey.getEncoded()));
+        System.out.println("AES随机密钥(elasticsearch:base64):" + Base64.getEncoder().encodeToString(secretKey.getEncoded()));
         secretKey = gen.generateKey();
-        System.out.println("AES随机密钥(postgresql):" + Base64.getEncoder().encodeToString(secretKey.getEncoded()));
+        System.out.println("AES随机密钥(postgresql:base64):" + Base64.getEncoder().encodeToString(secretKey.getEncoded()));
         keyStore.setEntry("postgresql.security.keystore.password", new KeyStore.SecretKeyEntry(secretKey), new KeyStore.PasswordProtection("Qwe123465".toCharArray()));
 
         gen = KeyGenerator.getInstance("AES");
         gen.init(256, new SecureRandom("Qwe123465".getBytes(StandardCharsets.UTF_8)));
         SecretKey customizedKey = gen.generateKey();
-        System.out.println("AES指定密钥:" + Base64.getEncoder().encodeToString(customizedKey.getEncoded()));
+        System.out.println("AES指定密钥(base64):" + Base64.getEncoder().encodeToString(customizedKey.getEncoded()));
         keyStore.setEntry("customized.security.keystore.password", new KeyStore.SecretKeyEntry(customizedKey), new KeyStore.PasswordProtection("Qwe123465".toCharArray()));
         /*
         SecretKeyFactory factory=SecretKeyFactory.getInstance("PBKDF2WithHmacSHA512");
@@ -119,14 +119,14 @@ public class PasswordServiceTest {
         keyStore.store(fos, "".toCharArray());
         fos.close();
 
-        byte[] sources = "Qwe123465德w".getBytes(StandardCharsets.UTF_8);
+        byte[] sources = "Qwe123465德w第三条的输入法".getBytes(StandardCharsets.UTF_8);
         byte[] aesData = AESUtil.encrypt(sources, customizedKey);
 
 //        SecretKeySpec sKeySpec = new SecretKeySpec("Qwe123465".getBytes(StandardCharsets.UTF_8), "AES");
 //        System.out.println("AES加密结果(byte)：");
 //        for (byte b : aesData)
 //            System.out.println(b);
-        System.out.println("原始文本：Qwe123465德w");
+        System.out.println("原始文本：Qwe123465德w第三条的输入法");
         System.out.println("AES加密(base64)：" + Base64.getEncoder().encodeToString(aesData));
         System.out.println("AES加密(hex):" + ByteToHex.toHexStr(aesData));
 

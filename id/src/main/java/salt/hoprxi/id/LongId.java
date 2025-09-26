@@ -51,7 +51,7 @@ public class LongId {
     // This is begun from 2024-01-01 00:00:00(2015-03-26 00:00:00(UTC/GMT+08:00) = 1427328000000l)
     // This is begun from 2024-01-01 00:00:00(2025-01-01 00:00:00(UTC/GMT+08:00) = 1735689600000l)
     private static final long START = 1735689600000L;
-    private static final int TIMESTIAMP_LEFT_SHIFT = MACHINE_LEFT_SHIFT + PROCESS_LEFT_SHIFT + SEQUENCE_LEFT_SHIFT;
+    private static final int TIMESTAMP_LEFT_SHIFT = MACHINE_LEFT_SHIFT + PROCESS_LEFT_SHIFT + SEQUENCE_LEFT_SHIFT;
     //may be use ThreadLocalRandom.current().nextInt() as initialValue
     private static AtomicInteger sequence = new AtomicInteger(ThreadLocalRandom.current().nextInt());
     private static long lastTimestamp = START;
@@ -78,7 +78,7 @@ public class LongId {
             time = tilNextMillis(lastTimestamp);
         }
         lastTimestamp = time;
-        return time << TIMESTIAMP_LEFT_SHIFT | (MacHash.hash() & MACHINE_MASK) << (PROCESS_LEFT_SHIFT + SEQUENCE_LEFT_SHIFT) | (PROCESS & PROCESS_MASK) << SEQUENCE_LEFT_SHIFT | (increment & SEQUENCE_MASK);
+        return time << TIMESTAMP_LEFT_SHIFT | (MacHash.hash() & MACHINE_MASK) << (PROCESS_LEFT_SHIFT + SEQUENCE_LEFT_SHIFT) | (PROCESS & PROCESS_MASK) << SEQUENCE_LEFT_SHIFT | (increment & SEQUENCE_MASK);
     }
 
     /**
@@ -88,7 +88,7 @@ public class LongId {
      * @return time of ID generation
      */
     public static LocalDateTime timestamp(long id) {
-        return LocalDateTime.ofInstant(Instant.ofEpochMilli((id >> TIMESTIAMP_LEFT_SHIFT) + START), ZoneId.systemDefault());
+        return LocalDateTime.ofInstant(Instant.ofEpochMilli((id >> TIMESTAMP_LEFT_SHIFT) + START), ZoneId.systemDefault());
     }
 
     /**

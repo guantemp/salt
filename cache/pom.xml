@@ -14,12 +14,6 @@
     <url>https://www.hoprxi.com</url>
 
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/org.openjdk.jol/jol-core -->
-        <dependency>
-            <groupId>org.openjdk.jol</groupId>
-            <artifactId>jol-core</artifactId>
-            <version>0.17</version>
-        </dependency>
         <dependency>
             <groupId>com.github.ben-manes.caffeine</groupId>
             <artifactId>caffeine</artifactId>
@@ -29,6 +23,12 @@
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
             <version>3.3.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.openjdk.jol/jol-core -->
+        <dependency>
+            <groupId>org.openjdk.jol</groupId>
+            <artifactId>jol-core</artifactId>
+            <version>0.17</version>
         </dependency>
         <dependency>
             <groupId>de.ruedigermoeller</groupId>
@@ -40,7 +40,6 @@
             <artifactId>kryo</artifactId>
             <version>5.5.0</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/com.typesafe/config -->
         <dependency>
             <groupId>com.typesafe</groupId>
             <artifactId>config</artifactId>
@@ -51,11 +50,10 @@
             <artifactId>lettuce-core</artifactId>
             <version>6.7.1.RELEASE</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.redisson/redisson -->
         <dependency>
             <groupId>org.redisson</groupId>
             <artifactId>redisson</artifactId>
-            <version>3.50.0</version>
+            <version>3.51.0</version>
         </dependency>
         <dependency>
             <groupId>salt.hoprxi</groupId>

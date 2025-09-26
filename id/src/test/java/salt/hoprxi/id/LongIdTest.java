@@ -38,20 +38,19 @@ import java.util.TimeZone;
 public class LongIdTest {
 
     @Test(priority = 2)
-    public void generate() throws InterruptedException {
+    public void generate() {
         long[] a = new long[10000000];
         for (int i = 0; i < 10000000; i++)
             a[i] = LongId.generate();
         Assert.assertNotEquals(a[999999], 0);
         for (int i = 1; i < 9; i++)
-            System.out.println(String.format("%,d",a[i * 3600]));
+            System.out.printf("%,d%n", a[i * 3600]);
         System.out.println();
         for (int i = 1; i < 9; i++)
-            System.out.println(LongId.generate());
-        Thread.sleep(1);
+            System.out.printf("%,d%n", LongId.generate());
         System.out.println();
         for (int i = 1; i < 9; i++)
-            System.out.println(LongId.generate());
+            System.out.printf("%,d%n", LongId.generate());
     }
 
     @Test
@@ -64,14 +63,14 @@ public class LongIdTest {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         simpleDateFormat.setTimeZone(TimeZone.getDefault());
         System.out.println("simpleDateFormat 2015-03-26 00:00:00(UTC/GMT) to long:"
-                + simpleDateFormat.parse("2015-03-26 00:00:00.000").getTime());
+                           + simpleDateFormat.parse("2015-03-26 00:00:00.000").getTime());
         System.out.println("LocalDateTime 2015-03-26 00:00:00(UTC/GMT+08:00) to long:"
-                + LocalDateTime.parse("2015-03-26 00:00:00.000", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")).atZone(ZoneId.of("UTC")).toInstant().toEpochMilli());
+                           + LocalDateTime.parse("2015-03-26 00:00:00.000", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")).atZone(ZoneId.of("UTC")).toInstant().toEpochMilli());
         System.out.println("1427328000000L to date: " + Instant.ofEpochMilli(1427328000000L));
         System.out.println("2025-01-01 00:00:00(UTC/GMT+08:00) to long:"
-                + LocalDateTime.parse("2025-01-01 00:00:00.000", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")).atZone(ZoneId.of("UTC")).toInstant().toEpochMilli());
+                           + LocalDateTime.parse("2025-01-01 00:00:00.000", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")).atZone(ZoneId.of("UTC")).toInstant().toEpochMilli());
         System.out.println("1970-01-01 00:00:00(UTC/GMT+08:00) to long:"
-                + LocalDateTime.parse("1970-01-01 00:00:00.000", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")).atZone(ZoneId.of("UTC")).toInstant().toEpochMilli());
+                           + LocalDateTime.parse("1970-01-01 00:00:00.000", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")).atZone(ZoneId.of("UTC")).toInstant().toEpochMilli());
         System.out.println("now to long:" + Instant.now().toEpochMilli());
 
 
