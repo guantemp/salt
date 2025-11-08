@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="20482602-c4f2-4d7c-8556-c526a976ada0" name="Changes" comment="202509261116">
+    <list default="true" id="20482602-c4f2-4d7c-8556-c526a976ada0" name="Changes" comment="202510092228">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cache/src/main/java/salt/hoprxi/cache/CacheFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/cache/src/main/java/salt/hoprxi/cache/CacheFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cache/src/main/resources/cache.conf" beforeDir="false" afterPath="$PROJECT_DIR$/cache/src/main/resources/cache.conf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cache/src/main/resources/cache_unit.conf" beforeDir="false" afterPath="$PROJECT_DIR$/cache/src/main/resources/cache_unit.conf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/src/main/java/salt/hoprxi/utils/NLS.java" beforeDir="false" afterPath="$PROJECT_DIR$/utils/src/main/java/salt/hoprxi/utils/NLS.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -195,7 +195,7 @@
       <recent name="salt.hoprxi.crypto" />
     </key>
   </component>
-  <component name="RunManager" selected="TestNG.CaffeineCacheTest">
+  <component name="RunManager" selected="TestNG.LettuceStandAloneRedisClientTest">
     <configuration name="App" type="Application" factoryName="Application">
       <option name="ALTERNATIVE_JRE_PATH" value="$PROJECT_DIR$/../../Program Files/jdk-21.0.2" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
@@ -772,6 +772,11 @@
       <workItem from="1758688793354" duration="2213000" />
       <workItem from="1758815982632" duration="3375000" />
       <workItem from="1759333444447" duration="732000" />
+      <workItem from="1760019878077" duration="417000" />
+      <workItem from="1760977251233" duration="287000" />
+      <workItem from="1760978184686" duration="85000" />
+      <workItem from="1762581558063" duration="1891000" />
+      <workItem from="1762590392841" duration="1499000" />
     </task>
     <task id="LOCAL-00001" summary="202309191815">
       <created>1695118536340</created>
@@ -1075,7 +1080,15 @@
       <option name="project" value="LOCAL" />
       <updated>1758856897058</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="202510092228">
+      <option name="closed" value="true" />
+      <created>1760020131806</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1760020131806</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1099,7 +1112,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="202407301804" />
     <MESSAGE value="202408041700" />
     <MESSAGE value="202409071142" />
     <MESSAGE value="202409071155" />
@@ -1124,7 +1136,8 @@
     <MESSAGE value="202507281352" />
     <MESSAGE value="202509191240" />
     <MESSAGE value="202509261116" />
-    <option name="LAST_COMMIT_MESSAGE" value="202509261116" />
+    <MESSAGE value="202510092228" />
+    <option name="LAST_COMMIT_MESSAGE" value="202510092228" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">

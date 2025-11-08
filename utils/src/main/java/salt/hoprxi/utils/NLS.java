@@ -30,13 +30,11 @@ import java.util.ResourceBundle;
  * @version 0.0.2 2022-03-18
  */
 public class NLS {
-    private static Logger logger = LoggerFactory.getLogger(NLS.class);
+    private static final Logger logger = LoggerFactory.getLogger(NLS.class);
 
     /**
      * all type is static string will load from bundle resourece
      *
-     * @param bundleName
-     * @param bundleClass
      */
     protected static void initializeMessages(String bundleName, Class<?> bundleClass) {
         Field[] allFields = bundleClass.getFields();
