@@ -24,7 +24,6 @@
             <artifactId>jedis</artifactId>
             <version>3.3.0</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.openjdk.jol/jol-core -->
         <dependency>
             <groupId>org.openjdk.jol</groupId>
             <artifactId>jol-core</artifactId>
@@ -100,12 +99,14 @@
                             <resources>
                                 <resource>
                                     <directory>src/main/resources</directory>
+                                    <!--
                                     <includes>
                                         <exclude>**/*.conf</exclude>
                                         <exclude>**/*.json</exclude>
                                         <exclude>**/*.xml</exclude>
                                     </includes>
                                     <filtering>true</filtering>
+                                    -->
                                 </resource>
                             </resources>
                             <encoding>UTF-8</encoding>

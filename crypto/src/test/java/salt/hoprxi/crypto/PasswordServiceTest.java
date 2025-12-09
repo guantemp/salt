@@ -50,6 +50,7 @@ public class PasswordServiceTest {
         PasswordService.main(new String[]{"-S", "Qwe123465Gj", "-f", "d:\\keystore.jks", "Qwe123465"});
         PasswordService.main(new String[]{"-S", "slave.tooo.top:6379", PasswordService.nextStrongPasswd(), "Qwe123465Re", "-f", "d:\\keystore.jks", "Qwe123465"});
         PasswordService.main(new String[]{"-S", "slave.tooo.top:9200", PasswordService.nextStrongPasswd(), "-f", "d:\\keystore.jks", "Qwe123465"});
+        PasswordService.main(new String[]{"-S", "slave.tooo.top:9201", PasswordService.nextStrongPasswd(), "-f", "d:\\keystore.jks", "Qwe123465"});
         PasswordService.main(new String[]{"-S", "slave.tooo.top:6543", PasswordService.nextStrongPasswd(), "Qwe123465Pg", "-f", "d:\\keystore.jks", "Qwe123465"});
         System.out.println("\n");
         PasswordService.main(new String[]{"-l", "-f", "d:\\keystore.jks", "Qwe123465"});
@@ -64,6 +65,8 @@ public class PasswordServiceTest {
         PasswordService.main(new String[]{"-e", "Qwe123465", "slave.tooo.top:6543", "Qwe123465Pg", "-f", "d:\\keystore.jks", "Qwe123465"});
         PasswordService.main(new String[]{"-e", "elastic", "slave.tooo.top:9200", "-f", "d:\\keystore.jks", "Qwe123465"});
         PasswordService.main(new String[]{"-e", "Qwe123465", "slave.tooo.top:9200", "-f", "d:\\keystore.jks", "Qwe123465"});
+        PasswordService.main(new String[]{"-e", "elastic", "slave.tooo.top:9201", "-f", "d:\\keystore.jks", "Qwe123465"});
+        PasswordService.main(new String[]{"-e", "Qwe123465", "slave.tooo.top:9201", "-f", "d:\\keystore.jks", "Qwe123465"});
     }
 
     @Test
