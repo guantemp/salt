@@ -36,7 +36,7 @@ import java.util.stream.Collectors;
 public class CaffeineCacheTest {
     private static final CaffeineCache<Integer, String> cache;
     static {
-        Config config = ConfigFactory.load("cache").getConfig("example");
+        Config config = ConfigFactory.load("cache").getConfig("public_example");
         String provider = config.getString("provider");
         config = config.getConfig(provider);
         cache = new CaffeineCache<>(config);

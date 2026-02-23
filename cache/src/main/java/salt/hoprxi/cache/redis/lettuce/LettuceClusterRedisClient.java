@@ -187,14 +187,14 @@ public class LettuceClusterRedisClient<K, V> extends LettuceRedisClient<K, V> {
         try (StatefulRedisClusterConnection<byte[], byte[]> connection = (StatefulRedisClusterConnection<byte[], byte[]>) pool.borrowObject()) {
 
             RedisAdvancedClusterAsyncCommands<byte[], byte[]> command = connection.async();
-            command.setAutoFlushCommands(false);
+            //command.setAutoFlushCommands(false);
             List<RedisFuture<byte[]>> redisFutureList = new ArrayList<>();
             for (K key : keys) {
                 byte[] _key = merge(key);
                 redisFutureList.add(command.get(_key));
             }
-            command.flushCommands();
-            command.setAutoFlushCommands(true);
+            //command.flushCommands();
+            //command.setAutoFlushCommands(true);
             int i = 0;
             for (K key : keys) {
                 V v = serialization.deserialize(redisFutureList.get(i++).get());

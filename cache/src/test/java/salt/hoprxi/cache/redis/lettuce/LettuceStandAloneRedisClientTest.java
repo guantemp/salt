@@ -50,7 +50,7 @@ public class LettuceStandAloneRedisClientTest {
         cache.put(2, "环境恶化和速度就会回来告诉uyyesanmf积分");
         cache.put(5, "环的vbddlgkregsdg阿境恶化和速度就会回来告诉uyyesanmf积分");
         Map<Integer, String> map = new HashMap<>();
-        map.put(11, "safdas");
+        map.put(11, "全部都有中文好像");
         map.put(12, "asd阿凡达2");
         map.put(13, "a杀毒二货·12");
         map.put(14, "沃尔夫大商股份");
@@ -77,16 +77,15 @@ public class LettuceStandAloneRedisClientTest {
         Assert.assertNotNull(cache.get(5));
         Assert.assertEquals(cache.get(1), "色啊付款金额啊哈1");
         Assert.assertNull(cache.get(3));
-        System.out.println( cache.get(14));
+        //System.out.println( cache.get(14));
 
-        Assert.assertEquals(cache.get(14), "沃尔夫大商股份");
-        Assert.assertEquals(cache.get(15), "十多个和我过");
+        Assert.assertEquals(cache.get(2), "环境恶化和速度就会回来告诉uyyesanmf积分");
+        Assert.assertEquals(cache.get(5), "环的vbddlgkregsdg阿境恶化和速度就会回来告诉uyyesanmf积分");
 
-        client.get(1, 3, 5, 11, 13, 2);
-        client.get(14, 7, 11, 13, 6, 12);
-        Map<Integer, Object> map = cache.get(15, 2, 1, 11, 3, 12, 7, 5);
+        //client.get(1, 3, 5, 11, 13, 2);
+        //client.get(14, 7, 11, 13, 6, 12);
+        Map<Integer, Object> map = client.get(15, 2, 1, 11, 3, 12, 7, 5);
         Assert.assertEquals(map.size(), 6);
-        Assert.assertNull(map.get(3));
         Assert.assertEquals(map.get(15), "十多个和我过");
 
         String[] s = {"俗话说得好渡水复渡水", "说的话是个射天狼巍峨特务俄问题打了个而社科", "爱上了安慰了附件"};

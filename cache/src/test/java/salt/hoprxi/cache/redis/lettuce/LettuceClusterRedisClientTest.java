@@ -35,7 +35,7 @@ import java.util.Map;
  */
 public class LettuceClusterRedisClientTest {
     private static final Config config = ConfigFactory.load("cache").getConfig("public_example.l2.redis.cluster");
-    private static final RedisClient<Integer, Object> client = new LettuceClusterRedisClient("test", config);
+    private static final RedisClient<Integer, Object> client = new LettuceClusterRedisClient<>("test", config);
     private static final Cache<Integer, Object> cache = new RedisCacheBuilder<Integer, Object>("test").client(client).build();
 
     @Test
