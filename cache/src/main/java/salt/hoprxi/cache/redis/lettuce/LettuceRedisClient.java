@@ -16,8 +16,6 @@
 
 package salt.hoprxi.cache.redis.lettuce;
 
-import io.lettuce.core.api.StatefulConnection;
-import org.apache.commons.pool2.impl.GenericObjectPool;
 import salt.hoprxi.cache.redis.RedisClient;
 import salt.hoprxi.cache.util.Serialization;
 
@@ -35,7 +33,6 @@ public abstract class LettuceRedisClient<K, V> implements RedisClient<K, V> {
     protected static final byte[] SEPARATOR = ":".getBytes(StandardCharsets.UTF_8);
     protected static final long SCAN_COUNT = 10000;
     protected final byte[] regionBytes;
-    protected GenericObjectPool<StatefulConnection<byte[], byte[]>> pool;
     protected long expire;
     protected Serialization serialization;
 

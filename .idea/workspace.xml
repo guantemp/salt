@@ -4,10 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="20482602-c4f2-4d7c-8556-c526a976ada0" name="Changes" comment="202511081652">
+    <list default="true" id="20482602-c4f2-4d7c-8556-c526a976ada0" name="Changes" comment="202602231657">
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cache/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/cache/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crypto/src/test/java/salt/hoprxi/crypto/PasswordServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/src/test/java/salt/hoprxi/crypto/PasswordServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cache/src/main/java/salt/hoprxi/cache/redis/lettuce/LettuceClusterRedisClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/cache/src/main/java/salt/hoprxi/cache/redis/lettuce/LettuceClusterRedisClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cache/src/main/java/salt/hoprxi/cache/redis/lettuce/LettuceRedisClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/cache/src/main/java/salt/hoprxi/cache/redis/lettuce/LettuceRedisClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/target/classes/salt/hoprxi/utils/NLS.class" beforeDir="false" afterPath="$PROJECT_DIR$/utils/target/classes/salt/hoprxi/utils/NLS.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +69,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/guantemp/salt.git&quot;,
-    &quot;accountId&quot;: &quot;81ef24c5-573b-402b-8b16-07d11166b4be&quot;
+    &quot;accountId&quot;: &quot;2dfc1386-8aae-42ee-924b-844ef30adc22&quot;
   }
 }</component>
   <component name="MarkdownSettingsMigration">
@@ -75,12 +78,12 @@
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
-        <option name="customMavenHome" value="D:\Program Files\apache-maven-3.9.11" />
+        <option name="customMavenHome" value="D:\Program Files (x86)\apache-maven-3.9.11" />
         <option name="localRepository" value="D:\mvn" />
         <option name="mavenHomeTypeForPersistence" value="CUSTOM" />
         <option name="printErrorStackTraces" value="true" />
         <option name="useMavenConfig" value="false" />
-        <option name="userSettingsFile" value="D:\Program Files\apache-maven-3.9.11\conf\settings.xml" />
+        <option name="userSettingsFile" value="D:\Program Files (x86)\apache-maven-3.9.11\conf\settings.xml" />
       </MavenGeneralSettings>
     </option>
   </component>
@@ -127,6 +130,7 @@
     &quot;TestNG.EncryptServiceTest.executor&quot;: &quot;Run&quot;,
     &quot;TestNG.EncryptionServiceTest.executor&quot;: &quot;Run&quot;,
     &quot;TestNG.HashServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;TestNG.LettuceClusterRedisClientTest.executor&quot;: &quot;Run&quot;,
     &quot;TestNG.LettuceStandAloneRedisClientTest.executor&quot;: &quot;Run&quot;,
     &quot;TestNG.LongIdTest.executor&quot;: &quot;Run&quot;,
     &quot;TestNG.PasswordServiceTest.executor&quot;: &quot;Run&quot;,
@@ -135,6 +139,7 @@
     &quot;TestNG.ResourceWherePathTest.executor&quot;: &quot;Run&quot;,
     &quot;TestNG.SM4UtilTest.executor&quot;: &quot;Run&quot;,
     &quot;TestNG.SelectorTest.executor&quot;: &quot;Run&quot;,
+    &quot;TestNG.StoreKeyLoadTest.executor&quot;: &quot;Run&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;TestNG&quot;,
     &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit3&quot;: &quot;junit.framework.TestCase&quot;,
@@ -142,7 +147,7 @@
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;jdk.selected.JAVA_MODULE&quot;: &quot;1.8&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/workspace/salt/cache/target/test-classes&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/workspace/salt/cache/target/classes&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -152,7 +157,7 @@
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
     &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;settings.editor.splitter.proportion&quot;: &quot;0.20660378&quot;,
     &quot;spring.configuration.checksum&quot;: &quot;5ae9b7f211e23aac3df5f2b8f3b8eada&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;,
@@ -166,19 +171,22 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\workspace\salt\cache\target\test-classes" />
-      <recent name="D:\workspace\salt\cache\target\test-classes" />
       <recent name="D:\workspace\salt\cache\target\classes" />
-      <recent name="E:\workspace\salt\cache\src\main\resources" />
-      <recent name="E:\workspace\salt\crypto\target\classes" />
+      <recent name="D:\workspace\salt\cache\src\main\resources" />
+      <recent name="D:\workspace\salt\crypto\src\test\java" />
+      <recent name="D:\workspace\salt\crypto\src\main\resources" />
+      <recent name="D:\workspace\salt\crypto\src\test\java\salt\hoprxi" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
       <recent name="junit.framework.TestCase" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\workspace\salt\cache\src\main\resources" />
+      <recent name="D:\workspace\salt\cache\target\classes" />
+      <recent name="D:\workspace\salt\crypto\target\classes" />
+      <recent name="D:\workspace\salt\crypto\src\test\java\salt\hoprxi" />
       <recent name="E:\workspace\salt\cache\target\test-classes" />
-      <recent name="E:\workspace\salt\crypto\target\classes" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="salt.hoprxi.crypto" />
@@ -195,7 +203,7 @@
       <recent name="salt.hoprxi.crypto" />
     </key>
   </component>
-  <component name="RunManager" selected="TestNG.PasswordServiceTest">
+  <component name="RunManager" selected="TestNG.LettuceStandAloneRedisClientTest">
     <configuration name="App" type="Application" factoryName="Application">
       <option name="ALTERNATIVE_JRE_PATH" value="$PROJECT_DIR$/../../Program Files/jdk-21.0.2" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
@@ -227,7 +235,7 @@
       <shortenClasspath name="NONE" />
       <useClassPathOnly />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-      <option name="ALTERNATIVE_JRE_PATH" value="D:/Program Files/jdk-21.0.2" />
+      <option name="ALTERNATIVE_JRE_PATH" value="$PROJECT_DIR$/../../Program Files/jdk-21.0.2" />
       <option name="SUITE_NAME" value="" />
       <option name="PACKAGE_NAME" value="salt.hoprxi.crypto.util" />
       <option name="MAIN_CLASS_NAME" value="salt.hoprxi.crypto.util.AESUtilTest" />
@@ -270,7 +278,7 @@
       <shortenClasspath name="NONE" />
       <useClassPathOnly />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-      <option name="ALTERNATIVE_JRE_PATH" value="D:/Program Files/jdk-21.0.2" />
+      <option name="ALTERNATIVE_JRE_PATH" value="$PROJECT_DIR$/../../Program Files/jdk-21.0.2" />
       <option name="SUITE_NAME" value="" />
       <option name="PACKAGE_NAME" value="salt.hoprxi.cache.caffeine" />
       <option name="MAIN_CLASS_NAME" value="salt.hoprxi.cache.caffeine.CaffeineCacheTest" />
@@ -418,6 +426,8 @@
       <module name="cache" />
       <shortenClasspath name="NONE" />
       <useClassPathOnly />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="ALTERNATIVE_JRE_PATH" value="$PROJECT_DIR$/../../Program Files/jdk-21.0.2" />
       <option name="SUITE_NAME" value="" />
       <option name="PACKAGE_NAME" value="salt.hoprxi.cache.redis.lettuce" />
       <option name="MAIN_CLASS_NAME" value="salt.hoprxi.cache.redis.lettuce.LettuceStandAloneRedisClientTest" />
@@ -440,7 +450,7 @@
       <shortenClasspath name="NONE" />
       <useClassPathOnly />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-      <option name="ALTERNATIVE_JRE_PATH" value="D:/Program Files/jdk-21.0.2" />
+      <option name="ALTERNATIVE_JRE_PATH" value="$PROJECT_DIR$/../../Program Files/jdk-21.0.2" />
       <option name="SUITE_NAME" value="" />
       <option name="PACKAGE_NAME" value="salt.hoprxi.id" />
       <option name="MAIN_CLASS_NAME" value="salt.hoprxi.id.LongIdTest" />
@@ -505,7 +515,7 @@
       <shortenClasspath name="NONE" />
       <useClassPathOnly />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-      <option name="ALTERNATIVE_JRE_PATH" value="D:/Program Files/jdk-21.0.2" />
+      <option name="ALTERNATIVE_JRE_PATH" value="$PROJECT_DIR$/../../Program Files/jdk-21.0.2" />
       <option name="SUITE_NAME" value="" />
       <option name="PACKAGE_NAME" value="salt.hoprxi.utils" />
       <option name="MAIN_CLASS_NAME" value="salt.hoprxi.utils.RandomGeneratorTest" />
@@ -548,7 +558,7 @@
       <shortenClasspath name="NONE" />
       <useClassPathOnly />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-      <option name="ALTERNATIVE_JRE_PATH" value="D:/Program Files/jdk-21.0.2" />
+      <option name="ALTERNATIVE_JRE_PATH" value="$PROJECT_DIR$/../../Program Files/jdk-21.0.2" />
       <option name="SUITE_NAME" value="" />
       <option name="PACKAGE_NAME" value="salt.hoprxi.crypto.util" />
       <option name="MAIN_CLASS_NAME" value="salt.hoprxi.crypto.util.SM4UtilTest" />
@@ -571,7 +581,7 @@
       <shortenClasspath name="NONE" />
       <useClassPathOnly />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-      <option name="ALTERNATIVE_JRE_PATH" value="D:/Program Files/jdk-21.0.2" />
+      <option name="ALTERNATIVE_JRE_PATH" value="$PROJECT_DIR$/../../Program Files/jdk-21.0.2" />
       <option name="SUITE_NAME" value="" />
       <option name="PACKAGE_NAME" value="salt.hoprxi.utils" />
       <option name="MAIN_CLASS_NAME" value="salt.hoprxi.utils.SelectorTest" />
@@ -778,6 +788,8 @@
       <workItem from="1762581558063" duration="1891000" />
       <workItem from="1762590392841" duration="1902000" />
       <workItem from="1765283047351" duration="1127000" />
+      <workItem from="1771811155771" duration="23323000" />
+      <workItem from="1771853620601" duration="968000" />
     </task>
     <task id="LOCAL-00001" summary="202309191815">
       <created>1695118536340</created>
@@ -1097,7 +1109,23 @@
       <option name="project" value="LOCAL" />
       <updated>1762591955706</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="202602231043">
+      <option name="closed" value="true" />
+      <created>1771814653179</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1771814653179</updated>
+    </task>
+    <task id="LOCAL-00046" summary="202602231657">
+      <option name="closed" value="true" />
+      <created>1771837092327</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1771837092327</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1121,8 +1149,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="202409071142" />
-    <MESSAGE value="202409071155" />
     <MESSAGE value="202409212338" />
     <MESSAGE value="202409241931" />
     <MESSAGE value="202409241939" />
@@ -1146,7 +1172,9 @@
     <MESSAGE value="202509261116" />
     <MESSAGE value="202510092228" />
     <MESSAGE value="202511081652" />
-    <option name="LAST_COMMIT_MESSAGE" value="202511081652" />
+    <MESSAGE value="202602231043" />
+    <MESSAGE value="202602231657" />
+    <option name="LAST_COMMIT_MESSAGE" value="202602231657" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1154,7 +1182,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/crypto/src/test/java/salt/hoprxi/crypto/PasswordServiceTest.java</url>
-          <line>145</line>
+          <line>148</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>

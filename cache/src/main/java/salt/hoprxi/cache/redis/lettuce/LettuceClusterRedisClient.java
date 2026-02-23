@@ -18,15 +18,12 @@ package salt.hoprxi.cache.redis.lettuce;
 
 import com.typesafe.config.Config;
 import io.lettuce.core.*;
-import io.lettuce.core.api.StatefulConnection;
 import io.lettuce.core.cluster.ClusterClientOptions;
 import io.lettuce.core.cluster.ClusterTopologyRefreshOptions;
 import io.lettuce.core.cluster.RedisClusterClient;
 import io.lettuce.core.cluster.api.StatefulRedisClusterConnection;
 import io.lettuce.core.cluster.api.async.RedisAdvancedClusterAsyncCommands;
 import io.lettuce.core.cluster.api.sync.RedisAdvancedClusterCommands;
-import io.lettuce.core.support.ConnectionPoolSupport;
-import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import salt.hoprxi.cache.util.FSTSerialization;
@@ -50,6 +47,7 @@ public class LettuceClusterRedisClient<K, V> extends LettuceRedisClient<K, V> {
     //定时5分钟更新集群拓扑视图
     private static final Duration PERIODIC_REFRESH = Duration.ofMinutes(5);
     private final RedisClusterClient client;
+    private final StatefulRedisClusterConnection<byte[], byte[]> connection;
 
     public LettuceClusterRedisClient(String region, Config config) {
         super(region);
@@ -68,6 +66,7 @@ public class LettuceClusterRedisClient<K, V> extends LettuceRedisClient<K, V> {
             redisURIS.add(uri);
         }
         client = RedisClusterClient.create(redisURIS);
+        connection = client.connect(LETTUCE_BYTE_REDIS_CODEC); // 保存为成员变量
 
         ClusterTopologyRefreshOptions topologyRefreshOptions = ClusterTopologyRefreshOptions.builder()
                 //自适应更新集群拓扑视图，超时5秒
@@ -79,12 +78,6 @@ public class LettuceClusterRedisClient<K, V> extends LettuceRedisClient<K, V> {
                 .build();
         client.setOptions(ClusterClientOptions.builder().topologyRefreshOptions(topologyRefreshOptions).build());
 
-        GenericObjectPoolConfig<StatefulConnection<byte[], byte[]>> poolConfig = new GenericObjectPoolConfig<>();
-        poolConfig.setMaxTotal(config.hasPath("maxTotal") ? config.getInt("maxTotal") : 8);
-        poolConfig.setMaxIdle(config.hasPath("maxIdle") ? config.getInt("maxIdle") : 8);
-        poolConfig.setMinIdle(config.hasPath("minIdle") ? config.getInt("minIdle") : 1);
-        pool = ConnectionPoolSupport.createGenericObjectPool(() -> client.connect(LETTUCE_BYTE_REDIS_CODEC), poolConfig);
-
         expire = config.hasPath("expire") ? config.getLong("expire") : 0L;
         serialization = config.hasPath("serialization") ?
                 config.getString("serialization").equalsIgnoreCase("kryo") ?
@@ -93,7 +86,7 @@ public class LettuceClusterRedisClient<K, V> extends LettuceRedisClient<K, V> {
 
     @Override
     public void set(K key, V value) {
-        try (StatefulRedisClusterConnection<byte[], byte[]> connection = (StatefulRedisClusterConnection<byte[], byte[]>) pool.borrowObject()) {
+        try {
             RedisAdvancedClusterCommands<byte[], byte[]> command = connection.sync();
             byte[] _key = merge(key);
             byte[] valueBytes = serialization.serialize(value);
@@ -106,7 +99,7 @@ public class LettuceClusterRedisClient<K, V> extends LettuceRedisClient<K, V> {
 
     @Override
     public void hset(K key, V value) {
-        try (StatefulRedisClusterConnection<byte[], byte[]> connection = (StatefulRedisClusterConnection<byte[], byte[]>) pool.borrowObject()) {
+        try {
             RedisAdvancedClusterCommands<byte[], byte[]> command = connection.sync();
             byte[] keyBytes = serialization.serialize(key);
             byte[] valueBytes = serialization.serialize(value);
@@ -118,7 +111,7 @@ public class LettuceClusterRedisClient<K, V> extends LettuceRedisClient<K, V> {
 
     @Override
     public void set(Map<? extends K, ? extends V> map) {
-        try (StatefulRedisClusterConnection<byte[], byte[]> connection = (StatefulRedisClusterConnection<byte[], byte[]>) pool.borrowObject()) {
+        try {
             RedisAdvancedClusterCommands<byte[], byte[]> command = connection.sync();
             map.forEach((key, value) -> {
                 byte[] _key = merge(key);
@@ -133,7 +126,7 @@ public class LettuceClusterRedisClient<K, V> extends LettuceRedisClient<K, V> {
 
     @Override
     public V get(K key) {
-        try (StatefulRedisClusterConnection<byte[], byte[]> connection = (StatefulRedisClusterConnection<byte[], byte[]>) pool.borrowObject()) {
+        try {
             RedisAdvancedClusterAsyncCommands<byte[], byte[]> command = connection.async();
             byte[] _key = merge(key);
             RedisFuture<byte[]> redisFuture = command.get(_key);
@@ -162,7 +155,7 @@ public class LettuceClusterRedisClient<K, V> extends LettuceRedisClient<K, V> {
 
     @Override
     public V hget(K key) {
-        try (StatefulRedisClusterConnection<byte[], byte[]> connection = (StatefulRedisClusterConnection<byte[], byte[]>) pool.borrowObject()) {
+        try {
             RedisAdvancedClusterAsyncCommands<byte[], byte[]> command = connection.async();
             byte[] keyBytes = serialization.serialize(key);
             RedisFuture<byte[]> redisFuture = command.hget(regionBytes, keyBytes);
@@ -184,7 +177,7 @@ public class LettuceClusterRedisClient<K, V> extends LettuceRedisClient<K, V> {
     public Map<K, V> get(Iterable<? extends K> keys) {
         int capacity = (int) (((Collection<?>) keys).size() / 0.75 + 1);
         Map<K, V> result = new HashMap<>(capacity);
-        try (StatefulRedisClusterConnection<byte[], byte[]> connection = (StatefulRedisClusterConnection<byte[], byte[]>) pool.borrowObject()) {
+        try {
 
             RedisAdvancedClusterAsyncCommands<byte[], byte[]> command = connection.async();
             //command.setAutoFlushCommands(false);
@@ -223,7 +216,7 @@ public class LettuceClusterRedisClient<K, V> extends LettuceRedisClient<K, V> {
 
     @Override
     public void hdel(K key) {
-        try (StatefulRedisClusterConnection<byte[], byte[]> connection = (StatefulRedisClusterConnection<byte[], byte[]>) pool.borrowObject()) {
+        try {
             RedisAdvancedClusterCommands<byte[], byte[]> command = connection.sync();
             byte[] keyBytes = serialization.serialize(key);
             command.hdel(regionBytes, keyBytes);
@@ -234,7 +227,7 @@ public class LettuceClusterRedisClient<K, V> extends LettuceRedisClient<K, V> {
 
     @Override
     public void del(K key) {
-        try (StatefulRedisClusterConnection<byte[], byte[]> connection = (StatefulRedisClusterConnection<byte[], byte[]>) pool.borrowObject()) {
+        try {
             RedisAdvancedClusterCommands<byte[], byte[]> command = connection.sync();
             byte[] _key = merge(key);
             command.del(_key);
@@ -253,7 +246,7 @@ public class LettuceClusterRedisClient<K, V> extends LettuceRedisClient<K, V> {
     public void del(Iterable<? extends K> keys) {
         int size = ((Collection<?>) keys).size();
         byte[][] bytes = new byte[size][];
-        try (StatefulRedisClusterConnection<byte[], byte[]> connection = (StatefulRedisClusterConnection<byte[], byte[]>) pool.borrowObject()) {
+        try {
             RedisAdvancedClusterCommands<byte[], byte[]> command = connection.sync();
             int i = 0;
             for (K key : keys) {
@@ -267,7 +260,7 @@ public class LettuceClusterRedisClient<K, V> extends LettuceRedisClient<K, V> {
 
     @Override
     public void clear() {
-        try (StatefulRedisClusterConnection<byte[], byte[]> connection = (StatefulRedisClusterConnection<byte[], byte[]>) pool.borrowObject()) {
+        try {
             RedisAdvancedClusterCommands<byte[], byte[]> command = connection.sync();
             Collection<byte[]> keys = new ArrayList<>();
             ScanCursor scanCursor = ScanCursor.INITIAL;
