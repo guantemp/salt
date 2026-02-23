@@ -188,11 +188,12 @@ public class PasswordService {
     }
 
     private static void list(String fileName, String protectPasswd) throws KeyStoreException, CertificateException, NoSuchAlgorithmException {
-        try (FileInputStream fis = new FileInputStream(fileName)) {
+        File file = new File(fileName);
+        try (FileInputStream fis = new FileInputStream(file)) {
             KeyStore keyStore = KeyStore.getInstance("JCEKS");
             keyStore.load(fis, protectPasswd.toCharArray());
             Enumeration<String> alias = keyStore.aliases();
-            System.out.println("List entry from: " + fileName);
+            System.out.println("\nList entry from: " + file.getAbsolutePath());
             while (alias.hasMoreElements()) {
                 System.out.println(alias.nextElement());
             }
@@ -251,7 +252,13 @@ public class PasswordService {
 
     private static void encrypt(String entry, String planText, SecretKey key, String password) throws NoSuchAlgorithmException, InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
         byte[] aesData = AESUtil.encrypt(planText.getBytes(StandardCharsets.UTF_8), key);
-        System.out.println("The planText has encrypted\n" + "----------------         -----------------------\n" + "entry                    " + entry + "\n" + "plan_text                " + planText + "\n" + "password                 " + password + "\n" + "encrypted(base64)        " + Base64.toBase64String(aesData) + "\n" + "encrypted(hex)           " + ByteToHex.toHexStr(aesData));
+        System.out.println("The planText has encrypted\n" + "----------------         -----------------------\n"
+                + "entry                    " + entry
+                + "\n" + "plan_text                "
+                + planText + "\n" + "password                 "
+                + password + "\n" + "encrypted(base64)        "
+                + Base64.toBase64String(aesData) + "\n" + "encrypted(hex)           "
+                + ByteToHex.toHexStr(aesData));
     }
 
     /**

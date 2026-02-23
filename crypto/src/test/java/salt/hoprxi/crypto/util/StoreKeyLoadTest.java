@@ -28,12 +28,12 @@ public class StoreKeyLoadTest {
     @Test
     public void testLoadSecretKey() {
         StoreKeyLoad.loadSecretKey("keystore.jks", "Qwe123465",
-                new String[]{"120.77.47.145:6379:P$Qwe123465Re", "125.68.186.195:9200:P$Qwe123465El", "120.77.47.145:5432:P$Qwe123465Pg", "125.68.186.195:5432:P$Qwe123465Pg"});
+                new String[]{"slave.tooo.top:6379:P$Qwe123465Re", "slave.tooo.top:9200:P$Qwe123465El", "120.77.47.145:5432:P$Qwe123465Pg", "125.68.186.195:5432:P$Qwe123465Pg"});
     }
 
     @Test(priority = 1)
     public void testDecrypt() {
-        System.out.println(StoreKeyLoad.decrypt("120.77.47.145:6379", "yqjbhVxP8riIK34bbYdSIskltdUNBo8pmfVgbvt0uLo="));
-        System.out.println(StoreKeyLoad.decrypt("120.77.47.145:6379", "k2vrFVzW5x3JGZ7Qh4cnju0DGtm37Eabp47aBnWMVHo="));
+        System.out.println(StoreKeyLoad.decrypt("slave.tooo.top:6379", "VzLa23/ArbLVbWsePUnHjmaGZEB7Uy+Q1l7+DJtuls0="));
+        System.out.println(StoreKeyLoad.decrypt("slave.tooo.top:6379", "lGjKdALa7L6ZX/4s2zaRyYOzWAYvlgPfzAaw8VMTius="));
     }
 }

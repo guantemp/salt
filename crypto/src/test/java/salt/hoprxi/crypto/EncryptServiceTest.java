@@ -49,22 +49,22 @@ import java.util.Locale;
 public class EncryptServiceTest {
     @org.testng.annotations.Test
     public void testKeyPair() throws Exception {
-        Key[] keys=EncryptService.nextRSAKeyPair(2048);
+        Key[] keys=EncryptService.nextRSAKeyPair(4096);
 
         PrivateKey privateKey = (PrivateKey) keys[1];
-        System.out.println("RSA私钥：\n" + Base64.toBase64String(privateKey.getEncoded()));
+        System.out.println("RSA私钥(4096)：\n" + Base64.toBase64String(privateKey.getEncoded()));
         PublicKey publicKey = (PublicKey) keys[0];
-        System.out.println("RSA公钥：\n" + Base64.toBase64String(publicKey.getEncoded()));
+        System.out.println("RSA公钥(4096)：\n" + Base64.toBase64String(publicKey.getEncoded()));
 
-        System.out.println("私钥加密结果:");
+        System.out.println("私钥加密(base64):");
         byte[] encodedData = EncryptService.encrypt("寒山阿萨法千万人情味去我姥姥爱上合适的第三方挖了文人士大夫为了网天然了问题了合适的发生大幅了剃光头了过了23人我还是封杀哥哥老大哥电话3晚了点共和国饿他跟3 二哥和老公扔了涉案特了啊头； 为爱跳舞艾尔文特委屈我去儿童委屈月初℃".getBytes(StandardCharsets.UTF_8), privateKey);
         System.out.println(Base64.toBase64String(encodedData));
-        System.out.println("公钥解密结果:");
+        System.out.println("公钥解密:");
         byte[] decodeData = EncryptService.decrypt(encodedData, publicKey);
         System.out.println(new String(decodeData, StandardCharsets.UTF_8));
 
         encodedData = EncryptService.encrypt("寒山阿萨法千万人情味去我姥姥爱上合适的第三方挖了文人士大夫为了网天然了问题了合适的发生大幅了剃光头了过了23人我还是封杀哥哥老大哥电话3晚了点共和国饿他跟3 二哥和老公扔了涉案特了啊头； 为爱跳舞艾尔文特委屈我去儿童委屈月初℃".getBytes(StandardCharsets.UTF_8), publicKey);
-        System.out.println("公钥加密:\n" + Base64.toBase64String(encodedData));
+        System.out.println("公钥加密(base64):\n" + Base64.toBase64String(encodedData));
         decodeData = EncryptService.decrypt(encodedData, privateKey);
         System.out.println("私钥解密\n" + new String(decodeData, StandardCharsets.UTF_8));
     }
