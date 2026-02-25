@@ -89,14 +89,6 @@
                             <resources>
                                 <resource>
                                     <directory>src/main/resources</directory>
-                                    <!--
-                                    <includes>
-                                        <exclude>**/*.conf</exclude>
-                                        <exclude>**/*.json</exclude>
-                                        <exclude>**/*.xml</exclude>
-                                    </includes>
-                                    <filtering>true</filtering>
-                                    -->
                                 </resource>
                             </resources>
                             <encoding>UTF-8</encoding>

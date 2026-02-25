@@ -37,7 +37,7 @@ public abstract class LettuceRedisClient<K, V> implements RedisClient<K, V> {
     protected Serialization serialization;
 
     /**
-     * @param region
+     * @param region of 区域
      * @throws IllegalArgumentException No configuration setting found
      */
     public LettuceRedisClient(String region) {
