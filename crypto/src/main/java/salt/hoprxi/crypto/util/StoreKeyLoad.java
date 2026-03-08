@@ -29,9 +29,11 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.security.*;
 import java.security.cert.CertificateException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Base64;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Pattern;
-import java.util.stream.Stream;
 
 /***
  * @author <a href="www.hoprxi.com/authors/guan xiangHuan">guan xiangHuang</a>
@@ -54,12 +56,14 @@ public final class StoreKeyLoad {
         try (InputStream fis = Thread.currentThread().getContextClassLoader().getResourceAsStream(keystoreFile)) {
             KeyStore keyStore = KeyStore.getInstance("JCEKS");
             keyStore.load(fis, keystoreFileProtectedPasswd.toCharArray());
+            /*
             Enumeration<String> alias = keyStore.aliases();
             while (alias.hasMoreElements()) {
                 String entry = alias.nextElement();
                 if (!isDuplicates(entries, entry))
                     entries = Stream.concat(Arrays.stream(entries), Stream.of(entry)).toArray(String[]::new);
             }
+             */
             for (String entry : entries) {
                 String[] ss = entry.split(":");
                 String rowPass = "";
@@ -68,12 +72,25 @@ public final class StoreKeyLoad {
                     ss = Arrays.copyOf(ss, ss.length - 1);
                 }
                 //System.out.println(Arrays.toString(ss));
+                String alias;
                 if (ss.length == 3)//https://slave.tooo.top:9200
-                    SECRET_KEY_PARAMETER.put(ss[0] + ":" + ss[1] + ":" + ss[2], (SecretKey) keyStore.getKey(ss[0] + ":" + ss[1] + ":" + ss[2], rowPass.toCharArray()));
-                if (ss.length == 2) //125.68.186.195:5432,slave.tooo.top:9200
-                    SECRET_KEY_PARAMETER.put(ss[0] + ":" + ss[1], (SecretKey) keyStore.getKey(ss[0] + ":" + ss[1], rowPass.toCharArray()));
-                if (ss.length == 1)
-                    SECRET_KEY_PARAMETER.put(ss[0], (SecretKey) keyStore.getKey(ss[0], rowPass.toCharArray()));
+                    alias = ss[0] + ":" + ss[1] + ":" + ss[2];
+                    //SECRET_KEY_PARAMETER.put(ss[0] + ":" + ss[1] + ":" + ss[2], (SecretKey) keyStore.getKey(ss[0] + ":" + ss[1] + ":" + ss[2], rowPass.toCharArray()));
+                else if (ss.length == 2) //125.68.186.195:5432,slave.tooo.top:9200
+                    alias = ss[0] + ":" + ss[1];
+                    //SECRET_KEY_PARAMETER.put(ss[0] + ":" + ss[1], (SecretKey) keyStore.getKey(ss[0] + ":" + ss[1], rowPass.toCharArray()));
+                else if (ss.length == 1)
+                    alias = ss[0];
+                    //SECRET_KEY_PARAMETER.put(ss[0], (SecretKey) keyStore.getKey(ss[0], rowPass.toCharArray()));
+                else
+                    continue;
+                // 检查 KeyStore 中是否存在该 alias
+                if (keyStore.containsAlias(alias)) {
+                    SecretKey secretKey = (SecretKey) keyStore.getKey(alias, rowPass.toCharArray());
+                    SECRET_KEY_PARAMETER.put(alias, secretKey);
+                } else {
+                    LOGGER.warn("Alias '{}' does not exist in keystore", alias);
+                }
             }
         } catch (FileNotFoundException | KeyStoreException | NoSuchAlgorithmException | CertificateException e) {
             LOGGER.error("Not find key store file in {}", keystoreFile, e);
