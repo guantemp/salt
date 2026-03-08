@@ -67,7 +67,7 @@ public final class StoreKeyLoad {
             for (String entry : entries) {
                 String[] ss = entry.split(":");
                 String rowPass = "";
-                if (PASS.matcher(ss[ss.length - 1]).matches()) {//最少一个:分割如果有P$格式代表密码
+                if (PASS.matcher(ss[ss.length - 1]).matches()) {//最后一个:分割如果有P$格式代表密码，https://slave.tooo.top:9200:P$QWE555
                     rowPass = ss[ss.length - 1].substring(2);
                     ss = Arrays.copyOf(ss, ss.length - 1);
                 }
@@ -84,8 +84,7 @@ public final class StoreKeyLoad {
                     //SECRET_KEY_PARAMETER.put(ss[0], (SecretKey) keyStore.getKey(ss[0], rowPass.toCharArray()));
                 else
                     continue;
-                // 检查 KeyStore 中是否存在该 alias
-                if (keyStore.containsAlias(alias)) {
+                if (keyStore.containsAlias(alias)) {// 检查 KeyStore 中是否存在该 alias
                     SecretKey secretKey = (SecretKey) keyStore.getKey(alias, rowPass.toCharArray());
                     SECRET_KEY_PARAMETER.put(alias, secretKey);
                 } else {
@@ -100,7 +99,7 @@ public final class StoreKeyLoad {
             LOGGER.error("Is a bad key is used during decryption", e);
         }
     }
-
+/*
     private static boolean isDuplicates(String[] entries, String savedEntry) {
         for (String entry : entries) {
             if (entry.replaceFirst(":P\\$.*", "").equalsIgnoreCase(savedEntry)) {
@@ -109,7 +108,7 @@ public final class StoreKeyLoad {
         }
         return false;
     }
-
+ */
     public static String decrypt(String entry, String securedPlainText) {
         byte[] aesData = Base64.getDecoder().decode(securedPlainText);
         //Bootstrap.SECRET_KEY_MAP.get(entry);

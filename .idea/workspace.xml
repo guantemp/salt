@@ -5,9 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="20482602-c4f2-4d7c-8556-c526a976ada0" name="Changes" comment="202602251629">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/util/StoreKeyLoad.java" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/src/main/java/salt/hoprxi/crypto/util/StoreKeyLoad.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crypto/target/crypto-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/crypto/target/crypto-1.0-SNAPSHOT.jar" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -795,7 +793,7 @@
       <workItem from="1772005582096" duration="1783000" />
       <workItem from="1772197769203" duration="20000" />
       <workItem from="1772260802020" duration="175000" />
-      <workItem from="1772893398468" duration="3061000" />
+      <workItem from="1772893398468" duration="3513000" />
     </task>
     <task id="LOCAL-00001" summary="202309191815">
       <created>1695118536340</created>
@@ -1147,7 +1145,15 @@
       <option name="project" value="LOCAL" />
       <updated>1772008164200</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="202602251629">
+      <option name="closed" value="true" />
+      <created>1772946187287</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1772946187287</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
