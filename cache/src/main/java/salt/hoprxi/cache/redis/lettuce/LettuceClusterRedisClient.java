@@ -26,7 +26,6 @@ import io.lettuce.core.cluster.api.async.RedisAdvancedClusterAsyncCommands;
 import io.lettuce.core.cluster.api.sync.RedisAdvancedClusterCommands;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import salt.hoprxi.cache.util.FSTSerialization;
 import salt.hoprxi.cache.util.KryoSerialization;
 
 import java.time.Duration;
@@ -70,8 +69,7 @@ public class LettuceClusterRedisClient<K, V> extends LettuceRedisClient<K, V> {
 
         ClusterTopologyRefreshOptions topologyRefreshOptions = ClusterTopologyRefreshOptions.builder()
                 //自适应更新集群拓扑视图，超时5秒
-                .enableAdaptiveRefreshTrigger(ClusterTopologyRefreshOptions.RefreshTrigger.MOVED_REDIRECT, ClusterTopologyRefreshOptions.RefreshTrigger.PERSISTENT_RECONNECTS)
-                .enableAllAdaptiveRefreshTriggers()
+                .enablePeriodicRefresh(Duration.ofSeconds(5))
                 .adaptiveRefreshTriggersTimeout(Duration.ofMillis(5000))
                 //定时更新集群拓扑视图
                 .enablePeriodicRefresh(PERIODIC_REFRESH)
@@ -79,9 +77,7 @@ public class LettuceClusterRedisClient<K, V> extends LettuceRedisClient<K, V> {
         client.setOptions(ClusterClientOptions.builder().topologyRefreshOptions(topologyRefreshOptions).build());
 
         expire = config.hasPath("expire") ? config.getLong("expire") : 0L;
-        serialization = config.hasPath("serialization") ?
-                config.getString("serialization").equalsIgnoreCase("kryo") ?
-                        new KryoSerialization() : new FSTSerialization() : new KryoSerialization();
+        serialization = new KryoSerialization();
     }
 
     @Override

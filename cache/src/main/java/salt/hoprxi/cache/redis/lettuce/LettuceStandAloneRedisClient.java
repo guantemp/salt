@@ -22,7 +22,6 @@ import io.lettuce.core.api.StatefulRedisConnection;
 import io.lettuce.core.api.sync.RedisCommands;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import salt.hoprxi.cache.util.FSTSerialization;
 import salt.hoprxi.cache.util.KryoSerialization;
 import salt.hoprxi.crypto.application.DatabaseSpecDecrypt;
 
@@ -58,18 +57,13 @@ public class LettuceStandAloneRedisClient<K, V> extends LettuceRedisClient<K, V>
                 .build();
         client = RedisClient.create(uri);
         connection = client.connect(LETTUCE_BYTE_REDIS_CODEC); // 保存为成员变量
-/*
-        GenericObjectPoolConfig<StatefulConnection<byte[], byte[]>> poolConfig = new GenericObjectPoolConfig<>();
-        poolConfig.setMaxTotal(config.hasPath("maxTotal") ? config.getInt("maxTotal") : 8);
-        poolConfig.setMaxWaitMillis(config.hasPath("maxWaitMillis") ? config.getInt("maxWaitMillis") : 1);
-        poolConfig.setMaxIdle(config.hasPath("maxIdle") ? config.getInt("maxIdle") : 8);
-        poolConfig.setMinIdle(config.hasPath("minIdle") ? config.getInt("minIdle") : 1);
-        pool = ConnectionPoolSupport.createGenericObjectPool(() -> client.connect(LETTUCE_BYTE_REDIS_CODEC), poolConfig);
- */
         expire = config.hasPath("expire") ? config.getLong("expire") : 0L;
+        /*
         serialization = "kryo".equalsIgnoreCase(
                 config.hasPath("serialization") ? config.getString("serialization") : "kryo"
         ) ? new KryoSerialization() : new FSTSerialization();
+         */
+        serialization = new KryoSerialization();
     }
 
     @Override
