@@ -106,6 +106,8 @@ public final class PinYin {
      * @return
      */
     public static String toPinYing(String chineseCharacters) {
+        if (chineseCharacters == null || chineseCharacters.trim().isEmpty())
+            return "";
         final StringBuilder result = new StringBuilder();
         String strTemp;
         int len = chineseCharacters.length();
