@@ -19,6 +19,8 @@ package salt.hoprxi.cache;
 
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import salt.hoprxi.cache.caffeine.CaffeineCache;
 import salt.hoprxi.cache.l1_2.L1_2Cache;
 import salt.hoprxi.cache.redis.RedisCache;
@@ -46,12 +48,23 @@ public class CacheFactory {
     private int initialCapacity = UNSET_INT;
      */
     private static final Map<String, Cache<?, ?>> CACHE_CACHE = new ConcurrentHashMap<>();
+    private static final Logger LOGGER = LoggerFactory.getLogger("salt.hoprxi.cache");
     private static Config config;
 
     static {
-        Config cache = ConfigFactory.load("cache");
-        Config units = ConfigFactory.load("cache_unit");
-        config = cache.withFallback(units);
+        Config base;
+        try {
+            Config cache = ConfigFactory.load("cache");
+            Config units = ConfigFactory.load("cache_unit");
+            base = cache.withFallback(units).resolve();
+        } catch (Exception e) {
+            LoggerFactory.getLogger(CacheFactory.class)
+                    .warn("Config load failed, using built-in default. Error: {}", e.getMessage());
+            base = ConfigFactory.empty();
+        }
+        String defaultConfigStr = "public_example.provider = caffeine\n";
+        Config defaultConfig = ConfigFactory.parseString(defaultConfigStr);
+        config = base.withFallback(defaultConfig);
     }
 
     @SuppressWarnings("unchecked")
@@ -69,7 +82,7 @@ public class CacheFactory {
     }
 
     private static <K, V> Cache<K, V> create(Config userConfig, String region) {
-        Cache<K, V> cache = null;
+        Cache<K, V> cache;
         String provider = userConfig.getString("provider");
         switch (provider) {
             case "caffeine":
@@ -97,6 +110,11 @@ public class CacheFactory {
                 }
                 cache = new L1_2Cache<>(localCache, remoteCache);
                 break;
+            default:
+                // 未知 provider 时，默认创建 Caffeine 缓存
+                LOGGER.warn("Unknown provider '{}', fallback to caffeine", provider);
+                cache = new CaffeineCache<>(ConfigFactory.empty());
+                break;
         }
         return cache;
     }
@@ -118,6 +136,11 @@ public class CacheFactory {
         return cache;
     }
 
+    /**
+     * 使用扩展配置构建缓存，但不影响全局 CONFIG。
+     * 注意：如果该 region 已经存在于缓存池中，此方法不会重建缓存，而是返回已有实例。
+     * 若希望强制重建，请先调用 evictRegion(region) 清除缓存。
+     */
     public static <K, V> Cache<K, V> build(String region, Config extend) {
         config = config.withFallback(extend);
         return CacheFactory.build(region);

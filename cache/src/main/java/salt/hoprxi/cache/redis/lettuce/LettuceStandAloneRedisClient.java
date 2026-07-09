@@ -23,7 +23,7 @@ import io.lettuce.core.api.sync.RedisCommands;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import salt.hoprxi.cache.util.KryoSerialization;
-import salt.hoprxi.crypto.application.DatabaseSpecDecrypt;
+import salt.hoprxi.crypto.application.DecryptUtil;
 
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
@@ -47,11 +47,11 @@ public class LettuceStandAloneRedisClient<K, V> extends LettuceRedisClient<K, V>
         super(region);
         String host = config.getString("host");
         int port = config.getInt("port");
-        //System.out.println(host + ":" + port);
+        System.out.println(host + ":" + port);
         RedisURI uri = RedisURI.builder()
                 .withHost(host)
                 .withPort(port)
-                .withPassword(DatabaseSpecDecrypt.decrypt(host + ":" + port, config.getString("password")).toCharArray())
+                .withPassword(DecryptUtil.decrypt(host + ":" + port, config.getString("password")).toCharArray())
                 .withTimeout(config.hasPath("timeout") ? config.getDuration("timeout") : Duration.ofSeconds(2))
                 .withDatabase(config.hasPath("database") ? config.getInt("database") : 0)
                 .build();

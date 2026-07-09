@@ -18,6 +18,7 @@ package salt.hoprxi.cache;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import salt.hoprxi.crypto.util.StoreKeyLoad;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -31,6 +32,9 @@ import java.util.stream.Collectors;
  * @version 0.0.1 builder 2022-07-09
  */
 public class CacheFactoryTest {
+    static {
+        StoreKeyLoad.loadSecretKey("keystore.jks", "Qwe123465", "slave.tooo.top:6379:P$Qwe123465Re");
+    }
 
     @Test(invocationCount = 4, threadPoolSize = 2)
     public void testBuildCache() {
@@ -80,16 +84,16 @@ public class CacheFactoryTest {
         Assert.assertEquals(cache1.get(1L), "2色股份第三个1423");
         Cache<Long, String> cache2 = CacheFactory.build("category_view");
         cache2.put(1L, " \"categories\" : [ {\n" +
-                "    \"id\" : \"-1\",\n" +
-                "    \"parentId\" : \"-1\",\n" +
-                "    \"isLeaf\" : true,\n" +
-                "    \"name\" : {\n" +
-                "      \"name\" : \"未分类\",\n" +
-                "      \"mnemonic\" : \"wfl\",\n" +
-                "      \"alias\" : \"undefined\"\n" +
-                "    },\n" +
-                "    \"description\" : \"undefined category\"\n" +
-                "  }]");
+                       "    \"id\" : \"-1\",\n" +
+                       "    \"parentId\" : \"-1\",\n" +
+                       "    \"isLeaf\" : true,\n" +
+                       "    \"name\" : {\n" +
+                       "      \"name\" : \"未分类\",\n" +
+                       "      \"mnemonic\" : \"wfl\",\n" +
+                       "      \"alias\" : \"undefined\"\n" +
+                       "    },\n" +
+                       "    \"description\" : \"undefined category\"\n" +
+                       "  }]");
         System.out.println("region is category_view：\n" + cache2.get(1L));
         Cache<Long, String> cache3 = CacheFactory.build("item_view");
         System.out.println("region is item_view,it‘s l1_2：\n" + cache3);

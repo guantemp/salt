@@ -26,7 +26,7 @@ import java.util.regex.Pattern;
  * @since JDK 21
  */
 
-public final class DatabaseSpecDecrypt {
+public final class DecryptUtil {
     private static final Pattern ENCRYPTED = Pattern.compile("^ENC:.*");
 
     public static String decrypt(String entry, String securedPlainText) {

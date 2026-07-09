@@ -18,6 +18,7 @@ package salt.hoprxi.cache.caffeine;
 
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.typesafe.config.Config;
+import com.typesafe.config.ConfigFactory;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,7 +46,7 @@ public class CaffeineCache<K, V> implements Cache<K, V> {
         private int capacity = 128;
         private long expireAfterAccess = 1_800_000L;//30 MINUTES
         private long expireAfterWrite = 600_000L;//10 MINUTES
-        private long maximumSize = (long) (Runtime.getRuntime().maxMemory() * 0.15 / 1024);//15% memory
+        private long maximumSize = (long) (Runtime.getRuntime().maxMemory() * 0.1 / 1024);//10% memory
         private long refreshAfterWrite = 30_000L;//5 MINUTES
         private boolean recordStats;
 
@@ -87,9 +88,9 @@ public class CaffeineCache<K, V> implements Cache<K, V> {
 
     private CaffeineCache(long expireAfterWrite, long expireAfterAccess, long refreshAfterWrite, long maximumSize, int capacity, boolean recordStats) {
         Caffeine<Object, Object> builder = Caffeine.newBuilder();
-        builder.expireAfterWrite(expireAfterWrite, TimeUnit.SECONDS)
-                .expireAfterAccess(expireAfterAccess, TimeUnit.SECONDS)
-                .refreshAfterWrite(refreshAfterWrite, TimeUnit.SECONDS)
+        builder.expireAfterWrite(expireAfterWrite, TimeUnit.MILLISECONDS)
+                .expireAfterAccess(expireAfterAccess, TimeUnit.MILLISECONDS)
+                .refreshAfterWrite(refreshAfterWrite, TimeUnit.MILLISECONDS)
                 .initialCapacity(capacity)
                 .maximumSize(maximumSize);
         if (recordStats)
@@ -107,18 +108,22 @@ public class CaffeineCache<K, V> implements Cache<K, V> {
      * @param config
      */
     public CaffeineCache(Config config) {
+        // 防御性处理：如果 config 为 null，则视为空配置
+        if (config == null) {
+            config = ConfigFactory.empty();
+        }
         Caffeine<Object, Object> builder = Caffeine.newBuilder();
         if (config.hasPath("expireAfterWrite")) {
             builder.expireAfterWrite(config.getDuration("expireAfterWrite"));
-            LOGGER.info("expireAfterWrite:" + config.getDuration("expireAfterWrite", TimeUnit.SECONDS));
+            LOGGER.info("expireAfterWrite:{}", config.getDuration("expireAfterWrite", TimeUnit.MILLISECONDS));
         }
         if (config.hasPath("expireAfterAccess")) {
             builder.expireAfterAccess(config.getDuration("expireAfterAccess"));
-            LOGGER.info("expireAfterAccess:" + config.getDuration("expireAfterAccess", TimeUnit.SECONDS));
+            LOGGER.info("expireAfterAccess:{}", config.getDuration("expireAfterAccess", TimeUnit.MILLISECONDS));
         }
         if (config.hasPath("refreshAfterWrite")) {
             builder.refreshAfterWrite(config.getDuration("refreshAfterWrite"));
-            LOGGER.info("refreshAfterWrite:" + config.getDuration("refreshAfterWrite", TimeUnit.SECONDS));
+            LOGGER.info("refreshAfterWrite:{}", config.getDuration("refreshAfterWrite", TimeUnit.MILLISECONDS));
         }
         //缓存的最大条数,不是内存空间
         if (config.hasPath("maximumSize"))

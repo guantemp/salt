@@ -16,8 +16,6 @@
 
 package salt.hoprxi.cache.caffeine;
 
-import com.typesafe.config.Config;
-import com.typesafe.config.ConfigFactory;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -36,10 +34,10 @@ import java.util.stream.Collectors;
 public class CaffeineCacheTest {
     private static final CaffeineCache<Integer, String> cache;
     static {
-        Config config = ConfigFactory.load("cache").getConfig("public_example");
-        String provider = config.getString("provider");
-        config = config.getConfig(provider);
-        cache = new CaffeineCache<>(config);
+        //Config config = ConfigFactory.load("cache").getConfig("public_example");
+        //String provider = config.getString("provider");
+        //config = config.getConfig(provider);
+        cache = new CaffeineCache<>(null);
     }
 
 
