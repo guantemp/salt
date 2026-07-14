@@ -51,69 +51,77 @@ public class LongId {
     private static final long START = 1767225600000L;
     private static final int TIMESTAMP_LEFT_SHIFT = MACHINE_LEFT_SHIFT + PROCESS_LEFT_SHIFT + SEQUENCE_LEFT_SHIFT;
 
-    // 将 lastTimestamp 和 sequence 合并到一个 long 变量中，或者分开使用原子类
-    // 为了逻辑清晰，这里分开使用两个原子变量
-    private static final AtomicLong lastTimestamp = new AtomicLong(0);
-    private static final AtomicLong sequence = new AtomicLong(0);
+    // 【核心】：使用 AtomicLong 将“时间戳”和“序列号”合并存储，实现真正的无锁 CAS
+    // 高 42 位存时间戳，低 22 位存序列号（足够容纳 4096 个序列）
+    private static final AtomicLong STATE = new AtomicLong(0L);
 
     public static long generate() {
         long time = Instant.now().toEpochMilli() - START;
-        long oldLastTimestamp = lastTimestamp.get();
 
-        // 1. 时钟回拨检查
-        if (time < oldLastTimestamp) {
-            long offset = oldLastTimestamp - time;
-            if (offset <= 5) { // 轻微回拨：自旋等待
-                while (time < oldLastTimestamp) {
+        while (true) {
+            long currentState = STATE.get();
+            // 提取高 42 位作为旧时间戳
+            long oldTime = currentState >>> 22;
+            // 提取低 22 位作为旧序列号
+            long oldSeq = currentState & 0x3FFFFF;
+
+            // 1. 时钟回拨检查
+            if (time < oldTime) {
+                long offset = oldTime - time;
+                if (offset <= 5) {
+                    // 轻微回拨：自旋等待
                     Thread.onSpinWait();
                     time = Instant.now().toEpochMilli() - START;
+                    continue; // 重新进入循环
+                } else {
+                    // 严重回拨：直接抛出异常
+                    throw new ClockCallbackException(String.format(
+                            "Clock moved backwards severely. Refusing to generate id for %d milliseconds", offset));
+                }
+            }
+
+            long newTime;
+            long newSeq;
+
+            if (time == oldTime) {
+                // 2. 同一毫秒内，序列号自增
+                newSeq = (oldSeq + 1) & SEQUENCE_MASK;
+                if (newSeq == 0) {
+                    // 序列号用尽，等待下一毫秒
+                    newTime = tilNextMillis(oldTime);
+                    newSeq = 0;
+                } else {
+                    newTime = time;
                 }
             } else {
-                // 严重回拨
-                throw new ClockCallbackException(String.format(
-                        "Clock moved backwards severely. Refusing to generate id for %d milliseconds", offset));
+                // 3. 新的一毫秒，重置序列号
+                newTime = time;
+                newSeq = 0;
             }
-        }
 
-        long currentSeq;
-        if (time == oldLastTimestamp) {
-            // 2. 同一毫秒内，序列号自增
-            // 利用位运算自然溢出，当超过 4095 时会自动回到 0
-            currentSeq = sequence.incrementAndGet() & SEQUENCE_MASK;
+            // 4. 【核心】：将新的时间戳和序列号合并成一个 long，进行 CAS 更新
+            long newState = (newTime << 22) | newSeq;
 
-            // 如果序列号用尽（转了一圈回到0），需要等待下一毫秒
-            if (currentSeq == 0) {
-                time = tilNextMillis(oldLastTimestamp);
-                sequence.set(0); // 重置序列号
+            // 如果 CAS 成功，说明当前线程抢到了生成权，直接退出循环并组装 ID
+            if (STATE.compareAndSet(currentState, newState)) {
+                return (newTime << TIMESTAMP_LEFT_SHIFT) |
+                       ((MacHash.hash() & MACHINE_MASK) << (PROCESS_LEFT_SHIFT + SEQUENCE_LEFT_SHIFT)) |
+                       ((PROCESS & PROCESS_MASK) << SEQUENCE_LEFT_SHIFT) |
+                       newSeq;
             }
-        } else {
-            // 3. 新的一毫秒，重置序列号
-            sequence.set(0);
-            currentSeq = 0;
+            // 如果 CAS 失败，说明有其他线程先一步更新了 state，当前线程直接进入下一次 while 循环重试
         }
-
-        // 4. 尝试通过 CAS 更新 lastTimestamp
-        // 如果更新失败，说明有其他线程先一步更新了时间戳，当前线程需要重新计算（自旋）
-        // 为了保证极高的并发性能，这里简化处理：直接更新。
-        // 在极端高并发下，如果担心时间戳覆盖，可以加一个 while 循环重试。
-        lastTimestamp.set(time);
-
-        // 5. 组装最终 ID
-        return (time << TIMESTAMP_LEFT_SHIFT) |
-               ((MacHash.hash() & MACHINE_MASK) << (PROCESS_LEFT_SHIFT + SEQUENCE_LEFT_SHIFT)) |
-               ((PROCESS & PROCESS_MASK) << SEQUENCE_LEFT_SHIFT) |
-               currentSeq;
     }
 
     private static long tilNextMillis(long lastTimestamp) {
         long timestamp = Instant.now().toEpochMilli() - START;
         while (timestamp <= lastTimestamp) {
-            // JDK 21 推荐的自旋等待优化，降低 CPU 功耗
             Thread.onSpinWait();
             timestamp = Instant.now().toEpochMilli() - START;
         }
         return timestamp;
     }
+
 
     public static LocalDateTime timestamp(long id) {
         return LocalDateTime.ofInstant(Instant.ofEpochMilli((id >> TIMESTAMP_LEFT_SHIFT) + START), ZoneId.systemDefault());
