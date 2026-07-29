@@ -43,13 +43,13 @@ public class LongIdTest {
         for (int i = 0; i < 10000000; i++)
             a[i] = LongId.generate();
         Assert.assertNotEquals(a[999999], 0);
-        for (int i = 1; i < 9; i++)
+        for (int i = 1; i < 19; i++)
             System.out.printf("%,d%n", a[i * 3600]);
         System.out.println();
-        for (int i = 1; i < 9; i++)
+        for (int i = 1; i < 19; i++)
             System.out.printf("%,d%n", LongId.generate());
         System.out.println();
-        for (int i = 1; i < 9; i++)
+        for (int i = 1; i < 19; i++)
             System.out.printf("%,d%n", LongId.generate());
     }
 

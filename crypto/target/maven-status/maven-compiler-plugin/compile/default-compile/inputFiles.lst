@@ -4,7 +4,7 @@ E:\workspace\salt\crypto\src\main\java\salt\hoprxi\crypto\algorithms\Scrypt.java
 E:\workspace\salt\crypto\src\main\java\salt\hoprxi\crypto\algorithms\SM3.java
 E:\workspace\salt\crypto\src\main\java\salt\hoprxi\crypto\algorithms\SM3Digest.java
 E:\workspace\salt\crypto\src\main\java\salt\hoprxi\crypto\algorithms\SM4.java
-E:\workspace\salt\crypto\src\main\java\salt\hoprxi\crypto\application\DatabaseSpecDecrypt.java
+E:\workspace\salt\crypto\src\main\java\salt\hoprxi\crypto\application\DecryptUtil.java
 E:\workspace\salt\crypto\src\main\java\salt\hoprxi\crypto\EncryptService.java
 E:\workspace\salt\crypto\src\main\java\salt\hoprxi\crypto\hash\Argon2Hash.java
 E:\workspace\salt\crypto\src\main\java\salt\hoprxi\crypto\hash\BcryptHash.java

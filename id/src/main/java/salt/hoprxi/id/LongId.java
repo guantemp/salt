@@ -36,80 +36,153 @@ import java.util.concurrent.atomic.AtomicLong;
  * </p>
  *
  * @author <a href="https://www.hoprxi.com/authors/guan xiangHuan">guan xiangHuan</a>
- * @version 0.0.7 2026-07-14
- * @since JDK8.0
+ * @version 0.0.8 2026-07-29
+ * @since JDK21
  */
 public class LongId {
     private static final int MACHINE_MASK = 0x3F;
-    private static final int MACHINE_LEFT_SHIFT = 6;
-    private static final int PROCESS = Process.process();
-    private static final int SEQUENCE_MASK = 0xFFF; // 4095
-    private static final int SEQUENCE_LEFT_SHIFT = 12;
     private static final int PROCESS_MASK = 0x7;
-    private static final int PROCESS_LEFT_SHIFT = 3;
-    //start 2026-01-01
-    private static final long START = 1767225600000L;
-    private static final int TIMESTAMP_LEFT_SHIFT = MACHINE_LEFT_SHIFT + PROCESS_LEFT_SHIFT + SEQUENCE_LEFT_SHIFT;
+    private static final int SEQUENCE_MASK = 0xFFF;
 
-    // 【核心】：使用 AtomicLong 将“时间戳”和“序列号”合并存储，实现真正的无锁 CAS
-    // 高 42 位存时间戳，低 22 位存序列号（足够容纳 4096 个序列）
+    // 位偏移定义（与最终ID布局完全一致）
+    private static final int SEQ_SHIFT = 0;
+    private static final int PROC_SHIFT = 12;
+    private static final int MAC_SHIFT = 15;      // 12 + 3
+    private static final int TIME_SHIFT = 21;     // 12 + 3 + 6
+
+    private static final long START = 1767225600000L; // 2026-01-01
+
+    // 【核心修复】STATE 直接存储最终 ID 的高 52 位（时间+机器+进程+序列）
+    // 不再分离存储时间和序列，彻底消除解析歧义
     private static final AtomicLong STATE = new AtomicLong(0L);
 
+    // 预计算固定的机器和进程标识，避免每次生成时重复计算
+    private static final long FIXED_MAC_PROC_BITS =
+            ((long)(MacHash.hash() & MACHINE_MASK) << MAC_SHIFT) |
+            ((long)(Process.process() & PROCESS_MASK) << PROC_SHIFT);
+
     public static long generate() {
-        long time = Instant.now().toEpochMilli() - START;
-
         while (true) {
-            long currentState = STATE.get();
-            // 提取高 42 位作为旧时间戳
-            long oldTime = currentState >>> 22;
-            // 提取低 22 位作为旧序列号
-            long oldSeq = currentState & 0x3FFFFF;
+            // 【关键】每次循环都获取最新时间，绝不使用过期缓存
+            long now = Instant.now().toEpochMilli() - START;
 
-            // 1. 时钟回拨检查
-            if (time < oldTime) {
-                long offset = oldTime - time;
-                if (offset <= 5) {
-                    // 轻微回拨：自旋等待
-                    Thread.onSpinWait();
-                    time = Instant.now().toEpochMilli() - START;
-                    continue; // 重新进入循环
-                } else {
-                    // 严重回拨：直接抛出异常
-                    throw new ClockCallbackException(String.format(
-                            "Clock moved backwards severely. Refusing to generate id for %d milliseconds", offset));
-                }
-            }
+            long currentState = STATE.get();
+            long oldTime = currentState >>> TIME_SHIFT;
+            long oldSeq = currentState & SEQUENCE_MASK;
 
             long newTime;
             long newSeq;
 
-            if (time == oldTime) {
-                // 2. 同一毫秒内，序列号自增
+            if (now > oldTime) {
+                // 新毫秒：时间前进，序列号归零
+                newTime = now;
+                newSeq = 0;
+            } else if (now == oldTime) {
+                // 同一毫秒：序列号自增
                 newSeq = (oldSeq + 1) & SEQUENCE_MASK;
                 if (newSeq == 0) {
-                    // 序列号用尽，等待下一毫秒
+                    // 序列号耗尽，必须等待下一毫秒
+                    // 【关键修复】等待期间持续刷新时间，不使用进入方法时的旧时间
+                    do {
+                        Thread.onSpinWait();
+                        now = Instant.now().toEpochMilli() - START;
+                    } while (now <= oldTime);
+                    newTime = now;
+                    newSeq = 0;
+                } else {
+                    newTime = oldTime;
+                }
+            } else {
+                // 时钟回拨
+                long offset = oldTime - now;
+                if (offset <= 5) {
+                    Thread.onSpinWait();
+                    continue; // 重新获取最新时间
+                }
+                throw new ClockCallbackException(
+                        String.format("Clock moved backwards %d ms", offset));
+            }
+
+            // 【核心修复】新状态直接与最终ID布局对齐，无需二次重组
+            long newState = (newTime << TIME_SHIFT) | FIXED_MAC_PROC_BITS | newSeq;
+
+            if (STATE.compareAndSet(currentState, newState)) {
+                // CAS 成功，newState 本身就是完整的 ID
+                return newState;
+            }
+            // CAS 失败，下一轮循环自动获取最新时间重试
+        }
+    }
+
+    public static LocalDateTime timestamp(long id) {
+        return LocalDateTime.ofInstant(
+                Instant.ofEpochMilli((id >>> TIME_SHIFT) + START),
+                ZoneId.systemDefault()
+        );
+    }
+    /*
+     // ---------- 位分配常量 ----------
+    private static final int MACHINE_MASK = 0x3F;          // 6位
+    private static final int MACHINE_LEFT_SHIFT = 6;
+    private static final int PROCESS_MASK = 0x7;           // 3位
+    private static final int PROCESS_LEFT_SHIFT = 3;
+    private static final int SEQUENCE_MASK = 0xFFF;        // 12位
+    private static final int SEQUENCE_LEFT_SHIFT = 12;
+
+    // 总左移位数 = 6 + 3 + 12 = 21
+    private static final int TIMESTAMP_LEFT_SHIFT = MACHINE_LEFT_SHIFT + PROCESS_LEFT_SHIFT + SEQUENCE_LEFT_SHIFT;
+
+    private static final long START = 1767225600000L;      // 2026-01-01
+
+    // ---------- 机器/进程标识（需替换为实际实现） ----------
+    private static final int MACHINE_ID = MacHash.hash() & MACHINE_MASK;
+    private static final int PROCESS_ID = Process.process() & PROCESS_MASK;
+
+    // ---------- 无锁状态 ----------
+    private static final AtomicLong STATE = new AtomicLong(0L);
+
+    public static long generate() {
+        while (true) {
+            // ★★★ 关键修复：每次循环都重新获取当前时间 ★★★
+            long time = Instant.now().toEpochMilli() - START;
+
+            long currentState = STATE.get();
+            long oldTime = currentState >>> TIMESTAMP_LEFT_SHIFT;          // 正确右移21位
+            long oldSeq = currentState & ((1L << TIMESTAMP_LEFT_SHIFT) - 1); // 低21位掩码
+
+            // 时钟回拨检查
+            if (time < oldTime) {
+                long offset = oldTime - time;
+                if (offset <= 5) {
+                    Thread.onSpinWait();
+                    continue;   // 重试，time 会重新获取
+                } else {
+                    throw new ClockCallbackException("Clock moved backwards: " + offset + " ms");
+                }
+            }
+
+            long newTime, newSeq;
+            if (time == oldTime) {
+                newSeq = (oldSeq + 1) & SEQUENCE_MASK;
+                if (newSeq == 0) {
                     newTime = tilNextMillis(oldTime);
                     newSeq = 0;
                 } else {
                     newTime = time;
                 }
             } else {
-                // 3. 新的一毫秒，重置序列号
                 newTime = time;
                 newSeq = 0;
             }
 
-            // 4. 【核心】：将新的时间戳和序列号合并成一个 long，进行 CAS 更新
-            long newState = (newTime << 22) | newSeq;
-
-            // 如果 CAS 成功，说明当前线程抢到了生成权，直接退出循环并组装 ID
+            long newState = (newTime << TIMESTAMP_LEFT_SHIFT) | newSeq;
             if (STATE.compareAndSet(currentState, newState)) {
-                return (newTime << TIMESTAMP_LEFT_SHIFT) |
-                       ((MacHash.hash() & MACHINE_MASK) << (PROCESS_LEFT_SHIFT + SEQUENCE_LEFT_SHIFT)) |
-                       ((PROCESS & PROCESS_MASK) << SEQUENCE_LEFT_SHIFT) |
-                       newSeq;
+                return (newTime << TIMESTAMP_LEFT_SHIFT)
+                        | ((long) MACHINE_ID << (PROCESS_LEFT_SHIFT + SEQUENCE_LEFT_SHIFT))
+                        | ((long) PROCESS_ID << SEQUENCE_LEFT_SHIFT)
+                        | newSeq;
             }
-            // 如果 CAS 失败，说明有其他线程先一步更新了 state，当前线程直接进入下一次 while 循环重试
+            // CAS 失败，循环重试，time 会在下一轮重新获取
         }
     }
 
@@ -121,9 +194,6 @@ public class LongId {
         }
         return timestamp;
     }
-
-
-    public static LocalDateTime timestamp(long id) {
-        return LocalDateTime.ofInstant(Instant.ofEpochMilli((id >> TIMESTAMP_LEFT_SHIFT) + START), ZoneId.systemDefault());
-    }
+     */
 }
+
