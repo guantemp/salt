@@ -61,6 +61,7 @@ public class PasswordServiceTest {
         //PasswordService.main(new String[]{"-e", "postgres", "129.28.29.105:5432", "Qwe123465Pg", "-f", "f:\\keystore.jks", "Qwe123465"});
         //PasswordService.main(new String[]{"-e", "Qwe123465", "129.28.29.105:5432", "Qwe123465Pg", "-f", "f:\\keystore.jks", "Qwe123465"});
         //PasswordService.main(new String[]{"-e", "admin", "120.77.47.145:6379", "Qwe123465Re", "-f", "f:\\keystore.jks", "Qwe123465"});
+
         PasswordService.main(new String[]{"-e", "Qwe123465", "slave.tooo.top:6379", "Qwe123465Re", "-f", "d:\\keystore.jks", "Qwe123465"});
         PasswordService.main(new String[]{"-e", "postgres", "slave.tooo.top:6379", "Qwe123465Re", "-f", "d:\\keystore.jks", "Qwe123465"});
         PasswordService.main(new String[]{"-e", "postgres", "slave.tooo.top:6543", "Qwe123465Pg", "-f", "d:\\keystore.jks", "Qwe123465"});
