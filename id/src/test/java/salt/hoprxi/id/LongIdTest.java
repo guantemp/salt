@@ -57,7 +57,7 @@ public class LongIdTest {
     public void timestamp() throws ParseException {
         System.out.println("Machine：" + MacHash.hash());
         System.out.println("Process id：" + Process.process());
-        System.out.println("Recover time from Identity:" + LongId.timestamp(3635769212049930240L));
+        System.out.println("Recover time from Identity:" + LongId.timestamp(9_223_372_036_854_775_807L));
         System.out.println("Recover time from Identity:" + LongId.timestamp(62086387027525364L));
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
@@ -67,8 +67,8 @@ public class LongIdTest {
         System.out.println("LocalDateTime 2015-03-26 00:00:00(UTC/GMT+08:00) to long:"
                            + LocalDateTime.parse("2015-03-26 00:00:00.000", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")).atZone(ZoneId.of("UTC")).toInstant().toEpochMilli());
         System.out.println("1427328000000L to date: " + Instant.ofEpochMilli(1427328000000L));
-        System.out.println("2026-01-01 00:00:00(UTC/GMT+08:00) to long:"
-                           + LocalDateTime.parse("2026-01-01 00:00:00.000", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")).atZone(ZoneId.of("UTC")).toInstant().toEpochMilli());
+        System.out.println("2026-10-01 00:00:00(UTC/GMT+08:00) to long:"
+                           + LocalDateTime.parse("2026-10-01 00:00:00.000", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")).atZone(ZoneId.of("UTC")).toInstant().toEpochMilli());
         System.out.println("1970-01-01 00:00:00(UTC/GMT+08:00) to long:"
                            + LocalDateTime.parse("1970-01-01 00:00:00.000", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")).atZone(ZoneId.of("UTC")).toInstant().toEpochMilli());
         System.out.println("now to long:" + Instant.now().toEpochMilli());

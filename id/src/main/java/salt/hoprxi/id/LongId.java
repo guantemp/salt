@@ -50,7 +50,7 @@ public class LongId {
     private static final int MAC_SHIFT = 15;      // 12 + 3
     private static final int TIME_SHIFT = 21;     // 12 + 3 + 6
 
-    private static final long START = 1767225600000L; // 2026-01-01
+    private static final long START = 1790812800000L; // 2026-10-01
 
     // 【核心修复】STATE 直接存储最终 ID 的高 52 位（时间+机器+进程+序列）
     // 不再分离存储时间和序列，彻底消除解析歧义
