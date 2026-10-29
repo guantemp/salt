@@ -16,7 +16,7 @@
 
 package salt.hoprxi.crypto;
 
-import org.junit.Assert;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import salt.hoprxi.crypto.util.AESUtil;
 import salt.hoprxi.to.ByteToHex;
